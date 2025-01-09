@@ -53,3 +53,4 @@
 ### 機能の実装方針予定
 マルチ検索：JQuery<br>
 画像登録・加工：CarrierWave, RMagick
+
