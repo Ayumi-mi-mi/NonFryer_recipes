@@ -53,4 +53,3 @@
 ### 機能の実装方針予定
 オートコンプリート：Stimulus Autocomplete, JQuery<br>
 画像登録・加工：CarrierWave, RMagick
-
