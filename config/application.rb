@@ -6,7 +6,11 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+<<<<<<< HEAD
 module NonfryerRecipes
+=======
+module Myapp
+>>>>>>> 6cc88941f58a74bae306fa66808c33cf8c24726c
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2

@@ -2,7 +2,11 @@
 require "fileutils"
 
 APP_ROOT = File.expand_path("..", __dir__)
+<<<<<<< HEAD
 APP_NAME = "nonfryer-recipes"
+=======
+APP_NAME = "myapp"
+>>>>>>> 6cc88941f58a74bae306fa66808c33cf8c24726c
 
 def system!(*args)
   system(*args, exception: true)
