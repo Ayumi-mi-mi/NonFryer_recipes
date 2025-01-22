@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NonFryer Recipes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <div class="flex flex-col">
+        <!-- トップバー -->
+        <header class="flex items-center justify-between px-4 py-2 bg-white border-b">
+            <div class="flex items-center">
+                <span class="text-orange-600 text-xl font-bold">🍴 NonFryer recipes</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="text-sm font-semibold text-gray-700 border border-gray-300 rounded px-2 py-1">ログイン</button>
+                <button class="text-white bg-orange-600 rounded-full w-8 h-8 flex items-center justify-center">＋</button>
+            </div>
+        </header>
+
+        <!-- サイドバーとメインコンテンツのラップ -->
+        <div class="flex relative">
+            <!-- サイドバー -->
+            <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-md transform -translate-x-full transition-transform duration-300">
+                <div class="flex items-center justify-between p-4">
+                    <span class="text-orange-600 text-xl font-bold">🍴 NonFryer recipes</span>
+                    <button id="closeSidebar" class="text-gray-700">&lt;&lt;</button>
+                </div>
+                <nav class="space-y-4 px-4">
+                    <a href="#" class="flex items-center space-x-2 text-gray-800">
+                        <span>✏️ Myレシピ</span>
+                    </a>
+                    <div>
+                        <p class="text-gray-800">🔖 保存</p>
+                        <p class="text-gray-500 text-sm">レシピの作成、保存を行うにはログインしてください</p>
+                    </div>
+                </nav>
+                <div class="absolute bottom-4 px-4 space-y-2">
+                    <a href="#" class="flex items-center space-x-2 text-gray-800">
+                        <span>✉️ お問い合わせ</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-2 text-gray-800">
+                        <span>📖 利用規約</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-2 text-gray-800">
+                        <span>🛡️ プライバシーポリシー</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- メインコンテンツ -->
+            <main class="flex-1 ml-0 md:ml-64 transition-all duration-300">
+                <!-- 検索バー -->
+                <div class="flex items-center space-x-2 p-4">
+                    <button id="openSidebar" class="text-gray-700">&gt;&gt;</button>
+                    <input type="text" placeholder="レシピ検索" class="flex-1 border border-gray-300 rounded px-2 py-1">
+                    <button class="bg-orange-600 text-white rounded px-4 py-1">検索</button>
+                </div>
+
+                <!-- レシピ表示部分 -->
+                <div class="grid grid-cols-2 gap-4 p-4">
+                    <div class="border rounded overflow-hidden">
+                        <img src="" alt="" class="w-full h-32 object-cover bg-gray-200">
+                        <div class="p-2 text-gray-800">からあげ</div>
+                    </div>
+                    <div class="border rounded overflow-hidden">
+                        <img src="" alt="" class="w-full h-32 object-cover bg-gray-200">
+                        <div class="p-2 text-gray-800">コロッケ</div>
+                    </div>
+                    <div class="border rounded overflow-hidden">
+                        <img src="" alt="" class="w-full h-32 object-cover bg-gray-200">
+                        <div class="p-2 text-gray-800"> </div>
+                    </div>
+                    <div class="border rounded overflow-hidden">
+                        <img src="" alt="" class="w-full h-32 object-cover bg-gray-200">
+                        <div class="p-2 text-gray-800"> </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const openSidebarButton = document.getElementById('openSidebar');
+        const closeSidebarButton = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        openSidebarButton.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+        });
+
+        closeSidebarButton.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+    </script>
+</body>
+</html>
