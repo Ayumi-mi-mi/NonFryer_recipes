@@ -1,0 +1,56 @@
+  <!-- サイドバー -->
+  <div class="flex items-center justify-between p-4">
+    <button id="openSidebar" class="text-gray-700">&gt;&gt;</button>
+  </div>
+
+  <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-md transform -translate-x-full transition-transform duration-300">
+    <div class="flex items-center justify-between p-4">
+      <%= link_to "🍴 NonFryer recipes", root_path, class: "text-orange-600 font-bold" %>
+      <button id="closeSidebar" class="text-gray-700">&lt;&lt;</button>
+    </div>
+    <nav class="space-y-4 px-4">
+      <%= link_to "✏️ Myレシピ", '#', class: "flex items-center space-x-2 text-gray-800" %>
+      <div>
+        <p class="text-gray-800">🔖 保存</p>
+        <p class="text-gray-500 text-sm">レシピの作成、保存を行うにはログインしてください</p>
+      </div>
+    </nav>
+    <div class="absolute bottom-4 px-4 space-y-2">
+      <%= link_to "✉️ お問い合わせ", '#', class: "flex items-center space-x-2 text-gray-800" %>
+      <%= link_to "📖 利用規約", '#', class: "flex items-center space-x-2 text-gray-800" %>
+      <%= link_to "🛡️ プライバシーポリシー", '#', class: "flex items-center space-x-2 text-gray-800" %>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('turbo:load', () => {
+    const openSidebarButton = document.getElementById('openSidebar');
+    const closeSidebarButton = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    if (openSidebarButton && closeSidebarButton && sidebar) {
+      // サイドバーを閉じるロジック
+      document.addEventListener('click', (event) => {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnOpenButton = openSidebarButton.contains(event.target);
+
+        if (!isClickInsideSidebar && !isClickOnOpenButton) {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+
+      // サイドバーを開くロジック
+      openSidebarButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // 他のイベントリスナーに伝播しないようにする
+        sidebar.classList.remove('-translate-x-full');
+      });
+
+      // サイドバーを閉じるボタンのロジック
+      closeSidebarButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // 他のイベントリスナーに伝播しないようにする
+        sidebar.classList.add('-translate-x-full');
+      });
+    }
+  });
+</script>
