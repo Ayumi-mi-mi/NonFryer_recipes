@@ -1,0 +1,39 @@
+<%# 新規登録 %>
+<body class="bg-white">
+  <%= render "shared/sidebar" %>
+  <div class="flex h-screen items-center justify-center">
+    <div class="w-full max-w-sm">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold">新規登録</h1>
+      </div>
+
+      <%= form_with model: @user, local: true do |f| %>
+        <div class="mt-6 space-y-4">
+          <%= f.label :name, class: "block text-sm" %>
+          <%= f.text_field :name, class: "input input-bordered w-full" %>
+        </div>
+        <div class="mt-6 space-y-4">
+          <%= f.label :email, class: "block text-sm" %>
+          <%= f.email_field :email, class: "input input-bordered w-full" %>
+        </div>
+        <div class="mt-6 space-y-4">
+          <%= f.label :password, class: "block text-sm" %>
+          <%= f.password_field :password, class: "input input-bordered w-full" %>
+        </div>
+        <div class="mt-6 space-y-4">
+          <%= f.label :password_confirmation, class: "block text-sm" %>
+          <%= f.password_field :password_confirmation, class: "input input-bordered w-full" %>
+        </div>
+        <div class="btn w-full bg-orange-600 text-white">
+          <%= f.submit "登録" %>
+        </div>
+      <% end %>
+
+      <div class="mt-4 text-center">
+        <div class="text-sm underline">
+          <%= link_to 'ログインページ', login_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

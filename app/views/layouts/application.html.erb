@@ -18,6 +18,11 @@
   </head>
 
   <body>
+    <% flash.each do |key, message| %>
+      <div class="<%= key == 'notice' ? 'alert alert-success text-green-600 bg-green-100' : 'alert alert-error text-red-600 bg-red-100' %>">
+        <%= message %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
