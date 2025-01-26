@@ -1,1 +1,130 @@
+<div class="flex flex-col items-center bg-white p-4">
+  <!-- Header -->
+  <div class="flex justify-between items-center w-full mb-4">
+    <%= render "shared/sidebar" %>
+    <div class="flex space-x-2">
+      <button class="bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 rounded">保存</button>
+      <button class="bg-orange-500 text-white px-4 py-2 rounded">公開</button>
+      <button class="bg-white text-gray-700  border border-gray-300 rounded px-4 py-2 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
 
+  <!-- Image Upload -->
+  <div class="w-full bg-gray-200 h-48 flex justify-center items-center mb-2">
+    <button>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Title Input -->
+  <input type="text" placeholder="なにを作ったのか教えてください！" class="w-full bg-white border border-gray-300 rounded px-4 py-2 mb-1" />
+  <p class="text-xs text-orange-500 mb-4">ノンフライヤーを使用したレシピのみ登録してください</p>
+
+  <!-- Tags -->
+  <div class="w-full mb-4">
+    <label class="block text-gray-700 mb-2">タグを追加</label>
+    <input type="text" class="bg-white border border-gray-300 rounded px-4 py-2" placeholder="タグ" />
+  </div>
+
+  <div class="w-full mb-4">
+    <label class="block text-orange-500 mb-2">ノンフライヤーの機種</label>
+    <input type="text" class="bg-white border border-gray-300 rounded px-4 py-2" placeholder="cosori" />
+  </div>
+
+  <!-- Preheat Section -->
+  <div class="w-full grid grid-cols-2 gap-4 mb-4">
+    <div>
+      <label class="block text-gray-700">予熱</label>
+      <div class="flex items-center space-x-2">
+        <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+        <span class="text-gray-500">℃</span>
+      </div>
+    </div>
+    <div>
+      <label class="block text-gray-700">　</label>
+      <div class="flex items-center space-x-2">
+        <input type="number" placeholder="3" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+        <span class="text-gray-500">分</span>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-orange-500">調理</label>
+      <div class="flex items-center space-x-2">
+        <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+        <span class="text-orange-500">℃</span>
+      </div>
+    </div>
+    <div>
+      <label class="block text-gray-700">　</label>
+      <div class="flex items-center space-x-2">
+        <input type="number" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+        <span class="text-orange-500">分</span>
+        <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded self-end">＋</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ingredients Section -->
+  <div class="w-full mb-4">
+    <label class="block text-gray-700 mb-2">材料</label>
+    <div class="flex items-center space-x-2 mb-2">
+      <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">＋</button>
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Steps Section -->
+  <div class="w-full mb-4">
+    <label class="block text-gray-700 mb-2">作り方</label>
+    <div class="flex items-center space-x-2 mb-2">
+      <span class="text-gray-700">①</span>
+      <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">＋</button>
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tips Section -->
+  <div class="w-full mb-4">
+    <label class="block text-gray-700 mb-2">コツ・ポイント</label>
+    <div class="flex items-center space-x-2 mb-2">
+      <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">＋</button>
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- URL Section -->
+  <div class="w-full mb-4">
+    <label class="block text-gray-700 mb-2">参考URL</label>
+    <div class="flex items-center space-x-2 mb-2">
+      <input type="url" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">＋</button>
+      <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
