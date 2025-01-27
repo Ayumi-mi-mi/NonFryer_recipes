@@ -3,9 +3,9 @@
   <div class="flex justify-between items-center w-full mb-4">
     <%= render "shared/sidebar" %>
     <div class="flex space-x-2">
-      <button class="bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 rounded">保存</button>
+      <%= button_tag("保存", type: "submit", form: "post_form", class: "bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 rounded") %>
       <button class="bg-orange-500 text-white px-4 py-2 rounded">公開</button>
-      <button class="bg-white text-gray-700  border border-gray-300 rounded px-4 py-2 rounded">×</button>
+      <%= link_to "×", root_path, class: "bg-white text-gray-700  border border-gray-300 rounded px-4 py-2 rounded", data: { turbo_method: :get, turbo_confirm: 'データは保存されません。よろしいですか？' } %>
     </div>
   </div>
 
@@ -18,113 +18,122 @@
     </button>
   </div>
 
-  <!-- Title Input -->
-  <input type="text" placeholder="なにを作ったのか教えてください！" class="w-full bg-white border border-gray-300 rounded px-4 py-2 mb-1" />
-  <p class="text-xs text-orange-500 mb-4">ノンフライヤーを使用したレシピのみ登録してください</p>
-
-  <!-- Tags -->
-  <div class="section w-full mb-4" data-section="tags">
-    <label class="block text-gray-700 mb-2">タグを追加</label>
-    <div class="item flex items-center space-x-2 mb-2">
-      <button class="remove-item text-gray-700 px-2">×</button>
-      <input type="text" class="bg-white border border-gray-300 rounded px-4 py-2" placeholder="タグ" />
-      <button class="add-item text-gray-700 px-4 py-2 rounded self-end">＋</button>
-    </div>
-  </div>
-
-  <!-- model -->
-  <div class="w-full mb-4">
-    <label class="block text-orange-500 mb-2">ノンフライヤーの機種</label>
-    <input type="text" class="bg-white border border-gray-300 rounded px-4 py-2" placeholder="cosori" />
-  </div>
-
-  <!-- Preheat Section -->
-  <div class="w-full grid grid-cols-2 gap-4 mb-4">
+  <%= form_with model: @recipe, local: true, id: "post_form", class: "w-full" do |f| %>
+    <!-- Title Input -->
     <div>
-      <label class="block text-gray-700">予熱</label>
-      <div class="flex items-center space-x-2">
-        <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
-        <span class="text-gray-500">℃</span>
+      <%= f.text_field :title, placeholder: "なにを作ったのか教えてください！", class: "w-full bg-white border border-gray-300 rounded px-4 py-2 mb-1" %>
+      <p class="text-xs text-orange-500 mb-4">ノンフライヤーを使用したレシピのみ登録してください</p>
+    </div>
+
+    <!-- Tags -->
+    <div class="section w-full mb-4" data-section="tags">
+      <label class="block text-gray-700 mb-2">タグを追加</label>
+      <div class="item flex items-center space-x-2 mb-2">
+        <button class="remove-item text-gray-700 px-2" type="button">×</button>
+        <input type="text" class="bg-white border border-gray-300 rounded px-4 py-2" placeholder="タグ" />
+        <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
       </div>
     </div>
-    <div>
-      <label class="block text-gray-700">　</label>
-      <div class="flex items-center space-x-2">
-        <input type="number" placeholder="3" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
-        <span class="text-gray-500">分</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- Heat Section -->
-  <div class="w-full mb-4" id="heat-section">
-    <div class="flex">
-      <div class="">
-        <label class="block text-orange-500">調理</label>
-        <div class="item flex items-center space-x-2 mb-2">
-          <button class="remove-item text-gray-700 px-2">×</button>
-          <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;"/>
-          <span class="text-orange-500">℃</span>
+    <!-- model -->
+    <div class="w-full mb-4">
+      <%= f.label :model, "ノンフライヤーの機種", class: "block text-orange-500 mb-2" %>
+      <%= f.text_field :model, placeholder: "cosori", class: "bg-white border border-gray-300 rounded px-4 py-2" %>
+    </div>
+
+    <!-- Preheat Section -->
+    <div class="w-full grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <%= f.label :preheat_temperature, "予熱", class: "block text-gray-700" %>
+        <div class="flex items-center space-x-2">
+          <%= f.text_field :preheat_temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <span class="text-gray-500">℃</span>
         </div>
       </div>
-    </div>
-
-    <div class="">
       <div>
         <label class="block text-gray-700">　</label>
-        <div class="item flex items-center space-x-2 mb-2">
-          <input type="number" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;"/>
-          <span class="text-orange-500">分</span>
-          <button class="add-item text-gray-700 px-4 py-2 rounded self-end">＋</button>
+        <div class="flex items-center space-x-2">
+          <%= f.text_field :preheat_time, type: "number", placeholder: "3", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <span class="text-gray-500">分</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Ingredients Section -->
-  <div class="section w-full mb-4">
-    <label class="block text-gray-700 mb-2">材料</label>
-    <div class="item flex items-center space-x-2 mb-2">
-      <button class="remove-item text-gray-700 px-2">×</button>
-      <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
-      <button class="add-item text-gray-700 px-4 py-2 rounded">＋</button>
-    </div>
-  </div>
+    <!-- Heat Section -->
+    <div class="w-full mb-4" id="heat-section">
+      <div class="flex">
+        <div class="">
+          <%= f.label :temperature, "調理温度・時間", class: "block text-orange-500" %>
+          <div class="item flex items-center space-x-2 mb-2">
+            <button class="remove-item text-gray-700 px-2" type="button">×</button>
+            <%= f.text_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1", style: "width: 100px;" %>
+            <span class="text-orange-500">℃</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- Steps Section -->
-  <div id="steps-section" class="steps-Section w-full mb-4">
-    <label class="block text-gray-700 mb-2">作り方</label>
-    <div class="step-item flex items-center space-x-2 mb-2">
-      <button class="remove-step text-gray-700 px-2">×</button>
-      <span class="step-number text-gray-400">1</span>
-      <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
-      <button class="add-step text-gray-700 px-4 py-2 rounded">＋</button>
+      <div class="">
+        <div>
+          <label class="block text-gray-700">　</label>
+          <div class="item flex items-center space-x-2 mb-2">
+            <%= f.text_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1", style: "width: 100px;" %>
+            <span class="text-orange-500">分</span>
+            <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Tips Section -->
-  <div class="w-full mb-4">
-    <label class="block text-gray-700 mb-2">ポイント</label>
-    <div class="flex items-center space-x-2 mb-2">
-      <button class="text-gray-700 px-2">×</button>
-      <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+    <!-- Ingredients Section -->
+    <div class="section w-full mb-4">
+      <label class="block text-gray-700 mb-2">材料</label>
+      <div class="item flex items-center space-x-2 mb-2">
+        <button class="remove-item text-gray-700 px-2" type="button">×</button>
+        <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+        <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+      </div>
     </div>
-  </div>
 
-  <!-- URL Section -->
-  <div class="section w-full mb-4">
-    <label class="block text-gray-700 mb-2">参考URL</label>
-    <div class="item flex items-center space-x-2 mb-2">
-      <button class="remove-item text-gray-700 px-2">×</button>
-      <input type="url" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
-      <button class="add-item text-gray-700 px-4 py-2 rounded">＋</button>
+    <!-- Steps Section -->
+    <div id="steps-section" class="steps-Section w-full mb-4">
+      <label class="block text-gray-700 mb-2">作り方</label>
+      <div class="step-item flex items-center space-x-2 mb-2">
+        <button class="remove-step text-gray-700 px-2" type="button">×</button>
+        <span class="step-number text-gray-400">1</span>
+        <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+        <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+      </div>
     </div>
-  </div>
+
+    <!-- Tips Section -->
+    <div class="w-full mb-4">
+      <%= f.label :point, "ポイント", class: "block text-gray-700 mb-2" %>
+      <div class="flex items-center space-x-2 mb-2">
+        <%= f.text_field :point, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
+      </div>
+    </div>
+
+    <!-- URL Section -->
+    <div class="section w-full mb-4">
+      <label class="block text-gray-700 mb-2">参考URL</label>
+      <div class="item flex items-center space-x-2 mb-2">
+        <button class="remove-item text-gray-700 px-2" type="button">×</button>
+        <input type="url" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+        <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+      </div>
+    </div>
+  <% end %>
 
   <script>
-  // instructions
-    document.addEventListener("DOMContentLoaded", () => {
+    // Step Section
+    document.addEventListener("turbo:load", () => {
       const stepsSection = document.getElementById("steps-section");
+
+      if (!stepsSection) return; // 対象のセクションが存在しない場合は処理を終了
+
+      // イベントリスナーが重複して追加されないようにフラグを使用
+      if (stepsSection.dataset.listenerAdded) return;
+      stepsSection.dataset.listenerAdded = "true"; // フラグ設定
 
       function updateStepNumbers() {
         const stepItems = stepsSection.querySelectorAll(".step-item");
@@ -134,23 +143,23 @@
       }
 
       stepsSection.addEventListener("click", (e) => {
-        if (e.target.classList.contains("add-step")) {
-          // 新しいステップ入力欄を追加
+        if (e.target.classList.contains("add-step") && e.target.type === "button") {
+          e.preventDefault(); // フォームの送信を防ぐ
           const newStep = document.createElement("div");
           newStep.className = "step-item flex items-center space-x-2 mb-2";
           newStep.innerHTML = `
-            <button class="remove-step text-gray-700 px-2">×</button>
+            <button class="remove-step text-gray-700 px-2" type="button">×</button>
             <span class="step-number text-gray-400"></span>
-            <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
-            <button class="add-step text-gray-700 px-4 py-2 rounded">＋</button>
+            <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" />
+            <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           `;
           stepsSection.appendChild(newStep);
           updateStepNumbers();
-        } else if (e.target.classList.contains("remove-step")) {
-          // 入力欄を削除
+        } else if (e.target.classList.contains("remove-step") && e.target.type === "button") {
+          e.preventDefault();
           const stepItems = stepsSection.querySelectorAll(".step-item");
           if (stepItems.length > 1) {
-            e.target.parentElement.remove();
+            e.target.closest(".step-item").remove();
             updateStepNumbers();
           }
         }
@@ -160,29 +169,32 @@
       updateStepNumbers();
     });
 
-  // Heat
-    document.addEventListener("DOMContentLoaded", () => {
-      // Heat Section内での＋ボタンのクリック処理
-      document.getElementById("heat-section").addEventListener("click", (e) => {
-        if (e.target.classList.contains("add-item")) {
-          // 新しいアイテムのHTMLを作成
+    // Heat Section
+    document.addEventListener("turbo:load", () => {
+      const heatSection = document.getElementById("heat-section");
+      if (!heatSection) return;
+
+      if (heatSection.dataset.listenerAdded) return;
+      heatSection.dataset.listenerAdded = "true"; // フラグ設定
+
+      heatSection.addEventListener("click", (e) => {
+        if (e.target.classList.contains("add-item") && e.target.type === "button") {
+          e.preventDefault(); // フォーム送信を防ぐ
           const newItem = document.createElement("div");
           newItem.className = "item flex items-center space-x-2 mb-2";
           newItem.innerHTML = `
-            <button class="remove-item text-gray-700 px-2">×</button>
+            <button class="remove-item text-gray-700 px-2" type="button">×</button>
             <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
             <span class="text-orange-500">℃</span>
             <input type="number" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
             <span class="text-orange-500">分</span>
-            <button class="add-item text-gray-700 px-4 py-2 rounded self-end">＋</button>
+            <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           `;
-
-          // 新しい項目を追加
           e.target.closest(".item").parentElement.appendChild(newItem);
         }
 
-        // ×ボタンがクリックされたときの処理
-        if (e.target.classList.contains("remove-item")) {
+        if (e.target.classList.contains("remove-item") && e.target.type === "button") {
+          e.preventDefault();
           const items = document.querySelectorAll(".item");
           if (items.length > 1) {
             e.target.closest(".item").remove();
@@ -191,12 +203,11 @@
       });
     });
 
-  // other
-    document.addEventListener("DOMContentLoaded", () => {
+    // Other Sections (共通の処理)
+    document.addEventListener("turbo:load", () => {
       function updateNumbers(section) {
         const items = section.querySelectorAll(".item");
         items.forEach((item, index) => {
-          // 各アイテム内に番号を更新（必要なら番号を表示する箇所に番号をセット）
           const numberElement = item.querySelector(".step-number");
           if (numberElement) {
             numberElement.textContent = index + 1;
@@ -204,35 +215,34 @@
         });
       }
 
-      // 全てのセクションに対して共通の処理を設定
       document.querySelectorAll(".section").forEach((section) => {
+        if (section.dataset.listenerAdded) return;
+        section.dataset.listenerAdded = "true"; // フラグ設定
+
         section.addEventListener("click", (e) => {
-          if (e.target.classList.contains("add-item")) {
-            // 新しい入力欄を追加
+          if (e.target.classList.contains("add-item") && e.target.type === "button") {
+            e.preventDefault();
             const sectionType = section.getAttribute("data-section");
             const newItem = document.createElement("div");
             newItem.className = "item flex items-center space-x-2 mb-2";
-
-            // 入力欄にセクションごとのスタイリングを適用
-            const inputClass = sectionType === "tags" ? "w-1/3" : "w-full"; // Tagsセクションだけ横幅を狭く
+            const inputClass = sectionType === "tags" ? "w-1/3" : "w-full";
             newItem.innerHTML = `
-              <button class="remove-item text-gray-700 px-2">×</button>
+              <button class="remove-item text-gray-700 px-2" type="button">×</button>
               <input type="text" class="${inputClass} bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
-              <button class="add-item text-gray-700 px-4 py-2 rounded">＋</button>
+              <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
             `;
             section.appendChild(newItem);
             updateNumbers(section);
-          } else if (e.target.classList.contains("remove-item")) {
-            // 入力欄を削除
+          } else if (e.target.classList.contains("remove-item") && e.target.type === "button") {
+            e.preventDefault();
             const items = section.querySelectorAll(".item");
             if (items.length > 1) {
-              e.target.parentElement.remove();
+              e.target.closest(".item").remove();
               updateNumbers(section);
             }
           }
         });
 
-        // 初期状態で番号を設定（番号を表示する場合のみ）
         updateNumbers(section);
       });
     });
