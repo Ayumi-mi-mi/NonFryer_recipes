@@ -60,37 +60,26 @@
     </div>
 
     <!-- Heat Section -->
+    <span class="text-orange-500">調理</span>
     <div class="w-full mb-4" id="heat-section">
-      <div class="flex">
-        <div class="">
-          <%= f.label :temperature, "調理温度・時間", class: "block text-orange-500" %>
-          <div class="item flex items-center space-x-2 mb-2">
-            <button class="remove-item text-gray-700 px-2" type="button">×</button>
-            <%= f.text_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1", style: "width: 100px;" %>
-            <span class="text-orange-500">℃</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="">
-        <div>
-          <label class="block text-gray-700">　</label>
-          <div class="item flex items-center space-x-2 mb-2">
-            <%= f.text_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1", style: "width: 100px;" %>
-            <span class="text-orange-500">分</span>
-            <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
-          </div>
-        </div>
+      <div class="heat-item flex items-center space-x-2 mb-2">
+        <button class="remove-item text-gray-700 px-2" type="button">×</button>
+        <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
+        <span class="text-orange-500">℃</span>
+        <input type="number" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
+        <span class="text-orange-500">分</span>
+        <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
       </div>
     </div>
 
     <!-- Ingredients Section -->
-    <div class="section w-full mb-4">
-      <label class="block text-gray-700 mb-2">材料</label>
-      <div class="item flex items-center space-x-2 mb-2">
+    <span class="text-gray-700">材料</span>
+    <div class="w-full mb-4" id="ingredients-section">
+      <div class="ingredient-item flex items-center space-x-2 mb-2">
         <button class="remove-item text-gray-700 px-2" type="button">×</button>
-        <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
-        <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+        <input type="number" placeholder="素材" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
+        <input type="number" placeholder="量" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
+        <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
       </div>
     </div>
 
@@ -178,26 +167,29 @@
       heatSection.dataset.listenerAdded = "true"; // フラグ設定
 
       heatSection.addEventListener("click", (e) => {
+        // 入力欄を追加
         if (e.target.classList.contains("add-item") && e.target.type === "button") {
           e.preventDefault(); // フォーム送信を防ぐ
+
           const newItem = document.createElement("div");
-          newItem.className = "item flex items-center space-x-2 mb-2";
+          newItem.className = "heat-item flex items-center space-x-2 mb-2";
           newItem.innerHTML = `
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
-            <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+            <input type="number" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
             <span class="text-orange-500">℃</span>
-            <input type="number" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+            <input type="number" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
             <span class="text-orange-500">分</span>
             <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           `;
-          e.target.closest(".item").parentElement.appendChild(newItem);
+          heatSection.appendChild(newItem);
         }
 
+        // 入力欄を削除
         if (e.target.classList.contains("remove-item") && e.target.type === "button") {
           e.preventDefault();
-          const items = document.querySelectorAll(".item");
+          const items = document.querySelectorAll(".heat-item");
           if (items.length > 1) {
-            e.target.closest(".item").remove();
+            e.target.closest(".heat-item").remove();
           }
         }
       });
@@ -244,6 +236,41 @@
         });
 
         updateNumbers(section);
+      });
+    });
+
+    // Ingredients Section
+    document.addEventListener("turbo:load", () => {
+      const ingredientsSection = document.getElementById("ingredients-section");
+      if (!ingredientsSection) return;
+
+      if (ingredientsSection.dataset.listenerAdded) return;
+      ingredientsSection.dataset.listenerAdded = "true"; // フラグ設定
+
+      ingredientsSection.addEventListener("click", (e) => {
+        // 入力欄を追加
+        if (e.target.classList.contains("add-item") && e.target.type === "button") {
+          e.preventDefault(); // フォーム送信を防ぐ
+
+          const newItem = document.createElement("div");
+          newItem.className = "ingredient-item flex items-center space-x-2 mb-2";
+          newItem.innerHTML = `
+            <button class="remove-item text-gray-700 px-2" type="button">×</button>
+            <input type="number" placeholder="" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+            <input type="number" placeholder="" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+            <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+          `;
+          ingredientsSection.appendChild(newItem);
+        }
+
+        // 入力欄を削除
+        if (e.target.classList.contains("remove-item") && e.target.type === "button") {
+          e.preventDefault();
+          const items = document.querySelectorAll(".ingredient-item");
+          if (items.length > 1) {
+            e.target.closest(".ingredient-item").remove();
+          }
+        }
       });
     });
   </script>
