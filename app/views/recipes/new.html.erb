@@ -64,9 +64,9 @@
     <div class="w-full mb-4" id="heat-section">
       <div class="heat-item flex items-center space-x-2 mb-2">
         <button class="remove-item text-gray-700 px-2" type="button">×</button>
-        <input type="number" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
+        <%= f.text_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
         <span class="text-orange-500">℃</span>
-        <input type="number" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
+        <%= f.text_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
         <span class="text-orange-500">分</span>
         <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
       </div>
@@ -77,11 +77,14 @@
     <div class="w-full mb-4" id="ingredients-section">
       <div class="ingredient-item flex items-center space-x-2 mb-2">
         <button class="remove-item text-gray-700 px-2" type="button">×</button>
-        <input type="number" placeholder="素材" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
-        <input type="number" placeholder="量" class="w-full bg-white border border-gray-300 rounded px-2 py-1" style="width: 100px;" />
+        <%= f.fields_for :ingredients do |ingredient| %>
+          <%= ingredient.text_field :name, type: "text", placeholder: "素材", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <%= ingredient.text_field :quantity, type: "text", placeholder: "量", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+        <% end %>
         <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
       </div>
     </div>
+
 
     <!-- Steps Section -->
     <div id="steps-section" class="steps-Section w-full mb-4">
@@ -244,22 +247,29 @@
       const ingredientsSection = document.getElementById("ingredients-section");
       if (!ingredientsSection) return;
 
+      // イベントリスナーが複数回追加されるのを防止
       if (ingredientsSection.dataset.listenerAdded) return;
-      ingredientsSection.dataset.listenerAdded = "true"; // フラグ設定
+      ingredientsSection.dataset.listenerAdded = "true";
 
       ingredientsSection.addEventListener("click", (e) => {
         // 入力欄を追加
         if (e.target.classList.contains("add-item") && e.target.type === "button") {
-          e.preventDefault(); // フォーム送信を防ぐ
+          e.preventDefault();
 
+          // 現在の数をカウントしてインデックスを設定
+          const currentItems = document.querySelectorAll(".ingredient-item");
+          const index = currentItems.length;
+
+          // 新しい入力欄を作成
           const newItem = document.createElement("div");
           newItem.className = "ingredient-item flex items-center space-x-2 mb-2";
           newItem.innerHTML = `
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
-            <input type="number" placeholder="" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
-            <input type="number" placeholder="" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+            <input type="text" name="recipe[ingredients_attributes][${index}][name]" class="w-full bg-white border border-gray-300 rounded px-2 py-1" placeholder="素材" />
+            <input type="text" name="recipe[ingredients_attributes][${index}][quantity]" class="w-full bg-white border border-gray-300 rounded px-2 py-1" placeholder="量" />
             <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           `;
+
           ingredientsSection.appendChild(newItem);
         }
 
