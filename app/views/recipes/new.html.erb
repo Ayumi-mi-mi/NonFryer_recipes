@@ -94,7 +94,7 @@
         <label class="block text-gray-700 mb-2">作り方</label>
         <div class="step-item flex items-center space-x-2 mb-2">
           <button class="remove-step text-gray-700 px-2" type="button">×</button>
-          <span class="step-number text-gray-400"><%= instruction.object.step_number || instruction.index + 1 %></span>
+          <span class="step-number text-gray-400"><%= instruction.object.step_number %></span>
           <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
         <% end %>
         <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
@@ -141,12 +141,14 @@
       stepsSection.addEventListener("click", (e) => {
         if (e.target.classList.contains("add-step") && e.target.type === "button") {
           e.preventDefault(); // フォームの送信を防ぐ
+
+          const stepIndex = stepsSection.querySelectorAll(".step-item").length;
           const newStep = document.createElement("div");
           newStep.className = "step-item flex items-center space-x-2 mb-2";
           newStep.innerHTML = `
             <button class="remove-step text-gray-700 px-2" type="button">×</button>
-            <span class="step-number text-gray-400"></span>
-            <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" />
+            <span class="step-number text-gray-400">${stepIndex + 1}</span>
+            <input type="text" name="recipe[instructions_attributes][${stepIndex}][description]" class="w-full bg-white border border-gray-300 rounded px-4 py-2" />
             <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           `;
           stepsSection.appendChild(newStep);
@@ -161,8 +163,12 @@
         }
       });
 
-      // 初期状態で番号を設定
-      updateStepNumbers();
+      function updateStepNumbers() {
+        const stepItems = stepsSection.querySelectorAll(".step-item");
+        stepItems.forEach((item, index) => {
+          item.querySelector(".step-number").textContent = index + 1;
+        });
+      }
     });
 
     // Heat Section
