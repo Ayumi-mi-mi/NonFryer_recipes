@@ -6,5 +6,5 @@
 #
 one:
   id: 1
-  name: "Sample Recipe"
-  description: "A test recipe"
+  title: "Sample Recipe"
+  model: "cosori"
