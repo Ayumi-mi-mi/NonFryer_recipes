@@ -62,14 +62,16 @@
     <!-- Heat Section -->
     <span class="text-orange-500">調理</span>
     <div class="w-full mb-4" id="heat-section">
-      <div class="heat-item flex items-center space-x-2 mb-2">
-        <button class="remove-item text-gray-700 px-2" type="button">×</button>
-        <%= f.text_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
-        <span class="text-orange-500">℃</span>
-        <%= f.text_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
-        <span class="text-orange-500">分</span>
-        <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
-      </div>
+      <%= f.fields_for :heats do |heat| %>
+        <div class="heat-item flex items-center space-x-2 mb-2">
+          <button class="remove-item text-gray-700 px-2" type="button">×</button>
+          <%= heat.number_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <span class="text-orange-500">℃</span>
+          <%= heat.number_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <span class="text-orange-500">分</span>
+          <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
+        </div>
+      <% end %>
     </div>
 
     <!-- Ingredients Section -->
@@ -88,11 +90,13 @@
 
     <!-- Steps Section -->
     <div id="steps-section" class="steps-Section w-full mb-4">
-      <label class="block text-gray-700 mb-2">作り方</label>
-      <div class="step-item flex items-center space-x-2 mb-2">
-        <button class="remove-step text-gray-700 px-2" type="button">×</button>
-        <span class="step-number text-gray-400">1</span>
-        <input type="text" class="w-full bg-white border border-gray-300 rounded px-4 py-2" placeholder="" />
+      <%= f.fields_for :instructions do |instruction| %>
+        <label class="block text-gray-700 mb-2">作り方</label>
+        <div class="step-item flex items-center space-x-2 mb-2">
+          <button class="remove-step text-gray-700 px-2" type="button">×</button>
+          <span class="step-number text-gray-400"><%= instruction.object.step_number || instruction.index + 1 %></span>
+          <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
+        <% end %>
         <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
       </div>
     </div>
@@ -174,13 +178,16 @@
         if (e.target.classList.contains("add-item") && e.target.type === "button") {
           e.preventDefault(); // フォーム送信を防ぐ
 
+          // 現在の数をカウントしてインデックスを設定
+          const index = document.querySelectorAll(".heat-item").length;
+
           const newItem = document.createElement("div");
           newItem.className = "heat-item flex items-center space-x-2 mb-2";
           newItem.innerHTML = `
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
-            <input type="number" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+            <input type="number" name="recipe[heats_attributes][${index}][temperature]" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
             <span class="text-orange-500">℃</span>
-            <input type="number" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
+            <input type="number" name="recipe[heats_attributes][${index}][time]" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
             <span class="text-orange-500">分</span>
             <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           `;
