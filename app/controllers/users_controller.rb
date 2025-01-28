@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login(params[:user][:email], params[:user][:password])
-      flash[:notice] = "登録が完了しました。"
+      flash[:notice] = "登録が完了しました"
       redirect_to root_path
     else
       flash.now[:alert] = @user.errors.full_messages.join("、")

@@ -1,9 +1,10 @@
   <!-- サイドバー -->
-  <div class="flex items-center justify-between p-4">
+  <div>
     <button id="openSidebar" class="text-gray-700">&gt;&gt;</button>
   </div>
 
-  <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-md transform -translate-x-full transition-transform duration-300">
+<body>
+  <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white transform -translate-x-full transition-transform duration-300">
     <div class="flex items-center justify-between p-4">
       <%= link_to "🍴 NonFryer recipes", root_path, class: "text-orange-600 font-bold" %>
       <button id="closeSidebar" class="text-gray-700">&lt;&lt;</button>
@@ -21,7 +22,7 @@
       <%= link_to "🛡️ プライバシーポリシー", '#', class: "flex items-center space-x-2 text-gray-800" %>
     </div>
   </div>
-</div>
+
 
 <script>
   document.addEventListener('turbo:load', () => {
