@@ -20,4 +20,14 @@
       <%= f.submit "検索", class: "bg-orange-600 text-white rounded px-4 py-1" %>
     <% end %>
   </div>
+  <!-- レシピ一覧 -->
+  <div class="grid grid-cols-2 gap-2 mx-[20px]">
+    <% @recipes.each do |recipe| %>
+      <div class="relative bg-orange-200 text-white text-sm px-4 py-14 rounded">
+        <div class="absolute bottom-2 left-2">
+          <%= recipe.title %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </body>
