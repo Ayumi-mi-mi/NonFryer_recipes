@@ -9,7 +9,7 @@ class RecipesController < ApplicationController
   def create
     @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
-      flash[:notice] = 'レシピを作成しました'
+      flash[:notice] = "レシピを作成しました"
       redirect_to root_path
     else
       flash.now[:alert] = @recipe.errors.full_messages.join("、")
@@ -22,9 +22,9 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(
       :title, :model, :preheat_time, :preheat_temperature, :point,
-      heats_attributes: [:id, :time, :temperature, :_destroy],
-      ingredients_attributes: [:id, :name, :quantity, :_destroy],
-      instructions_attributes: [:id, :step_number, :description, :_destroy]
+      heats_attributes: [ :id, :time, :temperature, :_destroy ],
+      ingredients_attributes: [ :id, :name, :quantity, :_destroy ],
+      instructions_attributes: [ :id, :step_number, :description, :_destroy ]
     )
   end
 end
