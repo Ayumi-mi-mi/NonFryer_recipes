@@ -96,9 +96,12 @@
           <button class="remove-step text-gray-700 px-2" type="button">×</button>
           <span class="step-number text-gray-400"><%= instruction.object.step_number %></span>
           <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
-        <% end %>
-        <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
-      </div>
+          <% end %>
+          <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+        </div>
+        <div class="h-16 w-16 flex justify-center items-center mb-2 border border-gray-300 rounded">
+          <button>＋</button>
+        </div>
     </div>
 
     <!-- Tips Section -->
@@ -150,6 +153,7 @@
             <span class="step-number text-gray-400">${stepIndex + 1}</span>
             <input type="text" name="recipe[instructions_attributes][${stepIndex}][description]" class="w-full bg-white border border-gray-300 rounded px-4 py-2" />
             <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+            <div class="h-10 w-16 flex justify-center items-center mb-2 border border-gray-300 rounded"><button>＋</button></div>
           `;
           stepsSection.appendChild(newStep);
           updateStepNumbers();
