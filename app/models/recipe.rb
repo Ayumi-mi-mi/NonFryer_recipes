@@ -14,5 +14,5 @@ class Recipe < ApplicationRecord
   validates :model, presence: true, length: { maximum: 255 }
   validates :point, length: { maximum: 65_535 }
 
-  validates :main_image, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ], size_range: 1..(5.megabytes) }
+  validates :main_image, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ], size_range: 0..(5.megabytes) }
 end
