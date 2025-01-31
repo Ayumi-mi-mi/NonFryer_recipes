@@ -4,7 +4,7 @@
     <%= render "shared/sidebar" %>
     <div class="flex space-x-2">
       <%= button_tag("保存", type: "submit", form: "post_form", class: "bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 rounded") %>
-      <button class="bg-orange-500 text-white px-4 py-2 rounded">公開</button>
+      <button class="bg-amber-500 text-white px-4 py-2 rounded">公開</button>
       <%= link_to "×", root_path, class: "bg-white text-gray-700  border border-gray-300 rounded px-4 py-2 rounded", data: { turbo_method: :get, turbo_confirm: 'データは保存されません。よろしいですか？' } %>
     </div>
   </div>
@@ -19,7 +19,7 @@
     <!-- Title Input -->
     <div>
       <%= f.text_field :title, placeholder: "なにを作ったのか教えてください！", class: "w-full bg-white border border-gray-300 rounded px-4 py-2 mb-1" %>
-      <p class="text-xs text-orange-500 mb-4">ノンフライヤーを使用したレシピのみ登録してください</p>
+      <p class="text-xs text-amber-500 mb-4">ノンフライヤーを使用したレシピのみ登録してください</p>
     </div>
 
     <!-- Tags -->
@@ -34,7 +34,7 @@
 
     <!-- model -->
     <div class="w-full mb-4">
-      <%= f.label :model, "ノンフライヤーの機種", class: "block text-orange-500 mb-2" %>
+      <%= f.label :model, "ノンフライヤーの機種", class: "block text-amber-500 mb-2" %>
       <%= f.text_field :model, placeholder: "cosori", class: "bg-white border border-gray-300 rounded px-4 py-2" %>
     </div>
 
@@ -57,15 +57,15 @@
     </div>
 
     <!-- Heat Section -->
-    <span class="text-orange-500">調理</span>
+    <span class="text-amber-500">調理</span>
     <div class="w-full mb-4" id="heat-section">
       <%= f.fields_for :heats do |heat| %>
         <div class="heat-item flex items-center space-x-2 mb-2">
           <button class="remove-item text-gray-700 px-2" type="button">×</button>
           <%= heat.number_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
-          <span class="text-orange-500">℃</span>
+          <span class="text-amber-500">℃</span>
           <%= heat.number_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
-          <span class="text-orange-500">分</span>
+          <span class="text-amber-500">分</span>
           <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
         </div>
       <% end %>

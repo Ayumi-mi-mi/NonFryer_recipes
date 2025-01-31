@@ -1,6 +1,6 @@
 <header class="flex items-center justify-between px-4 py-2 bg-white border-b">
   <div class="flex items-center">
-    <span class="text-orange-600 text-xl font-bold">🍴 NonFryer recipes</span>
+    <span class="text-amber-500 text-xl font-bold">🍴 NonFryer recipes</span>
   </div>
   <div class="flex items-center space-x-2">
     <% if logged_in? %>
@@ -8,7 +8,7 @@
     <% else %>
       <%= render "shared/login" %>
     <% end %>
-    <%= link_to "＋", new_recipe_path, class: "text-white bg-orange-600 rounded-full w-8 h-8 flex items-center justify-center" %>
+    <%= link_to "＋", new_recipe_path, class: "text-white bg-amber-500 rounded-full w-8 h-8 flex items-center justify-center" %>
   </div>
 </header>
 
@@ -17,7 +17,7 @@
     <%= render "shared/sidebar" %>
     <%= form_with url: '#', method: :get, local: true do |f| %>
       <%= f.text_field :search, placeholder: "レシピ検索", class: "flex-1 border border-gray-300 rounded px-10 py-1" %>
-      <%= f.submit "検索", class: "bg-orange-600 text-white rounded px-4 py-1" %>
+      <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
     <% end %>
   </div>
 
