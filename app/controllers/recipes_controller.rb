@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  before_action :require_login, only: %i[new create update destroy]
+
   def new
     @recipe = Recipe.new
     @recipe.heats.build
@@ -17,6 +19,32 @@ class RecipesController < ApplicationController
     end
   end
 
+  def show
+    @recipe = Recipe.find(params[:id])
+  end
+
+  def edit
+    @recipe = Recipe.find(params[:id])
+  end
+
+  def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)           # 確認
+      flash[:notice] = "レシピを編集しました"
+      redirect_to recipe_path(@recipe)
+    else
+      flash.now[:alert] = @recipe.errors.full_messages.join("、")
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy!
+    flash[:notice] = "レシピを削除しました"
+    redirect_to root_path, status: :see_other
+  end
+
   private
 
   def recipe_params
@@ -26,5 +54,9 @@ class RecipesController < ApplicationController
       ingredients_attributes: [ :id, :name, :quantity, :_destroy ],
       instructions_attributes: [ :id, :step_number, :description, :image, :_destroy ]
     )
+  end
+
+  def not_authenticated
+    redirect_to login_path
   end
 end
