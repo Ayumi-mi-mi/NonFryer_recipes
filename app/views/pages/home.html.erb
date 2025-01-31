@@ -26,10 +26,12 @@
     <% @recipes.each do |recipe| %>
       <div class="relative bg-orange-200 rounded w-full h-[130px]">
         <% if recipe.main_image.attached? %>
-          <%= image_tag recipe.main_image, class: "w-full h-[130px] object-cover rounded" %>
+          <%= link_to image_tag(recipe.main_image, class: "w-full h-[130px] object-cover rounded" ), recipe_path(recipe) %>
+        <% else %>
+            <%= link_to "", recipe_path(recipe), class: "w-full h-[130px] flex items-center justify-center text-white font-bold" %>
         <% end %>
         <div class="absolute bottom-2 left-2 text-white font-bold text-sm">
-          <%= recipe.title %>
+          <%= link_to recipe.title, recipe_path(recipe) %>
         </div>
       </div>
     <% end %>

@@ -1,20 +1,23 @@
 <body class="bg-white">
-  <div class="w-full max-w-sm">
-    <div class="flex items-center justify-between">
-      <%= render "shared/sidebar" %>
-      <h1 class="text-2xl font-bold">ログイン</h1>
-    </div>
+  <div class="flex h-screen items-center justify-center">
+    <div class="w-full max-w-sm">
+      <div class="flex items-center justify-between">
+        <%= render "shared/sidebar" %>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold">ログイン</h1>
+      </div>
 
     <%= form_with url: login_path do |f| %>
-      <div>
+      <div class="mt-6 space-y-4">
         <%= f.label :email, class: "block text-sm" %>
         <%= f.email_field :email, class: "input input-bordered w-full" %>
       </div>
-      <div>
+      <div class="mt-6 space-y-4">
         <%= f.label :password, class: "block text-sm" %>
         <%= f.password_field :password, class: "input input-bordered w-full" %>
       </div>
-      <button class="btn w-full bg-orange-600 text-white">ログイン</button>
+      <button class="btn w-full bg-orange-600 text-white mt-6 space-y-4"">ログイン</button>
     <% end %>
 
     <div class="mt-4">
