@@ -8,7 +8,35 @@ class Embed < ApplicationRecord
 
   enum kind: { website: 0, youtube: 1, twitter: 2, instagram: 3 }
 
-  def fetch_ogp
+  def embed_type
+    return "" unless url.present?
+
+    case kind
+    when "youtube"
+      youtube
+    when "instagram"
+      instagram
+    else
+      ogp
+    end
+  end
+
+  private
+
+  def youtube
+    url.split('/').last
+  end
+
+  def instagram
+    %(
+      <blockquote class="instagram-media" data-instgrm-permalink="#{url}" data-instgrm-version="14">
+        <a href="#{url}"></a>
+      </blockquote>
+      <script async src="https://www.instagram.com/embed.js"></script>
+    ).html_safe
+  end
+
+  def ogp
     begin
       # URLエンコードを `Addressable::URI.encode` で行う
       encoded_url = Addressable::URI.parse(url).normalize.to_s
@@ -27,12 +55,8 @@ class Embed < ApplicationRecord
       self.ogp_description = doc.at("meta[property='og:description']")&.[]('content')
       self.ogp_image_url = doc.at("meta[property='og:image']")&.[]('content')
       self.ogp_site_name = doc.at("meta[property='og:site_name']")&.[]('content')
-
-      # デバッグ用
-      puts "OGP Title: #{self.ogp_title}"
-      puts "OGP Description: #{self.ogp_description}"
-
       save
+
     rescue OpenURI::HTTPError => e
       puts "HTTPエラー: #{e.message}"
     rescue => e

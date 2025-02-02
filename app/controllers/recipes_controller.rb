@@ -13,7 +13,7 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
       @recipe.embeds.each do |embed|
-        embed.fetch_ogp
+        embed.embed_type
       end
       flash[:notice] = "レシピを作成しました"
       redirect_to root_path
