@@ -6,6 +6,7 @@ class RecipesController < ApplicationController
     @recipe.heats.build
     @recipe.ingredients.build
     @recipe.instructions.build
+    @recipe.embeds.build
   end
 
   def create
@@ -52,7 +53,8 @@ class RecipesController < ApplicationController
       :title, :model, :preheat_time, :preheat_temperature, :point, :main_image,
       heats_attributes: [ :id, :time, :temperature, :_destroy ],
       ingredients_attributes: [ :id, :name, :quantity, :_destroy ],
-      instructions_attributes: [ :id, :step_number, :description, :image, :_destroy ]
+      instructions_attributes: [ :id, :step_number, :description, :image, :_destroy ],
+      embeds_attributes: [ :id, :kind, :url, :_destroy ]
     )
   end
 

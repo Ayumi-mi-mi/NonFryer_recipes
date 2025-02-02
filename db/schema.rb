@@ -45,6 +45,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_01_073721) do
   create_table "embeds", force: :cascade do |t|
     t.integer "kind"
     t.string "url"
+    t.string "ogp_title"
+    t.text "ogp_description"
+    t.string "ogp_image_url"
+    t.string "ogp_site_name"
     t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,7 +67,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_01_073721) do
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
     t.string "quantity"
-    t.bigint "recipe_id"
+    t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
@@ -72,7 +76,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_01_073721) do
   create_table "instructions", force: :cascade do |t|
     t.integer "step_number"
     t.text "description"
-    t.bigint "recipe_id"
+    t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipe_id"], name: "index_instructions_on_recipe_id"

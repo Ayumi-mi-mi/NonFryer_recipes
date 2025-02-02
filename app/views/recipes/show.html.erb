@@ -104,4 +104,12 @@
       <%= @recipe.point %>
     </div>
   </div>
+
+    <div class="py-2">
+    <div class="px-6 font-bold text-gray-600">参考url</div>
+    <div class="px-6 py-1">
+      <% @recipe.embeds.each do |embed| %>
+      <% end %>
+    </div>
+  </div>
 </body>
