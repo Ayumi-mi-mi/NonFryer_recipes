@@ -1,12 +1,12 @@
-require 'nokogiri'
-require 'open-uri'
-require 'cgi'
-require 'addressable/uri'  # 追加
+require "nokogiri"
+require "open-uri"
+require "cgi"
+require "addressable/uri"
 
 class Embed < ApplicationRecord
   belongs_to :recipe
 
-  enum kind: { website: 0, youtube: 1, twitter: 2, instagram: 3 }
+  enum kind: { website: 0, youtube: 1, instagram: 2 }
 
   def embed_type
     return "" unless url.present?
@@ -24,7 +24,7 @@ class Embed < ApplicationRecord
   private
 
   def youtube
-    url.split('/').last
+    url.split("/").last
   end
 
   def instagram
@@ -51,10 +51,10 @@ class Embed < ApplicationRecord
       doc = Nokogiri::HTML(encoded_html)
 
       # OGP情報を取得
-      self.ogp_title = doc.at("meta[property='og:title']")&.[]('content')
-      self.ogp_description = doc.at("meta[property='og:description']")&.[]('content')
-      self.ogp_image_url = doc.at("meta[property='og:image']")&.[]('content')
-      self.ogp_site_name = doc.at("meta[property='og:site_name']")&.[]('content')
+      self.ogp_title = doc.at("meta[property='og:title']")&.[]("content")
+      self.ogp_description = doc.at("meta[property='og:description']")&.[]("content")
+      self.ogp_image_url = doc.at("meta[property='og:image']")&.[]("content")
+      self.ogp_site_name = doc.at("meta[property='og:site_name']")&.[]("content")
       save
 
     rescue OpenURI::HTTPError => e
