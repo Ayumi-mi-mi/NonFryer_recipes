@@ -92,7 +92,9 @@
         <div class="py-1">
           <%= instruction.step_number %>
           <%= instruction.description %>
-          <%= image_tag instruction.image, class: "w-[160px] h-[100px] rounded w-[160px] h-[100px] object-cover" %>
+          <% if instruction.image.attached? %>
+            <%= image_tag instruction.image, class: "w-[160px] h-[100px] rounded w-[160px] h-[100px] object-cover" %>
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -109,7 +111,20 @@
     <div class="px-6 font-bold text-gray-600">参考url</div>
     <div class="px-6 py-1">
       <% @recipe.embeds.each do |embed| %>
+        <% if embed.kind == "website" %>
+          <div class="card">
+            <p><%= embed.ogp_site_name.presence || "サイト名なし" %></p>
+            <% if embed.ogp_image_url.present? %>
+              <img src="<%= embed.ogp_image_url %>" alt="OGP Image">
+            <% end %>
+            <p><%= embed.ogp_title.presence || "タイトルなし" %></p>
+            <p><%= embed.ogp_description.presence || "詳細なし" %></p>
+            <%= link_to "サイトを開く", embed.url %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
 </body>
+
+
