@@ -364,6 +364,7 @@ PLATFORMS
 
 DEPENDENCIES
   activestorage-validator
+  addressable
   aws-sdk-s3
   better_errors
   bootsnap
