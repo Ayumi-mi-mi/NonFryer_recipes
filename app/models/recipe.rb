@@ -7,6 +7,8 @@ class Recipe < ApplicationRecord
 
   has_one_attached :main_image
 
+  acts_as_taggable_on :tags
+
   accepts_nested_attributes_for :heats, allow_destroy: true
   accepts_nested_attributes_for :ingredients, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :instructions, allow_destroy: true, reject_if: :all_blank
