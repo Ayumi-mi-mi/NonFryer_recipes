@@ -119,7 +119,7 @@
             <% end %>
             <p><%= embed.ogp_title.presence || "タイトルなし" %></p>
             <p><%= embed.ogp_description.presence || "詳細なし" %></p>
-            <%= link_to "サイトを開く", sanitize(embed.url), target: "_blank" %>
+            <%= link_to "サイトを開く", embed.url, target: "_blank", rel: "noopener noreferrer" %>
           </div>
         <% elsif embed.kind == "youtube" %>
           <%= content_tag 'iframe', nil, src: "https://www.youtube.com/embed/#{embed.embed_type}" %>
