@@ -37,6 +37,17 @@
     <%= @recipe.title %>
   </div>
 
+  <div class="px-6 py-2">
+    <div class="font-bold text-gray-600">タグ</div>
+    <% if @recipe.tag_list.present? %>
+      <% @recipe.tag_list.each do |tag| %>
+        <span class="bg-amber-500 text-gray-700 badge badge-info mr-1 mb-1 text-white rounded ">
+          <%= tag %>
+        </span>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="grid grid-cols-2 gap-4 px-6 py-2">
     <div>
       <div class="font-bold text-gray-600">予熱</div>

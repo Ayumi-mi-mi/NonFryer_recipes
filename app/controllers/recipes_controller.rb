@@ -53,7 +53,7 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(
-      :title, :model, :preheat_time, :preheat_temperature, :point, :main_image,
+      :title, :model, :preheat_time, :preheat_temperature, :point, :main_image, :tag_list,
       heats_attributes: [ :id, :time, :temperature, :_destroy ],
       ingredients_attributes: [ :id, :name, :quantity, :_destroy ],
       instructions_attributes: [ :id, :step_number, :description, :image, :_destroy ],
