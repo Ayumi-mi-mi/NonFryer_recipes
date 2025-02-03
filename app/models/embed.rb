@@ -28,12 +28,13 @@ class Embed < ApplicationRecord
   end
 
   def instagram
+    return "" unless url.present?
+
     %(
       <blockquote class="instagram-media" data-instgrm-permalink="#{url}" data-instgrm-version="14">
         <a href="#{url}"></a>
       </blockquote>
-      <script async src="https://www.instagram.com/embed.js"></script>
-    ).html_safe
+    )
   end
 
   def ogp

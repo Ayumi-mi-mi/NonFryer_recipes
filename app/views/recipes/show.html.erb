@@ -124,7 +124,8 @@
         <% elsif embed.kind == "youtube" %>
           <%= content_tag 'iframe', nil, src: "https://www.youtube.com/embed/#{embed.embed_type}" %>
         <% elsif embed.kind == "instagram" %>
-          <%= sanitize(embed.embed_type) %>
+          <%= sanitize(embed.embed_type, tags: %w[blockquote a], attributes: %w[class data-instgrm-permalink data-instgrm-version href]) %>
+          <script async src="https://www.instagram.com/embed.js"></script>
         <% end %>
       <% end %>
     </div>
