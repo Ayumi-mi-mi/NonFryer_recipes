@@ -112,8 +112,7 @@
     <div class="px-6 py-1">
       <% @recipe.embeds.each do |embed| %>
         <% if embed.kind == "website" %>
-          <%= link_to embed.safe_url, target: "_blank", rel: "noopener noreferrer", class: "block" do %>
-          <!-- Brakeman: ignore -->
+          <%= link_to embed.safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "block" do %>
             <div class="card">
               <p><%= embed.ogp_site_name.presence || "サイト名なし" %></p>
               <% if embed.ogp_image_url.present? %>
