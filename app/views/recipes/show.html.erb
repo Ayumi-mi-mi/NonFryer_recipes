@@ -92,7 +92,9 @@
         <div class="py-1">
           <%= instruction.step_number %>
           <%= instruction.description %>
-          <%= image_tag instruction.image, class: "w-[160px] h-[100px] rounded w-[160px] h-[100px] object-cover" %>
+          <% if instruction.image.attached? %>
+            <%= image_tag instruction.image, class: "w-[160px] h-[100px] rounded w-[160px] h-[100px] object-cover" %>
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -104,4 +106,39 @@
       <%= @recipe.point %>
     </div>
   </div>
+
+    <div class="py-2">
+    <div class="px-6 font-bold text-gray-600">参考url</div>
+    <div class="px-6 py-1">
+      <% @recipe.embeds.each do |embed| %>
+        <% if embed.kind == "website" %>
+          <%= link_to embed.safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "block" do %>
+            <div class="card">
+              <p><%= embed.ogp_site_name.presence || "サイト名なし" %></p>
+              <% if embed.ogp_image_url.present? %>
+                <img src="<%= embed.ogp_image_url %>" alt="OGP Image">
+              <% end %>
+              <p><%= embed.ogp_title.presence || "タイトルなし" %></p>
+              <p><%= embed.ogp_description.presence || "詳細なし" %></p>
+            </div>
+          <% end %>
+        <% elsif embed.kind == "youtube" %>
+          <%= content_tag 'iframe', nil, src: "https://www.youtube.com/embed/#{embed.embed_type}" %>
+        <% elsif embed.kind == "instagram" %>
+          <%= sanitize(embed.embed_type, tags: %w[blockquote a], attributes: %w[class data-instgrm-permalink data-instgrm-version href]) %>
+          <script async src="https://www.instagram.com/embed.js"></script>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("turbo:load", function() {
+      if (window.instgrm) {
+        instgrm.Embeds.process();
+      }
+    });
+  </script>
 </body>
+
+

@@ -6,11 +6,15 @@ class RecipesController < ApplicationController
     @recipe.heats.build
     @recipe.ingredients.build
     @recipe.instructions.build
+    @recipe.embeds.build
   end
 
   def create
     @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
+      @recipe.embeds.each do |embed|
+        embed.embed_type
+      end
       flash[:notice] = "レシピを作成しました"
       redirect_to root_path
     else
@@ -52,7 +56,8 @@ class RecipesController < ApplicationController
       :title, :model, :preheat_time, :preheat_temperature, :point, :main_image,
       heats_attributes: [ :id, :time, :temperature, :_destroy ],
       ingredients_attributes: [ :id, :name, :quantity, :_destroy ],
-      instructions_attributes: [ :id, :step_number, :description, :image, :_destroy ]
+      instructions_attributes: [ :id, :step_number, :description, :image, :_destroy ],
+      embeds_attributes: [ :id, :kind, :url, :ogp_title, :ogp_description, :ogp_image_url, :ogp_site_name, :_destroy ]
     )
   end
 

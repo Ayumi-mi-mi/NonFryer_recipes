@@ -3,7 +3,7 @@ class CreateInstructions < ActiveRecord::Migration[7.2]
     create_table :instructions do |t|
       t.integer :step_number
       t.text :description
-      t.references :recipe, foreign_key: true, null: true
+      t.references :recipe, foreign_key: true, null: false
 
       t.timestamps
     end
