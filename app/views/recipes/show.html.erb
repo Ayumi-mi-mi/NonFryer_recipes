@@ -119,12 +119,12 @@
             <% end %>
             <p><%= embed.ogp_title.presence || "タイトルなし" %></p>
             <p><%= embed.ogp_description.presence || "詳細なし" %></p>
-            <%= link_to "サイトを開く", embed.url %>
+            <%= link_to "サイトを開く", sanitize(embed.url), target: "_blank" %>
           </div>
         <% elsif embed.kind == "youtube" %>
           <%= content_tag 'iframe', nil, src: "https://www.youtube.com/embed/#{embed.embed_type}" %>
         <% elsif embed.kind == "instagram" %>
-          <%= embed.embed_type.html_safe %>
+          <%= sanitize(embed.embed_type) %>
         <% end %>
       <% end %>
     </div>
