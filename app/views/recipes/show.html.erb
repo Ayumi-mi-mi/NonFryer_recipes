@@ -123,14 +123,18 @@
     <div class="px-6 py-1">
       <% @recipe.embeds.each do |embed| %>
         <% if embed.kind == "website" %>
-          <%= link_to embed.safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "block" do %>
-            <div class="card">
-              <p><%= embed.ogp_site_name.presence || "サイト名なし" %></p>
+          <%= link_to embed.safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "block w-full max-w-sm rounded-lg shadow-md overflow-hidden border border-gray-300 bg-white" do %>
+            <div >
               <% if embed.ogp_image_url.present? %>
-                <img src="<%= embed.ogp_image_url %>" alt="OGP Image">
+                <div >
+                  <img src="<%= embed.ogp_image_url %>" alt="OGP Image" class="w-full h-full object-cover">
+                </div>
               <% end %>
-              <p><%= embed.ogp_title.presence || "タイトルなし" %></p>
-              <p><%= embed.ogp_description.presence || "詳細なし" %></p>
+              <div class=" p-2">
+                <p class="text-xs text-gray-600 font-semibold"><%= embed.ogp_site_name.presence || "" %></p>
+                <p class="text-sm font-bold line-clamp-2"><%= embed.ogp_title.presence || "" %></p>
+                <p class="text-xs text-gray-500 line-clamp-2"><%= embed.ogp_description.presence || "" %></p>
+              </div>
             </div>
           <% end %>
         <% elsif embed.kind == "youtube" %>
