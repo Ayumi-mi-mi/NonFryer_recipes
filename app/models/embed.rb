@@ -2,6 +2,7 @@ require "nokogiri"
 require "open-uri"
 require "cgi"
 require "addressable/uri"
+require "uri"
 
 class Embed < ApplicationRecord
   belongs_to :recipe
@@ -19,6 +20,15 @@ class Embed < ApplicationRecord
     else
       ogp
     end
+  end
+
+  def safe_url
+    begin
+      uri = URI.parse(url)
+      return url if uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+    rescue URI::InvalidURIError
+    end
+    "#"
   end
 
   private
