@@ -1,25 +1,40 @@
-  <!-- サイドバー -->
-  <div>
-    <button id="openSidebar" class="text-gray-700">＞</button>
-  </div>
+<div>
+  <button id="openSidebar" class="text-gray-700">＞</button>
+</div>
 
 <body>
   <div id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white transform -translate-x-full transition-transform duration-300 z-50">
-    <div class="flex items-center justify-between p-4">
-      <%= link_to "🍴 NonFryer recipes", root_path, class: "text-amber-500 font-bold" %>
-      <button id="closeSidebar" class="text-gray-700">＜</button>
+    <div class="flex items-center p-4">
+      <span class="material-symbols-outlined text-gray-500">restaurant</span>
+      <%= link_to "NonFryer recipes", root_path, class: "text-amber-500 font-bold" %>
+      <button id="closeSidebar" class="text-gray-700 p-6">＜</button>
     </div>
     <nav class="space-y-4 px-4">
-      <%= link_to "✏️ Myレシピ", '#', class: "flex items-center space-x-2 text-gray-800" %>
+      <div class="flex">
+        <span class="material-symbols-outlined text-gray-500 px-2">edit_square</span>
+          <%= link_to "Myレシピ", '#', class: "flex items-center space-x-2 text-gray-600" %>
+      </div>
       <div>
-        <p class="text-gray-800">🔖 保存</p>
-        <p class="text-gray-500 text-sm">レシピの作成、保存を行うにはログインしてください</p>
+        <div class="flex">
+          <span class="material-symbols-outlined text-gray-500 px-2">bookmark</span>
+          <p class="text-gray-600">保存</p>
+        </div>
+        <p class="text-gray-400 text-sm py-2">レシピの作成、保存を行うには<br>ログインしてください</p>
       </div>
     </nav>
     <div class="absolute bottom-4 px-4 space-y-2">
-      <%= link_to "✉️ お問い合わせ", '#', class: "flex items-center space-x-2 text-gray-800" %>
-      <%= link_to "📖 利用規約", '#', class: "flex items-center space-x-2 text-gray-800" %>
-      <%= link_to "🛡️ プライバシーポリシー", '#', class: "flex items-center space-x-2 text-gray-800" %>
+      <div class="flex">
+        <span class="material-symbols-outlined px-2 text-gray-500">mail</span>
+        <%= link_to "お問い合わせ", '#', class: "flex items-center space-x-2 text-gray-600" %>
+      </div>
+      <div class="flex">
+        <span class="material-symbols-outlined px-2 text-gray-500">import_contacts</span>
+        <%= link_to "利用規約", '#', class: "flex items-center space-x-2 text-gray-800" %>
+      </div>
+      <div class="flex">
+        <span class="material-symbols-outlined px-2 text-gray-500">verified_user</span>
+        <%= link_to "プライバシーポリシー", '#', class: "flex items-center space-x-2 text-gray-600" %>
+      </div>
     </div>
   </div>
 
