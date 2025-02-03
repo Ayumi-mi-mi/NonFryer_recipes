@@ -18,5 +18,5 @@ Rails.application.routes.draw do
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
 
-  resources :recipes, only: %i[new show create edit destroy]
+  resources :recipes, only: %i[new show create edit update destroy]
 end

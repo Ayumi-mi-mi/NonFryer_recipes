@@ -1,20 +1,4 @@
-<head>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
-</head>
-
-<header class="flex items-center justify-between px-4 py-2 bg-white border-b">
-  <div class="flex items-center">
-    <span class="text-amber-500 text-xl font-bold">🍴 NonFryer recipes</span>
-  </div>
-  <div class="flex items-center space-x-2">
-    <% if logged_in? %>
-      <%= render "shared/logout" %>
-    <% else %>
-      <%= render "shared/login" %>
-    <% end %>
-    <%= link_to "＋", new_recipe_path, class: "text-white bg-amber-500 rounded-full w-8 h-8 flex items-center justify-center" %>
-  </div>
-</header>
+<%= render "shared/header" %>
 
 <body class="bg-white">
   <div class="flex items-center p-4 space-x-2">
@@ -22,7 +6,7 @@
     <% if current_user && current_user.own?(@recipe) %>
       <%= link_to "編集", edit_recipe_path(@recipe), class: " border border-gray-300 rounded px-4 py-1" %>
       <%= link_to recipe_path(@recipe), data: { turbo_method: :delete, turbo_confirm: ('レシピを削除しますか？') } do %>
-        <span class="material-symbols-outlined border border-gray-300 rounded px-2 py-1">delete</span>
+        <span class="material-symbols-outlined text-gray-600 border border-gray-300 rounded px-2 py-1">delete</span>
       <% end %>
     <% end %>
   </div>

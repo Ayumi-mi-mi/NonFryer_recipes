@@ -33,7 +33,7 @@ class RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-    if @recipe.update(recipe_params)           # 確認
+    if @recipe.update(recipe_params)
       flash[:notice] = "レシピを編集しました"
       redirect_to recipe_path(@recipe)
     else

@@ -1,0 +1,14 @@
+<header class="flex items-center justify-between px-4 py-2 bg-white border-b">
+  <div class="flex items-center">
+  <span class="material-symbols-outlined text-gray-500">restaurant</span>
+  <%= link_to "NonFryer recipes", root_path, class: "text-amber-500 font-bold text-xl" %>
+  </div>
+  <div class="flex items-center space-x-2">
+    <% if logged_in? %>
+      <%= render "shared/logout" %>
+    <% else %>
+      <%= render "shared/login" %>
+    <% end %>
+    <%= link_to "＋", new_recipe_path, class: "text-white bg-amber-500 rounded-full w-8 h-8 flex items-center justify-center" %>
+  </div>
+</header>
