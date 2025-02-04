@@ -21,14 +21,10 @@ class Recipe < ApplicationRecord
   validates :main_image, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ], size_range: 0..(5.megabytes) }
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title"]
+    [ "title" ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["tags"]
-  end
-
-  def self.ransackable_scopes(auth_object = nil)
-    [:tagged_with]
+    [ "tags" ]
   end
 end
