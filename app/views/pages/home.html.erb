@@ -3,11 +3,17 @@
 <body class="bg-white">
   <div class="flex items-center p-4 space-x-4">
     <%= render "shared/sidebar" %>
-    <%= form_with url: '#', method: :get, local: true do |f| %>
-      <%= f.text_field :search, placeholder: "レシピ検索", class: "flex-1 border border-gray-300 rounded px-10 py-1" %>
+    <%= search_form_for @q, url: root_path do |f| %>
+      <%= f.search_field :tags_name_or_title_cont_any, placeholder: "レシピ名", class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64" %>
       <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
     <% end %>
   </div>
+
+  <% if @recipes.empty? %>
+    <div class="text-center text-gray-500 mt-2">
+      該当レシピがありませんでした
+    </div>
+  <% end %>
 
   <!-- レシピ一覧 -->
   <div class="grid grid-cols-2 gap-2 mx-[20px]">
