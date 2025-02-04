@@ -9,6 +9,12 @@
     <% end %>
   </div>
 
+  <% if @recipes.empty? %>
+    <div class="text-center text-gray-500 mt-2">
+      該当レシピがありませんでした
+    </div>
+  <% end %>
+
   <!-- レシピ一覧 -->
   <div class="grid grid-cols-2 gap-2 mx-[20px]">
     <% @recipes.each do |recipe| %>
