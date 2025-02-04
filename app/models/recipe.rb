@@ -19,4 +19,8 @@ class Recipe < ApplicationRecord
   validates :point, length: { maximum: 65_535 }
 
   validates :main_image, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ], size_range: 0..(5.megabytes) }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["title"]
+  end
 end
