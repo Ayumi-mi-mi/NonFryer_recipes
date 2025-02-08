@@ -6,10 +6,7 @@
     <%= search_form_for @q, url: root_path do |f| %>
       <div data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_path %>">
         <%= f.search_field :tags_name_or_title_cont_any,
-            data: {
-              autocomplete_target: "input",
-              action: "input->autocomplete#search"
-            },
+            data: { autocomplete_target: "input" },
             placeholder: "タグ,レシピ名から検索",
             class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64",
             autocomplete: "off" %>
