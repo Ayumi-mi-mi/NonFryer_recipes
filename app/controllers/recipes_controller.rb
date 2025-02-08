@@ -49,7 +49,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.destroy!
     flash[:notice] = "レシピを削除しました"
-    redirect_to root_path, status: :see_other
+    redirect_to my_recipes_path, status: :see_other
   end
 
   private
