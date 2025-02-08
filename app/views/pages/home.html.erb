@@ -4,8 +4,16 @@
   <div class="flex items-center p-4 space-x-4">
     <%= render "shared/sidebar" %>
     <%= search_form_for @q, url: root_path do |f| %>
-      <%= f.search_field :tags_name_or_title_cont_any, placeholder: "レシピ名", class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64" %>
-      <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
+      <div data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_path %>">
+        <%= f.search_field :tags_name_or_title_cont_any,
+            data: { autocomplete_target: "input" },
+            placeholder: "タグ,レシピ名から検索",
+            class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64",
+            autocomplete: "off" %>
+            <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
+        <input type="hidden" name="recipe_id" data-autocomplete-target="hidden"/>
+        <ul data-autocomplete-target="results" class="list-group bg-orange-50 text-gray-400 text-xs w-64 rounded fixed z-30" ></ul>
+      </div>
     <% end %>
   </div>
 

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "pages/home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -14,9 +13,11 @@ Rails.application.routes.draw do
   root "pages#home"
 
   resources :users, only: %i[new create destroy]
+  resources :recipes, only: %i[new show create edit update destroy]
+
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
 
-  resources :recipes, only: %i[new show create edit update destroy]
+  get "autocomplete", to: "pages#autocomplete"
 end
