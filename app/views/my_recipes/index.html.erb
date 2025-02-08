@@ -1,0 +1,35 @@
+<%= render "shared/header" %>
+
+<body class="bg-white">
+  <div class="flex items-center p-4 space-x-4">
+    <%= render "shared/sidebar" %>
+    <%= search_form_for @q, url: my_recipes_path do |f| %>
+      <%= f.search_field :tags_name_or_title_cont_any,
+          placeholder: "タグ,レシピ名から検索",
+          class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64",
+          autocomplete: "off" %>
+          <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
+    <% end %>
+  </div>
+
+  <% if @recipes.empty? %>
+    <div class="text-center text-gray-500 mt-2">
+      該当レシピがありません
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-2 gap-2 mx-[20px]">
+    <% @recipes.each do |recipe| %>
+      <div class="relative bg-orange-200 rounded w-full h-[130px]">
+        <% if recipe.main_image.attached? %>
+          <%= link_to image_tag(recipe.main_image, class: "w-full h-[130px] object-cover rounded" ), recipe_path(recipe) %>
+        <% else %>
+            <%= link_to "", recipe_path(recipe), class: "w-full h-[130px] flex items-center justify-center text-white font-bold" %>
+        <% end %>
+        <div class="absolute bottom-2 left-2 text-white font-bold text-sm">
+          <%= link_to recipe.title, recipe_path(recipe) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</body>

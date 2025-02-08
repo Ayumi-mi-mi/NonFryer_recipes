@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[new create destroy]
   resources :recipes, only: %i[new show create edit update destroy]
+  resources :my_recipes, only: %i[index]
 
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
