@@ -1,6 +1,5 @@
-require "nokogiri"
 require "open-uri"
-require "cgi"
+require "nokogiri"
 require "addressable/uri"
 require "uri"
 
@@ -49,19 +48,10 @@ class Embed < ApplicationRecord
 
   def ogp
     begin
-      # URLエンコードを `Addressable::URI.encode` で行う
       encoded_url = Addressable::URI.parse(url).normalize.to_s
+      encoded_html = URI.open(encoded_url).read
 
-      # `User-Agent` を設定し、HTMLを取得
-      html = URI.open(encoded_url, "User-Agent" => "Mozilla/5.0").read
-
-      # 文字エンコーディングをUTF-8に変換
-      encoded_html = html.encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
-
-      # Nokogiriでパース
       doc = Nokogiri::HTML(encoded_html)
-
-      # OGP情報を取得
       self.ogp_title = doc.at("meta[property='og:title']")&.[]("content")
       self.ogp_description = doc.at("meta[property='og:description']")&.[]("content")
       self.ogp_image_url = doc.at("meta[property='og:image']")&.[]("content")
@@ -69,9 +59,7 @@ class Embed < ApplicationRecord
       save
 
     rescue OpenURI::HTTPError => e
-      puts "HTTPエラー: #{e.message}"
-    rescue => e
-      puts "OGP取得エラー: #{e.message}"
+      puts "エラーが発生しました: #{e.message}"
     end
   end
 end
