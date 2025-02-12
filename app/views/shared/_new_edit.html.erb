@@ -1,10 +1,10 @@
   <%= form_with model: @recipe, local: true, id: "post_form", class: "w-full" do |f| %>
-    <!-- Image Upload -->
+    <!-- Image -->
     <div class="w-full bg-gray-100 h-56 flex justify-center items-center mb-2">
       <%= f.file_field :main_image %>
     </div>
 
-    <!-- Title Input -->
+    <!-- Title -->
     <div>
       <%= f.text_field :title, placeholder: "なにを作ったのか教えてください！", class: "w-full bg-white border border-gray-300 rounded px-4 py-2 mb-1" %>
       <p class="text-xs text-amber-500 mb-4">ノンフライヤーを使用したレシピのみ登録してください</p>
@@ -24,7 +24,7 @@
       <%= f.text_field :model, placeholder: "cosori", class: "bg-white border border-gray-300 rounded px-4 py-2" %>
     </div>
 
-    <!-- Preheat Section -->
+    <!-- Preheat -->
     <div class="w-full grid grid-cols-2 gap-4 mb-4">
       <div>
         <%= f.label :preheat_temperature, "予熱", class: "block text-gray-700" %>
@@ -42,12 +42,13 @@
       </div>
     </div>
 
-    <!-- Heat Section -->
+    <!-- Heat -->
     <span class="text-amber-500">調理</span>
     <div class="w-full mb-4" id="heat-section">
       <%= f.fields_for :heats do |heat| %>
-        <div class="heat-item flex items-center space-x-2 mb-2">
+        <div class="heat-item flex items-center space-x-2 mb-2" data-id="<%= heat.object.id %>">
           <button class="remove-item text-gray-700 px-2" type="button">×</button>
+          <%= heat.hidden_field :_destroy, class: "destroy-flag" %>
           <%= heat.number_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
           <span class="text-amber-500">℃</span>
           <%= heat.number_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
@@ -57,26 +58,28 @@
       <% end %>
     </div>
 
-    <!-- Ingredients Section -->
+    <!-- Ingredients -->
     <span class="text-gray-700">材料</span>
     <div class="w-full mb-4" id="ingredients-section">
-      <div class="ingredient-item flex items-center space-x-2 mb-2">
-        <button class="remove-item text-gray-700 px-2" type="button">×</button>
-        <%= f.fields_for :ingredients do |ingredient| %>
+      <%= f.fields_for :ingredients do |ingredient| %>
+        <div class="ingredient-item flex items-center space-x-2 mb-2" data-id="<%= ingredient.object.id %>">
+          <button class="remove-item text-gray-700 px-2" type="button">×</button>
+          <%= ingredient.hidden_field :_destroy, class: "destroy-flag" %>
           <%= ingredient.text_field :name, type: "text", placeholder: "素材", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
           <%= ingredient.text_field :quantity, type: "text", placeholder: "量", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
-        <% end %>
-        <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
-      </div>
+          <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
+        </div>
+      <% end %>
     </div>
 
 
-    <!-- Steps Section -->
+    <!-- Steps -->
     <div id="steps-section" class="steps-section w-full mb-4">
+      <label class="block text-gray-700 mb-2">作り方</label>
       <%= f.fields_for :instructions do |instruction| %>
-        <label class="block text-gray-700 mb-2">作り方</label>
-        <div class="step-item flex items-center space-x-1 mb-2">
+        <div class="step-item flex items-center space-x-1 mb-2" data-id="<%= instruction.object.id %>">
           <button class="remove-step text-gray-700 px-2" type="button">×</button>
+          <%= instruction.hidden_field :_destroy, class: "destroy-flag" %>
           <%= instruction.file_field :image, class: "bg-gray-100 rounded px-1 py-2 w-14" %>
           <span class="step-number text-gray-400"><%= instruction.object.step_number %></span>
           <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
@@ -86,7 +89,7 @@
     </div>
 
 
-    <!-- point Section -->
+    <!-- point -->
     <div class="w-full mb-4">
       <%= f.label :point, "ポイント", class: "block text-gray-700 mb-2" %>
       <div class="flex items-center space-x-2 mb-2">
@@ -94,83 +97,87 @@
       </div>
     </div>
 
-    <!-- embed Section -->
-    <div class="embed_section w-full mb-4">
-      <%= f.fields_for :embeds do |embed| %>
-        <label class="block text-gray-700 mb-2">埋め込み</label>
-        <div class="item flex items-center space-x-2 mb-2">
-          <button class="remove-item text-gray-700 px-2" type="button">×</button>
-          <div>
-            <%= embed.select :kind, [["website","website"], ["youtube","youtube"], ["instagram","instagram"]], include_blank: "選択して下さい" %>
-            <%= embed.text_field :url, class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
+    <!-- embed -->
+    <div class="embed_wrapper w-full mb-4">
+      <label class="block text-gray-700 mb-2 embed_label">埋め込み</label>
+      <div class="embed_section">
+        <%= f.fields_for :embeds do |embed| %>
+          <div class="item flex items-center space-x-2 mb-2" data-new-record="false">
+            <%= embed.hidden_field :id %>
+            <%= embed.hidden_field :_destroy, class: "destroy-flag" %>
+            <button class="remove-item text-gray-700 px-2" type="button">×</button>
+            <div>
+              <%= embed.select :kind, [["website","website"], ["youtube","youtube"], ["instagram","instagram"]], include_blank: "選択して下さい" %>
+              <%= embed.text_field :url, class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
+            </div>
+            <button class="add-item text-gray-700 px-4 py-2 rounded mt-2" type="button">＋</button>
           </div>
-          <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
-      <% end %>
+        <% end %>
+      </div>
     </div>
+
   <% end %>
 
   <script>
-    // embed Sections
+    // embed
     document.addEventListener("turbo:load", () => {
-      document.querySelectorAll(".embed_section").forEach((section) => {
-        if (section.dataset.listenerAdded) return;
-        section.dataset.listenerAdded = "true"; // フラグ設定
+      const embedWrapper = document.querySelector(".embed_wrapper");
+      const embedSection = document.querySelector(".embed_section");
+      const addItemButton = document.querySelector(".add-item");
 
-        section.addEventListener("click", (e) => {
-          if (e.target.classList.contains("add-item") && e.target.type === "button") {
-            e.preventDefault();
+      if (!embedWrapper || !embedSection || !addItemButton) return;
+      if (embedWrapper.dataset.listenerAdded) return;
+      embedWrapper.dataset.listenerAdded = "true";
 
-            // 既存の最後の `.item` を取得し、複製
-            const lastItem = section.querySelector(".item:last-of-type");
-            if (!lastItem) return;
+      embedWrapper.addEventListener("click", (e) => {
+        e.preventDefault();
 
-            const newItem = lastItem.cloneNode(true);
+        if (e.target.classList.contains("add-item")) {
+          const index = document.querySelectorAll(".item").length;
+          const newItem = document.createElement("div");
+          newItem.className = "item flex items-center space-x-2 mb-2";
+          newItem.dataset.newRecord = "true";
+          newItem.innerHTML = `
+            <input type="hidden" name="recipe[embeds_attributes][${index}][id]" value="">
+            <input type="hidden" name="recipe[embeds_attributes][${index}][_destroy]" class="destroy-flag" value="false">
+            <button class="remove-item text-gray-700 px-2" type="button">×</button>
+            <div>
+              <select name="recipe[embeds_attributes][${index}][kind]" class="px-2 py-1">
+                <option value="">選択してください</option>
+                <option value="website">website</option>
+                <option value="youtube">youtube</option>
+                <option value="instagram">instagram</option>
+              </select>
+              <input type="text" name="recipe[embeds_attributes][${index}][url]" class="w-full bg-white border border-gray-300 rounded px-4 py-2">
+            </div>
+            <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+          `;
+          embedSection.appendChild(newItem);
+        }
 
-            // ユニークなIDを生成するためのindex取得
-            const index = section.querySelectorAll(".item").length;
+        if (e.target.classList.contains("remove-item")) {
+          const item = e.target.closest(".item");
+          const destroyFlag = item.querySelector(".destroy-flag");
 
-            // 新しい `select` と `input` のidを更新
-            const selectField = newItem.querySelector("select");
-            const inputField = newItem.querySelector("input");
-
-            selectField.id = `embed_kind_${index}`;
-            selectField.name = `recipe[embeds_attributes][${index}][kind]`;
-
-            inputField.id = `embed_url_${index}`;
-            inputField.name = `recipe[embeds_attributes][${index}][url]`;
-
-            // 入力値をクリア
-            selectField.value = "";
-            inputField.value = "";
-
-            // `add-item` ボタンを移動（常に最後の要素に配置するため）
-            const addButton = newItem.querySelector(".add-item");
-            lastItem.querySelector(".add-item").remove(); // 既存の `add-item` を削除
-
-            section.appendChild(newItem);
-            newItem.appendChild(addButton);
-          }
-
-          else if (e.target.classList.contains("remove-item") && e.target.type === "button") {
-            e.preventDefault();
-            const items = section.querySelectorAll(".item");
-            if (items.length > 1) {
-              e.target.closest(".item").remove();
+          if (document.querySelectorAll(".item").length > 1) {
+            if (destroyFlag) {
+              destroyFlag.value = "true";
+              item.style.display = "none";
+            } else {
+              item.remove();
             }
           }
-        });
+        }
       });
     });
 
-    // Step Section
+    // Step
     document.addEventListener("turbo:load", () => {
       const stepsSection = document.getElementById("steps-section");
 
-      if (!stepsSection) return; // 対象のセクションが存在しない場合は処理を終了
-
-      // イベントリスナーが重複して追加されないようにフラグを使用
+      if (!stepsSection) return;
       if (stepsSection.dataset.listenerAdded) return;
-      stepsSection.dataset.listenerAdded = "true"; // フラグ設定
+      stepsSection.dataset.listenerAdded = "true";
 
       function updateStepNumbers() {
         const stepItems = stepsSection.querySelectorAll(".step-item");
@@ -180,60 +187,63 @@
       }
 
       stepsSection.addEventListener("click", (e) => {
-        if (e.target.classList.contains("add-step") && e.target.type === "button") {
-          e.preventDefault(); // フォームの送信を防ぐ
+        if (e.target.classList.contains("add-step")) {
+          e.preventDefault();
 
           const stepIndex = stepsSection.querySelectorAll(".step-item").length;
           const newStep = document.createElement("div");
           newStep.className = "step-item flex items-center space-x-2 mb-2";
           newStep.innerHTML = `
             <button class="remove-step text-gray-700 px-2" type="button">×</button>
-            <input type="file" name="recipe[instructions_attributes][${stepIndex}][image]" class="block bg-gray-100 rounded px-1 py-2 w-14" />
+            <input type="hidden" name="recipe[instructions_attributes][${stepIndex}][_destroy]" class="destroy-flag" value="false" />
+            <input type="file" name="recipe[instructions_attributes][${stepIndex}][image]" class="bg-gray-100 rounded px-1 py-2 w-14" />
             <span class="step-number text-gray-400">${stepIndex + 1}</span>
             <input type="text" name="recipe[instructions_attributes][${stepIndex}][description]" class="w-full bg-white border border-gray-300 rounded px-4 py-2" />
             <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
-            </・div>
           `;
           stepsSection.appendChild(newStep);
           updateStepNumbers();
-        } else if (e.target.classList.contains("remove-step") && e.target.type === "button") {
+        }
+
+        else if (e.target.classList.contains("remove-step")) {
           e.preventDefault();
-          const stepItems = stepsSection.querySelectorAll(".step-item");
-          if (stepItems.length > 1) {
-            e.target.closest(".step-item").remove();
-            updateStepNumbers();
+          const stepItem = e.target.closest(".step-item");
+          const destroyInput = stepItem.querySelector(".destroy-flag");
+
+          if (destroyInput) {
+            destroyInput.value = "true";
+            stepItem.style.display = "none";
           }
+
+          updateStepNumbers();
         }
       });
 
-      function updateStepNumbers() {
-        const stepItems = stepsSection.querySelectorAll(".step-item");
-        stepItems.forEach((item, index) => {
-          item.querySelector(".step-number").textContent = index + 1;
-        });
-      }
+      updateStepNumbers();
     });
 
-    // Heat Section
+    // Heat
     document.addEventListener("turbo:load", () => {
       const heatSection = document.getElementById("heat-section");
       if (!heatSection) return;
 
       if (heatSection.dataset.listenerAdded) return;
-      heatSection.dataset.listenerAdded = "true"; // フラグ設定
+      heatSection.dataset.listenerAdded = "true";
 
       heatSection.addEventListener("click", (e) => {
-        // 入力欄を追加
+        // 追加ボタン処理
         if (e.target.classList.contains("add-item") && e.target.type === "button") {
-          e.preventDefault(); // フォーム送信を防ぐ
+          e.preventDefault();
 
-          // 現在の数をカウントしてインデックスを設定
-          const index = document.querySelectorAll(".heat-item").length;
+          const index = new Date().getTime(); // ユニークなキーとしてタイムスタンプを使用
 
           const newItem = document.createElement("div");
           newItem.className = "heat-item flex items-center space-x-2 mb-2";
+          newItem.setAttribute("data-id", ""); // 新規追加アイテムのためdata-idは空
           newItem.innerHTML = `
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
+            <input type="hidden" name="recipe[heats_attributes][${index}][id]" value="" />
+            <input type="hidden" name="recipe[heats_attributes][${index}][_destroy]" class="destroy-flag" value="false" />
             <input type="number" name="recipe[heats_attributes][${index}][temperature]" placeholder="180" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
             <span class="text-amber-500">℃</span>
             <input type="number" name="recipe[heats_attributes][${index}][time]" placeholder="10" class="w-full bg-white border border-gray-300 rounded px-2 py-1" />
@@ -243,54 +253,62 @@
           heatSection.appendChild(newItem);
         }
 
-        // 入力欄を削除
+        // 削除ボタン処理
         if (e.target.classList.contains("remove-item") && e.target.type === "button") {
           e.preventDefault();
-          const items = document.querySelectorAll(".heat-item");
-          if (items.length > 1) {
-            e.target.closest(".heat-item").remove();
+          const heatItem = e.target.closest(".heat-item");
+          const destroyInput = heatItem.querySelector(".destroy-flag");
+
+          if (destroyInput) {
+            // 既存データの場合、_destroy を true にする
+            destroyInput.value = "true";
+            heatItem.style.display = "none"; // フォームからは非表示に
+          } else {
+            // 新規追加したデータは完全削除
+            heatItem.remove();
           }
         }
       });
     });
 
-    // Ingredients Section
+    // Ingredients
     document.addEventListener("turbo:load", () => {
       const ingredientsSection = document.getElementById("ingredients-section");
       if (!ingredientsSection) return;
 
-      // イベントリスナーが複数回追加されるのを防止
       if (ingredientsSection.dataset.listenerAdded) return;
       ingredientsSection.dataset.listenerAdded = "true";
 
       ingredientsSection.addEventListener("click", (e) => {
-        // 入力欄を追加
         if (e.target.classList.contains("add-item") && e.target.type === "button") {
           e.preventDefault();
 
-          // 現在の数をカウントしてインデックスを設定
           const currentItems = document.querySelectorAll(".ingredient-item");
           const index = currentItems.length;
 
-          // 新しい入力欄を作成
           const newItem = document.createElement("div");
           newItem.className = "ingredient-item flex items-center space-x-2 mb-2";
           newItem.innerHTML = `
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
             <input type="text" name="recipe[ingredients_attributes][${index}][name]" class="w-full bg-white border border-gray-300 rounded px-2 py-1" placeholder="素材" />
             <input type="text" name="recipe[ingredients_attributes][${index}][quantity]" class="w-full bg-white border border-gray-300 rounded px-2 py-1" placeholder="量" />
+            <input type="hidden" name="recipe[ingredients_attributes][${index}][_destroy]" class="destroy-flag" value="0" />
             <button class="add-item text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           `;
 
           ingredientsSection.appendChild(newItem);
         }
 
-        // 入力欄を削除
         if (e.target.classList.contains("remove-item") && e.target.type === "button") {
           e.preventDefault();
-          const items = document.querySelectorAll(".ingredient-item");
-          if (items.length > 1) {
-            e.target.closest(".ingredient-item").remove();
+          const item = e.target.closest(".ingredient-item");
+          const destroyField = item.querySelector(".destroy-flag");
+
+          if (destroyField) {
+            destroyField.value = "1";
+            item.style.display = "none";
+          } else {
+            item.remove();
           }
         }
       });

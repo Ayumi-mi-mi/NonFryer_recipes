@@ -7,6 +7,7 @@ class Embed < ApplicationRecord
   belongs_to :recipe
 
   enum kind: { website: 0, youtube: 1, instagram: 2 }
+  before_save :ogp, if: -> { url_changed? && kind == "website" }
 
   def embed_type
     return "" unless url.present?
@@ -56,7 +57,6 @@ class Embed < ApplicationRecord
       self.ogp_description = doc.at("meta[property='og:description']")&.[]("content")
       self.ogp_image_url = doc.at("meta[property='og:image']")&.[]("content")
       self.ogp_site_name = doc.at("meta[property='og:site_name']")&.[]("content")
-      save
 
     rescue OpenURI::HTTPError => e
       puts "エラーが発生しました: #{e.message}"
