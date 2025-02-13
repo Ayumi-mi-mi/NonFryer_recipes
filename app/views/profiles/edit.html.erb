@@ -1,0 +1,34 @@
+<%= render "shared/header" %>
+
+<body class="bg-white">
+  <div class="flex items-center p-4 space-x-4">
+    <%= render "shared/sidebar" %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold px-6 text-gray-600">プロフィール</h1>
+  </div>
+
+  <div class="px-6 py-1">
+    <%= form_with model: @user, url: profile_path, local: true do |f| %>
+      <div class="mt-6 space-y-2">
+        <%= f.label :name, class: "block" %>
+        <%= f.text_field :name, class: "input input-bordered w-full" %>
+      </div>
+      <div class="mt-6 space-y-2">
+        <%= f.label :email, class: "block" %>
+        <%= f.email_field :email, class: "input input-bordered w-72" , disabled: true %>
+        <span class="px-2 text-amber-500">変更</span>
+      </div>
+      <div class="mt-6 space-y-2">
+        <label class="block">パスワード</label>
+        <input type="password" value="●●●●" disabled class="input input-bordered w-72">
+        <span class="px-2 text-amber-500">変更</span>
+      </div>
+      <hr class="border-t border-gray-500 border-2 my-8 px-6">
+      <div class="btn w-full bg-amber-500 text-white">
+        <%= f.submit "更新" %>
+      </div>
+    <% end %>
+  </div>
+</body>
