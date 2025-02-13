@@ -1,32 +1,30 @@
 <body class="bg-white">
-  <div class="flex h-screen items-center justify-center">
-    <div class="w-full max-w-sm">
-      <div class="flex items-center justify-between">
-        <%= render "shared/sidebar" %>
-      </div>
-      <div>
-        <h1 class="text-2xl font-bold">ログイン</h1>
-      </div>
+  <div class="flex items-center p-6 space-x-4">
+    <%= render "shared/sidebar" %>
+  </div>
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold px-6 text-gray-600 mt-2">ログイン</h1>
+  </div>
 
+  <div class="px-6 py-1">
     <%= form_with url: login_path do |f| %>
-      <div class="mt-6 space-y-4">
-        <%= f.label :email, class: "block text-sm" %>
+      <div class="mt-6 space-y-2">
+        <%= f.label :email, class: "block text-sm text-gray-600" %>
         <%= f.email_field :email, class: "input input-bordered w-full" %>
       </div>
-      <div class="mt-6 space-y-4">
-        <%= f.label :password, class: "block text-sm" %>
+      <div class="mt-6 space-y-2">
+        <%= f.label :password, class: "block text-sm text-gray-600" %>
         <%= f.password_field :password, class: "input input-bordered w-full" %>
       </div>
-      <button class="btn w-full bg-amber-500 text-white mt-6 space-y-4"">ログイン</button>
+      <hr class="border-t border-gray-500 border-2 my-6 px-6">
+      <button class="btn w-full bg-amber-500 text-white">ログイン</button>
     <% end %>
+  </div>
 
-    <div class="mt-4">
-      <div class="flex justify-between">
-        <button class="btn btn-outline">
-          <%= link_to '新規登録', new_user_path %>
-        </button>
-        <button class="btn btn-outline">パスワードを忘れましたか？</button>
-      </div>
-    </div>
+  <div class="px-6 py-2 text-sm underline mt-4 text-center">
+    <span class="px-2 text-gray-600">
+      <%= link_to '新規登録', new_user_path %>
+    </span>
+    <span class="px-2 text-gray-600">パスワードを忘れましたか？</span>
   </div>
 </body>

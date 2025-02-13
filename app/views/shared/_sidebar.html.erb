@@ -11,6 +11,10 @@
     </div>
     <nav class="space-y-4 px-4">
       <div class="flex">
+        <span class="material-symbols-outlined text-gray-500 px-2">account_circle</span>
+          <%= link_to "プロフィール", edit_profile_path, class: "flex items-center space-x-2 text-gray-600" %>
+      </div>
+      <div class="flex">
         <span class="material-symbols-outlined text-gray-500 px-2">edit_square</span>
           <%= link_to "Myレシピ", my_recipes_path, class: "flex items-center space-x-2 text-gray-600" %>
       </div>

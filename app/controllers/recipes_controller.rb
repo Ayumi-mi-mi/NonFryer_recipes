@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :require_login, only: %i[new create update destroy]
+  before_action :require_login, only: %i[new create edit update destroy]
 
   def new
     @recipe = Recipe.new
