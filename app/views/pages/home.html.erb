@@ -11,7 +11,7 @@
           <%= f.search_field :tags_name_or_title_cont_any,
               data: { autocomplete_target: "input" },
               placeholder: "タグ,レシピ名から検索",
-              class: "flex-1 border border-gray-300 rounded px-4 py-1 w-80 md:w-[500px]",
+              class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64 md:w-[500px]",
               autocomplete: "off" %>
               <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
           <input type="hidden" name="recipe_id" data-autocomplete-target="hidden"/>
