@@ -1,6 +1,6 @@
 <%= render "shared/header" %>
 
-<body class="bg-white">
+<body class="bg-white max-w-4xl mx-auto">
   <div class="flex items-center p-4 space-x-2">
     <%= render "shared/sidebar" %>
     <% if current_user && current_user.own?(@recipe) %>
@@ -13,7 +13,7 @@
 
   <% if @recipe.main_image.attached? %>
     <div class="overflow-hidden rounded mx-[20px]">
-      <%= image_tag @recipe.main_image, class: "w-full h-[220px] object-cover" %>
+      <%= image_tag @recipe.main_image, class: "w-full h-[220px] md:h-[410px] object-cover" %>
     </div>
   <% end %>
 
