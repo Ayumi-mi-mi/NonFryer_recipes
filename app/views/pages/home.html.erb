@@ -1,6 +1,6 @@
 <%= render "shared/header" %>
 
-<body class="bg-white">
+<body class="bg-white max-w-[1600px] mx-auto">
   <div class="flex p-4 space-x-4 w-full">
     <div class="flex-none">
       <%= render "shared/sidebar" %>
@@ -27,13 +27,13 @@
     </div>
   <% end %>
 
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mx-[20px]">
+  <div class="grid grid-cols-2 md:grid-cols-6 gap-6 mx-[20px]">
     <% @recipes.each do |recipe| %>
-      <div class="relative bg-orange-200 rounded w-full h-[130px] md:h-[200px]">
+      <div class="relative bg-orange-200 rounded w-full h-[130px] md:h-[160px]">
         <% if recipe.main_image.attached? %>
-          <%= link_to image_tag(recipe.main_image, class: "w-full h-[130px] md:h-[200px] object-cover rounded" ), recipe_path(recipe) %>
+          <%= link_to image_tag(recipe.main_image, class: "w-full h-[130px] md:h-[160px] object-cover rounded" ), recipe_path(recipe) %>
         <% else %>
-            <%= link_to "", recipe_path(recipe), class: "w-full h-[130px] md:h-[200px] flex items-center justify-center text-white font-bold" %>
+            <%= link_to "", recipe_path(recipe), class: "w-full h-[130px] md:h-[160px] flex items-center justify-center text-white font-bold" %>
         <% end %>
         <div class="absolute bottom-2 left-2 text-white font-bold text-sm">
           <%= link_to recipe.title, recipe_path(recipe) %>
