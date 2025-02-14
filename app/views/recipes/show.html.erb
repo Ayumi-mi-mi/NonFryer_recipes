@@ -1,14 +1,19 @@
 <%= render "shared/header" %>
 
 <body class="bg-white max-w-4xl mx-auto">
-  <div class="flex items-center p-4 space-x-2">
-    <%= render "shared/sidebar" %>
-    <% if current_user && current_user.own?(@recipe) %>
-      <%= link_to "編集", edit_recipe_path(@recipe), class: " border border-gray-300 rounded px-4 py-1" %>
-      <%= link_to recipe_path(@recipe), data: { turbo_method: :delete, turbo_confirm: ('レシピを削除しますか？') } do %>
-        <span class="material-symbols-outlined text-gray-600 border border-gray-300 rounded px-2 py-1">delete</span>
+  <div class="flex items-center p-4">
+    <div class="flex-none">
+      <%= render "shared/sidebar" %>
+    </div>
+    <div class="flex-1 flex justify-end space-x-2">
+      <% if current_user && current_user.own?(@recipe) %>
+        <button class="bg-amber-500 text-white px-4 py-1 rounded">公開</button>
+        <%= link_to "編集", edit_recipe_path(@recipe), class: " border border-gray-300 rounded px-4 py-1" %>
+        <%= link_to recipe_path(@recipe), data: { turbo_method: :delete, turbo_confirm: ('レシピを削除しますか？') } do %>
+          <span class="material-symbols-outlined text-gray-600 border border-gray-300 rounded px-2 py-1">delete</span>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 
   <% if @recipe.main_image.attached? %>

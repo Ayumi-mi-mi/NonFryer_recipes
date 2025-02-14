@@ -3,8 +3,7 @@
   <div class="flex justify-between items-center w-full mb-4">
     <%= render "shared/sidebar" %>
     <div class="flex space-x-2">
-      <%= button_tag("保存", type: "submit", form: "post_form", class: "bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 rounded") %>
-      <button class="bg-amber-500 text-white px-4 py-2 rounded">公開</button>
+      <%= button_tag("保存", type: "submit", form: "post_form", class: "bg-amber-500 text-white rounded px-4 py-2 rounded") %>
       <%= link_to "×", root_path, class: "bg-white text-gray-700  border border-gray-300 rounded px-4 py-2 rounded", data: { turbo_method: :get, turbo_confirm: 'データは保存されません。よろしいですか？' } %>
     </div>
   </div>
