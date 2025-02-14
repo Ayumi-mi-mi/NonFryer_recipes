@@ -14,6 +14,8 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :instructions, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :embeds, allow_destroy: true, reject_if: :all_blank
 
+  enum status: { unpublished: 0, published: 1 }
+
   validates :title, presence: true, length: { maximum: 255 }
   validates :model, presence: true, length: { maximum: 255 }
   validates :point, length: { maximum: 65_535 }

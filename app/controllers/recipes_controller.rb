@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :require_login, only: %i[new create edit update destroy]
+  before_action :set_recipe, only: %i[show edit update status_change destroy]
 
   def new
     @recipe = Recipe.new
@@ -24,18 +25,15 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
     @recipe.ingredients.build
     @recipe.instructions.build
     @recipe.embeds.build
   end
 
   def update
-    @recipe = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
       flash[:notice] = "レシピを編集しました"
       redirect_to recipe_path(@recipe)
@@ -45,8 +43,18 @@ class RecipesController < ApplicationController
     end
   end
 
+  def status_change
+    if @recipe.unpublished?
+      @recipe.update(status: :published)
+      flash[:notice] = "レシピを公開しました"
+    else
+      @recipe.update(status: :unpublished)
+      flash[:notice] = "レシピを未公開にしました"
+    end
+    redirect_to recipe_path(@recipe)
+  end
+
   def destroy
-    @recipe = Recipe.find(params[:id])
     @recipe.destroy!
     flash[:notice] = "レシピを削除しました"
     redirect_to my_recipes_path, status: :see_other
@@ -54,9 +62,13 @@ class RecipesController < ApplicationController
 
   private
 
+  def set_recipe
+    @recipe = Recipe.find(params[:id])
+  end
+
   def recipe_params
     params.require(:recipe).permit(
-      :title, :model, :preheat_time, :preheat_temperature, :point, :main_image, :tag_list,
+      :title, :model, :preheat_time, :preheat_temperature, :point, :main_image, :tag_list, :status,
       heats_attributes: [ :id, :time, :temperature, :_destroy ],
       ingredients_attributes: [ :id, :name, :quantity, :_destroy ],
       instructions_attributes: [ :id, :step_number, :description, :image, :_destroy ],

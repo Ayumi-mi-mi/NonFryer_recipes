@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   root "pages#home"
 
   resources :users, only: %i[new create destroy]
-  resources :recipes, only: %i[new show create edit update destroy]
+  resources :recipes, only: %i[new show create edit update destroy] do
+    member do
+      patch :status_change
+    end
+  end
   resources :my_recipes, only: %i[index]
   resource :profile, only: %i[edit update]
 

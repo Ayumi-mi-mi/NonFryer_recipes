@@ -7,10 +7,16 @@
     </div>
     <div class="flex-1 flex justify-end space-x-2">
       <% if current_user && current_user.own?(@recipe) %>
-        <button class="bg-amber-500 text-white px-4 py-1 rounded">公開</button>
-        <%= link_to "編集", edit_recipe_path(@recipe), class: " border border-gray-300 rounded px-4 py-1" %>
+        <%= form_with url: status_change_recipe_path(@recipe), method: :patch do |f| %>
+          <% if @recipe.unpublished? %>
+            <%= f.submit "公開", class: "bg-amber-500 text-white rounded px-4 py-2 cursor-pointer" %>
+          <% else %>
+            <%= f.submit "未公開", class: "bg-amber-500 text-white rounded px-4 py-2 cursor-pointer" %>
+          <% end %>
+        <% end %>
+        <%= link_to "編集", edit_recipe_path(@recipe), class: " border border-gray-300 rounded px-4 py-2" %>
         <%= link_to recipe_path(@recipe), data: { turbo_method: :delete, turbo_confirm: ('レシピを削除しますか？') } do %>
-          <span class="material-symbols-outlined text-gray-600 border border-gray-300 rounded px-2 py-1">delete</span>
+          <span class="material-symbols-outlined text-gray-600 border border-gray-300 rounded px-2 py-2">delete</span>
         <% end %>
       <% end %>
     </div>
