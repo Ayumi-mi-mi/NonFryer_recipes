@@ -18,9 +18,11 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: db
-  username: postgres
-  password: password
+  host: nonfryer-db.nonfryer-db.c9wsws0quhla.ap-northeast-1.rds.amazonaws.com
+  username: mimimi
+  password: toppo1111
+  database: nonfryer_db
+  port: 5432
 
 development:
   <<: *default
