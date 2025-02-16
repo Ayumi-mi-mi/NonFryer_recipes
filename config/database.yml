@@ -84,4 +84,4 @@ production:
   <<: *default
   database: nonfryer_recipes_production
   username: nonfryer_recipes
-  password: <%= ENV["NONFRYER_RECIPES_DATABASE_PASSWORD"] %>
+  password: password
