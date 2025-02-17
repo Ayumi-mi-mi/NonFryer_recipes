@@ -4,7 +4,6 @@ services:
     restart: always
     environment:
       TZ: Asia/Tokyo
-      POSTGRES_USER: nonfryer_recipes
       POSTGRES_PASSWORD: password
     volumes:
       - postgresql_data:/var/lib/postgresql
@@ -28,9 +27,6 @@ services:
       - node_modules:/nonfryer_recipes/node_modules
     environment:
       TZ: Asia/Tokyo
-      RAILS_ENV: production
-      DATABASE_URL: postgres://nonfryer_recipes:password@db/nonfryer_recipes_production
-      NONFRYER_RECIPES_DATABASE_PASSWORD: password
     ports:
       - "3000:3000"
     depends_on:
