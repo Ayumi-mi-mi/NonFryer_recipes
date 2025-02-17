@@ -4,10 +4,7 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-    @recipe.heats.build
-    @recipe.ingredients.build
-    @recipe.instructions.build
-    @recipe.embeds.build
+    [ @recipe.heats, @recipe.ingredients, @recipe.instructions, @recipe.embeds ].each { |collection| collection.build }
   end
 
   def create
@@ -17,8 +14,9 @@ class RecipesController < ApplicationController
         embed.embed_type
       end
       flash[:notice] = "レシピを作成しました"
-      redirect_to root_path
+      redirect_to recipe_path(@recipe)
     else
+      [ @recipe.ingredients, @recipe.instructions, @recipe.embeds ].each { |collection| collection.build if collection.blank? }
       flash.now[:alert] = @recipe.errors.full_messages.join("、")
       render :new, status: :unprocessable_entity
     end
@@ -28,9 +26,7 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe.ingredients.build
-    @recipe.instructions.build
-    @recipe.embeds.build
+    [ @recipe.ingredients, @recipe.instructions, @recipe.embeds ].each { |collection| collection.build if collection.blank? }
   end
 
   def update

@@ -60,6 +60,9 @@ class Embed < ApplicationRecord
 
     rescue OpenURI::HTTPError => e
       puts "エラーが発生しました: #{e.message}"
+    rescue => e
+      puts "OGP取得エラー: #{e.message}"
+      puts "エラーが発生しました: #{e.message}"
     end
   end
 end

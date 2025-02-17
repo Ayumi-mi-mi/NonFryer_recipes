@@ -44,7 +44,10 @@
 
 
 <script>
-  document.addEventListener('turbo:load', () => {
+  document.addEventListener('turbo:load', setupSidebar);
+  document.addEventListener('turbo:render', setupSidebar); // フラッシュメッセージ表示後にも呼ばれるようにする
+
+  function setupSidebar() {
     const openSidebarButton = document.getElementById('openSidebar');
     const closeSidebarButton = document.getElementById('closeSidebar');
     const sidebar = document.getElementById('sidebar');
@@ -72,5 +75,5 @@
         sidebar.classList.add('-translate-x-full');
       });
     }
-  });
+  }
 </script>
