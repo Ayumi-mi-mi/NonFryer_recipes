@@ -19,9 +19,9 @@ class Recipe < ApplicationRecord
   validates :title, presence: true, length: { maximum: 255 }
   validates :model, presence: true, length: { maximum: 255 }
   validates :point, length: { maximum: 65_535 }
-  validates :heats,presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  validates :preheat_time, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  validates :preheat_temperature, numericality: {only_integer: true, greater_than_or_equal_to: 0}
+  validates :heats, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :preheat_time, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :preheat_temperature, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   validates :main_image, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ], size_range: 0..(5.megabytes) }
 
