@@ -119,7 +119,10 @@
 
   <script>
     // embed
-    document.addEventListener("turbo:load", () => {
+    document.addEventListener("turbo:load", setupEmbedSection);
+    document.addEventListener("turbo:render", setupEmbedSection);
+
+    function setupEmbedSection() {
       const embedWrapper = document.querySelector(".embed_wrapper");
       const embedSection = document.querySelector(".embed_section");
       const addItemButton = document.querySelector(".add-item");
@@ -154,24 +157,23 @@
           embedSection.appendChild(newItem);
         }
 
-        if (e.target.classList.contains("remove-item")) {
-          const item = e.target.closest(".item");
-          const destroyFlag = item.querySelector(".destroy-flag");
+        if (e.target.classList.contains("remove-item") && e.target.type === "button") {
+          e.preventDefault();
+          const currentItems = document.querySelectorAll(".item");
 
-          if (document.querySelectorAll(".item").length > 1) {
-            if (destroyFlag) {
-              destroyFlag.value = "true";
-              item.style.display = "none";
-            } else {
-              item.remove();
-            }
+          if (currentItems.length > 1) {
+            const item = e.target.closest(".item");
+            item.remove();
           }
         }
       });
-    });
+    }
 
     // Step
-    document.addEventListener("turbo:load", () => {
+    document.addEventListener("turbo:load", setupStepSection);
+    document.addEventListener("turbo:render", setupStepSection);
+
+    function setupStepSection() {
       const stepsSection = document.getElementById("steps-section");
 
       if (!stepsSection) return;
@@ -204,14 +206,13 @@
           updateStepNumbers();
         }
 
-        else if (e.target.classList.contains("remove-step")) {
+        else if (e.target.classList.contains("remove-step") && e.target.type === "button") {
           e.preventDefault();
-          const stepItem = e.target.closest(".step-item");
-          const destroyInput = stepItem.querySelector(".destroy-flag");
+          const currentItems = document.querySelectorAll(".step-item");
 
-          if (destroyInput) {
-            destroyInput.value = "true";
-            stepItem.style.display = "none";
+          if (currentItems.length > 1) {
+            const item = e.target.closest(".step-item");
+            item.remove();
           }
 
           updateStepNumbers();
@@ -219,10 +220,13 @@
       });
 
       updateStepNumbers();
-    });
+    }
 
     // Heat
-    document.addEventListener("turbo:load", () => {
+    document.addEventListener("turbo:load", setupHeatSection);
+    document.addEventListener("turbo:render", setupHeatSection);
+
+    function setupHeatSection() {
       const heatSection = document.getElementById("heat-section");
       if (!heatSection) return;
 
@@ -255,23 +259,21 @@
         // 削除ボタン処理
         if (e.target.classList.contains("remove-item") && e.target.type === "button") {
           e.preventDefault();
-          const heatItem = e.target.closest(".heat-item");
-          const destroyInput = heatItem.querySelector(".destroy-flag");
+          const currentItems = document.querySelectorAll(".heat-item");
 
-          if (destroyInput) {
-            // 既存データの場合、_destroy を true にする
-            destroyInput.value = "true";
-            heatItem.style.display = "none"; // フォームからは非表示に
-          } else {
-            // 新規追加したデータは完全削除
-            heatItem.remove();
+          if (currentItems.length > 1) {
+            const item = e.target.closest(".heat-item");
+            item.remove();
           }
         }
       });
-    });
+    }
 
     // Ingredients
-    document.addEventListener("turbo:load", () => {
+    document.addEventListener("turbo:load", setupIngredientsSection);
+    document.addEventListener("turbo:render", setupIngredientsSection);
+
+    function setupIngredientsSection() {
       const ingredientsSection = document.getElementById("ingredients-section");
       if (!ingredientsSection) return;
 
@@ -300,16 +302,13 @@
 
         if (e.target.classList.contains("remove-item") && e.target.type === "button") {
           e.preventDefault();
-          const item = e.target.closest(".ingredient-item");
-          const destroyField = item.querySelector(".destroy-flag");
+          const currentItems = document.querySelectorAll(".ingredient-item");
 
-          if (destroyField) {
-            destroyField.value = "1";
-            item.style.display = "none";
-          } else {
+          if (currentItems.length > 1) {
+            const item = e.target.closest(".ingredient-item");
             item.remove();
           }
         }
       });
-    });
+    }
   </script>
