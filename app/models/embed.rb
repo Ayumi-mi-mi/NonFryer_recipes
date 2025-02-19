@@ -9,6 +9,8 @@ class Embed < ApplicationRecord
   enum kind: { website: 0, youtube: 1, instagram: 2 }
   before_save :ogp, if: -> { url_changed? && kind == "website" }
 
+  validates :kind, presence: true, if: -> { url.present? }
+
   def embed_type
     return "" unless url.present?
 
@@ -53,7 +55,7 @@ class Embed < ApplicationRecord
       encoded_html = URI.open(encoded_url).read
 
       doc = Nokogiri::HTML(encoded_html)
-      self.ogp_title = doc.at("meta[property='og:title']")&.[]("content")
+      self.ogp_title = doc.at("meta[property='og:title']")&.[]("content").presence || url
       self.ogp_description = doc.at("meta[property='og:description']")&.[]("content")
       self.ogp_image_url = doc.at("meta[property='og:image']")&.[]("content")
       self.ogp_site_name = doc.at("meta[property='og:site_name']")&.[]("content")
