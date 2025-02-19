@@ -102,7 +102,7 @@
       <label class="block text-gray-500 font-bold mb-2 embed_label">参考url</label>
       <div class="embed_section">
         <%= f.fields_for :embeds do |embed| %>
-          <div class="item flex items-center space-x-2 mb-2" data-new-record="false">
+          <div class="item flex items-center space-x-2 mb-2" data-id="<%= embed.object.id %>">
             <%= embed.hidden_field :id %>
             <%= embed.hidden_field :_destroy, class: "destroy-flag" %>
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
@@ -163,7 +163,14 @@
 
           if (currentItems.length > 1) {
             const item = e.target.closest(".item");
-            item.remove();
+            const destroyFlag = item.querySelector(".destroy-flag");
+
+            if (item.dataset.id) {
+              destroyFlag.value = "true";
+              item.style.display = "none";
+            } else {
+              item.remove();
+            }
           }
         }
       });
@@ -212,13 +219,18 @@
 
           if (currentItems.length > 1) {
             const item = e.target.closest(".step-item");
-            item.remove();
-          }
+            const destroyFlag = item.querySelector(".destroy-flag");
 
+            if (item.dataset.id) {
+              destroyFlag.value = "true";
+              item.style.display = "none";
+            } else {
+              item.remove();
+            }
           updateStepNumbers();
+          }
         }
       });
-
       updateStepNumbers();
     }
 
@@ -263,7 +275,16 @@
 
           if (currentItems.length > 1) {
             const item = e.target.closest(".heat-item");
-            item.remove();
+            const destroyFlag = item.querySelector(".destroy-flag");
+
+            if (item.dataset.id) {
+              // DBに保存されたデータなら _destroy を true にして非表示
+              destroyFlag.value = "true";
+              item.style.display = "none";
+            } else {
+              // 新しく追加したデータなら要素を削除
+              item.remove();
+            }
           }
         }
       });
@@ -306,7 +327,14 @@
 
           if (currentItems.length > 1) {
             const item = e.target.closest(".ingredient-item");
-            item.remove();
+            const destroyFlag = item.querySelector(".destroy-flag");
+
+            if (item.dataset.id) {
+              destroyFlag.value = "true";
+              item.style.display = "none";
+            } else {
+              item.remove();
+            }
           }
         }
       });
