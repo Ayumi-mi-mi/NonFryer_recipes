@@ -29,14 +29,12 @@
   <% end %>
 
   <div class="flex px-6 py-2 space-x-2">
-    <% if current_user && current_user.own?(@recipe) %>
-      <span class="font-bold text-xl text-gray-600"><%= @recipe.title %></span>
-    <% else %>
+    <% if current_user && !current_user.own?(@recipe) %>
       <%= turbo_frame_tag "bookmark_#{@recipe.id}" do %>
         <%= render "bookmarks/bookmark", recipe: @recipe %>
       <% end %>
-      <span class="font-bold text-xl text-gray-600"><%= @recipe.title %></span>
     <% end %>
+    <span class="font-bold text-xl text-gray-600"><%= @recipe.title %></span>
   </div>
 
   <div class="px-6 py-2">
