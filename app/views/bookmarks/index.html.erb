@@ -1,16 +1,39 @@
-<p style="color: green"><%= notice %></p>
+<%= render "shared/header" %>
 
-<% content_for :title, "Bookmarks" %>
+<body class="bg-white max-w-[1600px] mx-auto">
+  <div class="flex items-center p-4 space-x-4">
+    <div class="flex-none">
+      <%= render "shared/sidebar" %>
+    </div>
+    <div class="flex-1 flex justify-center">
+      <%= search_form_for @q, url: my_recipes_path do |f| %>
+        <%= f.search_field :tags_name_or_title_cont_any,
+            placeholder: "タグ,レシピ名から検索",
+            class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64 md:w-[500px]",
+            autocomplete: "off" %>
+            <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
+      <% end %>
+    </div>
+  </div>
 
-<h1>Bookmarks</h1>
-
-<div id="bookmarks">
-  <% @bookmarks.each do |bookmark| %>
-    <%= render bookmark %>
-    <p>
-      <%= link_to "Show this bookmark", bookmark %>
-    </p>
+  <% if @recipes.empty? %>
+    <div class="text-center text-gray-500 mt-2">
+      該当レシピがありません
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New bookmark", new_bookmark_path %>
+  <div class="grid grid-cols-2 md:grid-cols-6 gap-6 mx-[20px]">
+    <% @recipes.each do |recipe| %>
+      <div class="relative bg-orange-200 rounded w-full h-[130px] md:h-[160px] ">
+        <% if recipe.main_image.attached? %>
+          <%= link_to image_tag(recipe.main_image, class: "w-full h-[130px] md:h-[160px] object-cover rounded" ), recipe_path(recipe) %>
+        <% else %>
+            <%= link_to "", recipe_path(recipe), class: "w-full h-[130px] md:h-[160px] flex items-center justify-center text-white font-bold" %>
+        <% end %>
+        <div class="absolute bottom-2 left-2 text-white font-bold text-sm">
+          <%= link_to recipe.title, recipe_path(recipe) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</body>

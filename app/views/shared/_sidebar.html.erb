@@ -19,16 +19,13 @@
           <%= link_to "Myレシピ", my_recipes_path, class: "flex items-center space-x-2 text-gray-600" %>
       </div>
       <div>
-        <!--
         <div class="flex">
           <span class="material-symbols-outlined text-gray-500 px-2">bookmark</span>
-          <p class="text-gray-600">保存</p>
+          <%= link_to "保存", bookmarks_path, class: "flex items-center space-x-2 text-gray-600" %>
         </div>
-        -->
         <p class="text-gray-400 text-sm py-2">レシピの作成を行うには<br>ログインしてください</p>
       </div>
     </nav>
-    <!--
     <div class="absolute bottom-4 px-4 space-y-2">
       <div class="flex">
         <span class="material-symbols-outlined px-2 text-gray-500">mail</span>
@@ -43,13 +40,12 @@
         <%= link_to "プライバシーポリシー", '#', class: "flex items-center space-x-2 text-gray-600" %>
       </div>
     </div>
-    -->
   </div>
 
 
 <script>
   document.addEventListener('turbo:load', setupSidebar);
-  document.addEventListener('turbo:render', setupSidebar); // フラッシュメッセージ表示後にも呼ばれるようにする
+  document.addEventListener('turbo:render', setupSidebar);
 
   function setupSidebar() {
     const openSidebarButton = document.getElementById('openSidebar');
@@ -57,7 +53,6 @@
     const sidebar = document.getElementById('sidebar');
 
     if (openSidebarButton && closeSidebarButton && sidebar) {
-      // サイドバーを閉じるロジック
       document.addEventListener('click', (event) => {
         const isClickInsideSidebar = sidebar.contains(event.target);
         const isClickOnOpenButton = openSidebarButton.contains(event.target);
@@ -67,15 +62,13 @@
         }
       });
 
-      // サイドバーを開くロジック
       openSidebarButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // 他のイベントリスナーに伝播しないようにする
+        event.stopPropagation();
         sidebar.classList.remove('-translate-x-full');
       });
 
-      // サイドバーを閉じるボタンのロジック
       closeSidebarButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // 他のイベントリスナーに伝播しないようにする
+        event.stopPropagation();
         sidebar.classList.add('-translate-x-full');
       });
     }

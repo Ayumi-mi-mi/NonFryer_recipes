@@ -246,15 +246,14 @@
       heatSection.dataset.listenerAdded = "true";
 
       heatSection.addEventListener("click", (e) => {
-        // 追加ボタン処理
         if (e.target.classList.contains("add-item") && e.target.type === "button") {
           e.preventDefault();
 
-          const index = new Date().getTime(); // ユニークなキーとしてタイムスタンプを使用
+          const index = new Date().getTime();
 
           const newItem = document.createElement("div");
           newItem.className = "heat-item flex items-center space-x-2 mb-2";
-          newItem.setAttribute("data-id", ""); // 新規追加アイテムのためdata-idは空
+          newItem.setAttribute("data-id", "");
           newItem.innerHTML = `
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
             <input type="hidden" name="recipe[heats_attributes][${index}][id]" value="" />
@@ -268,7 +267,6 @@
           heatSection.appendChild(newItem);
         }
 
-        // 削除ボタン処理
         if (e.target.classList.contains("remove-item") && e.target.type === "button") {
           e.preventDefault();
           const currentItems = document.querySelectorAll(".heat-item");
@@ -278,11 +276,9 @@
             const destroyFlag = item.querySelector(".destroy-flag");
 
             if (item.dataset.id) {
-              // DBに保存されたデータなら _destroy を true にして非表示
               destroyFlag.value = "true";
               item.style.display = "none";
             } else {
-              // 新しく追加したデータなら要素を削除
               item.remove();
             }
           }

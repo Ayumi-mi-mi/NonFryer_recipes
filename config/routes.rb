@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   resources :my_recipes, only: %i[index]
   resource :profile, only: %i[edit update]
+  resources :bookmarks, only: %i[index create destroy]
 
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
