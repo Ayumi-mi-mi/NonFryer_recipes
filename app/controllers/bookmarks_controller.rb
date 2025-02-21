@@ -1,70 +1,36 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: %i[ show edit update destroy ]
-
-  # GET /bookmarks or /bookmarks.json
+  before_action :require_login
   def index
-    @bookmarks = Bookmark.all
+    keywords = params.dig(:q, :tags_name_or_title_cont_any).to_s.split(/[[:space:]]/)
+    @q = current_user.bookmark_recipes.ransack(tags_name_or_title_cont_any: keywords)
+    @recipes = @q.result(distinct: true).order("created_at desc")
   end
 
-  # GET /bookmarks/1 or /bookmarks/1.json
-  def show
-  end
-
-  # GET /bookmarks/new
-  def new
-    @bookmark = Bookmark.new
-  end
-
-  # GET /bookmarks/1/edit
-  def edit
-  end
-
-  # POST /bookmarks or /bookmarks.json
   def create
-    @bookmark = Bookmark.new(bookmark_params)
+    recipe = Recipe.find(params[:recipe_id])
+    current_user.bookmark(recipe)
 
-    respond_to do |format|
-      if @bookmark.save
-        format.html { redirect_to @bookmark, notice: "Bookmark was successfully created." }
-        format.json { render :show, status: :created, location: @bookmark }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
-      end
-    end
+    render turbo_stream: turbo_stream.replace(
+      "bookmark_#{recipe.id}",
+      partial: "bookmarks/bookmark",
+      locals: { recipe: recipe }
+    )
   end
 
-  # PATCH/PUT /bookmarks/1 or /bookmarks/1.json
-  def update
-    respond_to do |format|
-      if @bookmark.update(bookmark_params)
-        format.html { redirect_to @bookmark, notice: "Bookmark was successfully updated." }
-        format.json { render :show, status: :ok, location: @bookmark }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /bookmarks/1 or /bookmarks/1.json
   def destroy
-    @bookmark.destroy!
+    recipe = Recipe.find(params[:id])
+    current_user.unbookmark(recipe)
 
-    respond_to do |format|
-      format.html { redirect_to bookmarks_path, status: :see_other, notice: "Bookmark was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render turbo_stream: turbo_stream.replace(
+      "bookmark_#{recipe.id}",
+      partial: "bookmarks/bookmark",
+      locals: { recipe: recipe }
+    )
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def bookmark_params
-      params.fetch(:bookmark, {})
-    end
+  def not_authenticated
+    redirect_to login_path
+  end
 end

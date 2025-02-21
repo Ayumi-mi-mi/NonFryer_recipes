@@ -1,0 +1,11 @@
+<turbo-frame id="bookmark_<%= recipe.id %>">
+  <% if current_user.bookmark?(recipe) %>
+    <%= link_to bookmark_path(recipe), data: { turbo_method: :delete } do %>
+      <span class="material-symbols-outlined text-amber-500">bookmark</span>
+    <% end %>
+  <% else %>
+    <%= link_to bookmarks_path(recipe_id: recipe.id), data: { turbo_method: :post } do %>
+      <span class="material-symbols-outlined text-gray-500">bookmark</span>
+    <% end %>
+  <% end %>
+</turbo-frame>

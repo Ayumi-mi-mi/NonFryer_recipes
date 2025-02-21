@@ -28,8 +28,15 @@
     </div>
   <% end %>
 
-  <div class="px-4 py-2 font-bold text-lg text-gray-600">
-    <%= @recipe.title %>
+  <div class="flex px-6 py-2 space-x-2">
+    <% if current_user && current_user.own?(@recipe) %>
+      <span class="font-bold text-xl text-gray-600"><%= @recipe.title %></span>
+    <% else %>
+      <%= turbo_frame_tag "bookmark_#{@recipe.id}" do %>
+        <%= render "bookmarks/bookmark", recipe: @recipe %>
+      <% end %>
+      <span class="font-bold text-xl text-gray-600"><%= @recipe.title %></span>
+    <% end %>
   </div>
 
   <div class="px-6 py-2">
@@ -113,8 +120,7 @@
     </div>
   </div>
 
-    <div class="py-2">
-    <div class="px-6 font-bold text-gray-600">参考url</div>
+    <div class="py-2 px-6 font-bold text-gray-600">参考url</div>
     <div class="px-6 py-1">
       <% @recipe.embeds.each do |embed| %>
         <% if embed.kind == "website" %>
