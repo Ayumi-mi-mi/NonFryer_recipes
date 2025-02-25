@@ -1,6 +1,4 @@
 class ContactMailer < ApplicationMailer
-  default from: Rails.application.credentials.dig(:mailer, :email)
-
   def contact_email(contact_params)
     @name = contact_params[:name]
     @email = contact_params[:email]

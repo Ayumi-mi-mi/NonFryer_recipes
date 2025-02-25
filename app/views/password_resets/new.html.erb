@@ -1,0 +1,24 @@
+<body class="bg-white max-w-2xl mx-auto">
+  <div class="flex items-center p-6 space-x-4">
+    <%= render "shared/sidebar" %>
+  </div>
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold px-6 text-gray-600 mt-2">パスワードリセット申請</h1>
+  </div>
+  <div class="px-6 py-6 text-gray-600">
+    パスワードリセットページのURLが記載されたメールをお送りします。
+  <div>
+
+  <div class="py-1">
+    <%= form_with url: password_resets_path, local: true, method: :post do |f| %>
+      <div class="mt-6 space-y-2">
+        <%= f.label :email, class: "block text-sm text-gray-600" %>
+        <%= f.email_field :email, class: "input input-bordered w-full" %>
+      </div>
+      <hr class="border-t border-gray-500 border-2 my-6 px-6">
+      <div class="btn w-full bg-amber-500 text-white">
+        <%= f.submit "送信" %>
+      </div>
+    <% end %>
+  </div>
+</body>
