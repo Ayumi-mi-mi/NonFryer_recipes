@@ -8,11 +8,11 @@
 
   <div class="py-1 px-2">
     <%= form_with model: @user, url: password_reset_path(@token), method: :put do |f| %>
-      <div class="mt-6 space-y-2">
+      <div class="mt-6 space-y-2 px-2">
         <%= f.label :password, class: "block text-sm text-gray-600" %>
         <%= f.password_field :password, class: "input input-bordered w-full" %>
       </div>
-      <div class="mt-6 space-y-2">
+      <div class="mt-6 space-y-2 px-2">
         <%= f.label :password_confirmation, class: "block text-sm text-gray-600" %>
         <%= f.password_field :password_confirmation, class: "input input-bordered w-full" %>
       </div>
