@@ -6,7 +6,7 @@ class UserMailerTest < ActionMailer::TestCase
     user.reset_password_token = "dummy_token"
     user.save!
     mail = UserMailer.reset_password_email(user)
-    assert_equal "Reset password email", mail.subject
+    assert_equal "パスワードリセットのお知らせ", mail.subject
     assert_equal [ "example@example.com" ], mail.to
     assert_equal [ "from@example.com" ], mail.from
     assert_match "Hi", mail.body.encoded
