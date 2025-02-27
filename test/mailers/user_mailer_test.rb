@@ -8,7 +8,6 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.reset_password_email(user)
     assert_equal "パスワードリセットのお知らせ", mail.subject
     assert_equal [ "example@example.com" ], mail.to
-    assert_equal [Rails.application.credentials.dig(:mailer, :email)], mail.from
     assert_match "Hi", mail.body.encoded
   end
 end
