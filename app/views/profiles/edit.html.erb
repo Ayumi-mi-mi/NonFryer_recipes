@@ -18,7 +18,7 @@
       <div class="mt-6 space-y-2">
         <%= f.label :email, class: "block" %>
         <%= f.email_field :email, class: "input input-bordered w-3/4" , disabled: true %>
-        <span class="px-2 text-amber-500">変更</span>
+        <%= link_to "変更", new_activation_path, class:"px-2 text-amber-500" %>
       </div>
       <div class="mt-6 space-y-2">
         <label class="block">パスワード</label>

@@ -25,4 +25,15 @@ class User < ApplicationRecord
   def own?(object)
     id == object&.user_id
   end
+
+  before_update :setup_activation, if: -> { will_save_change_to_unconfirmed_email? }
+
+  def setup_activation
+    self.activation_token = SecureRandom.urlsafe_base64
+    self.activation_state = "pending"
+  end
+
+  def activate!
+    update(email: unconfirmed_email, unconfirmed_email: nil, activation_state: "active", activation_token: nil)
+  end
 end
