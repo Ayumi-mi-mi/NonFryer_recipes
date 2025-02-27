@@ -7,5 +7,4 @@ example_user:
   id: 1
   name: "example_user"
   email: "example@example.com"
-  unconfirmed_email: "unconfirmed_example@example.com"
   crypted_password: "password"
