@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .rails_admin {
+    @apply bg-white text-black;
+  }
+}
