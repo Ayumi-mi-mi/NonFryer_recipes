@@ -8,6 +8,6 @@ class UserMailer < ApplicationMailer
   def activation_needed_email(user)
     @user = user
     @url = edit_activation_url(@user.activation_token)
-    mail(to: @user.email, subject: "メールアドレス変更の確認")
+    mail(to: @user.unconfirmed_email, subject: "メールアドレス変更の確認")
   end
 end
