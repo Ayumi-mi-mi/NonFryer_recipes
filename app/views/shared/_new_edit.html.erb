@@ -3,7 +3,7 @@
     <!-- Image -->
     <div class="py-4" data-controller="image-preview">
       <% if @recipe.main_image.attached? %>
-        <div class="relative" data-image-preview-target="preview" data-image-url="<%= url_for(@recipe.main_image) %>">
+        <div class="relative" data-image-preview-target="preview">
           <img class="h-[220px] md:h-[480px] w-full object-cover rounded" src="<%= url_for(@recipe.main_image) %>">
           <%= link_to remove_main_image_recipe_path(@recipe), data: { turbo_method: :delete } do %>
             <button type="button" data-action="click->image-preview#removeImage" class="absolute bottom-2 left-2 text-white p-2 rounded-full">
@@ -16,7 +16,7 @@
       <% else %>
         <div data-controller="image-preview" >
           <%= f.file_field :main_image, data: { "image-preview-target": "input", "action": "change->image-preview#previewImage"} %>
-          <div data-image-preview-target="preview" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300" >
+          <div data-image-preview-target="preview" data-image-url="https://bucket-nonfryer-recipes.s3.amazonaws.com/path-to-image.jpg" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300" >
           </div>
         </div>
       <% end %>
@@ -106,8 +106,11 @@
             <% if instruction.object.image.attached? %>
               <img class="h-[60px] md:h-[80px] w-[120px] md:w-[140px] object-cover rounded" src="<%= url_for(instruction.object.image) %>">
             <% else %>
-              <%= instruction.file_field :image, data: { "preview-target": "input", "action": "change->preview#previewImage"} %>
-              <div data-preview-target="preview" class="h-[60px] w-[120px] md:h-[80px] md:w-[140px] object-cover rounded border border-gray-300 bg-white" ></div>
+              <div data-controller="preview" >
+                <%= instruction.file_field :image, data: { "preview-target": "input", "action": "change->preview#previewImage"} %>
+                <div data-preview-target="preview" class="h-[60px] w-[120px] md:h-[80px] md:w-[140px] object-cover rounded border border-gray-300 bg-white" >
+                </div>
+              </div>
             <% end %>
           </div>
         </div>
