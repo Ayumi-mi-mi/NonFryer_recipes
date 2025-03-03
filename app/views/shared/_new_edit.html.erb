@@ -1,7 +1,25 @@
-  <%= form_with model: @recipe, local: true, id: "post_form", class: "w-full" do |f| %>
+  <%= form_with model: @recipe, local: true, id: "post_form", class: "w-full", data: { controller: "image-preview" } do |f| %>
+
     <!-- Image -->
-    <div class="w-full bg-gray-100 h-56 flex justify-center items-center mb-4 md:h-[480px]">
-      <%= f.file_field :main_image %>
+    <div class="py-4" data-controller="image-preview">
+      <% if @recipe.main_image.attached? %>
+        <div class="relative" data-image-preview-target="preview">
+          <img class="h-[220px] md:h-[480px] w-full object-cover rounded" src="<%= url_for(@recipe.main_image) %>">
+          <%= link_to remove_main_image_recipe_path(@recipe), data: { turbo_method: :delete } do %>
+            <button type="button" data-action="click->image-preview#removeImage" class="absolute bottom-2 left-2 text-white p-2 rounded-full">
+              <span class="material-symbols-outlined text-gray-600 border border-gray-500 rounded px-2 py-2">delete</span>
+            </button>
+          <% end %>
+        </div>
+        <%= f.hidden_field :remove_main_image, value: "false", data: { "image-preview-target": "removeField" } %>
+        <input type="file" hidden data-image-preview-target="input">
+      <% else %>
+        <div data-controller="image-preview" >
+          <%= f.file_field :main_image, data: { "image-preview-target": "input", "action": "change->image-preview#previewImage"} %>
+          <div data-image-preview-target="preview" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300" >
+          </div>
+        </div>
+      <% end %>
     </div>
 
     <!-- Title -->
@@ -72,22 +90,29 @@
       <% end %>
     </div>
 
-
     <!-- Steps -->
     <div id="steps-section" class="steps-section w-full mb-6">
       <label class="block text-gray-500 font-bold mb-2">作り方</label>
       <%= f.fields_for :instructions do |instruction| %>
-        <div class="step-item flex items-center space-x-1 mb-2" data-id="<%= instruction.object.id %>">
-          <button class="remove-step text-gray-700 px-2" type="button">×</button>
-          <%= instruction.hidden_field :_destroy, class: "destroy-flag" %>
-          <%= instruction.file_field :image, class: "bg-gray-100 rounded px-1 py-2 w-14" %>
-          <span class="step-number text-gray-400"><%= instruction.object.step_number %></span>
-          <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
-          <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+        <div class="step-item" data-id="<%= instruction.object.id %>">
+          <div class="flex space-x-1 items-center mb-2">
+            <button class="remove-step text-gray-700 px-2" type="button">×</button>
+            <%= instruction.hidden_field :_destroy, class: "destroy-flag" %>
+            <span class="step-number text-gray-400"><%= instruction.object.step_number %></span>
+            <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
+            <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+          </div>
+          <div data-controller="preview" class="rounded px-10 py-2">
+            <% if instruction.object.image.attached? %>
+              <img class="h-[60px] md:h-[80px] w-[120px] md:w-[140px] object-cover rounded" src="<%= url_for(instruction.object.image) %>">
+            <% else %>
+              <%= instruction.file_field :image, data: { "preview-target": "input", "action": "change->preview#previewImage"} %>
+              <div data-preview-target="preview" class="h-[60px] w-[120px] md:h-[80px] md:w-[140px] object-cover rounded border border-gray-300" ></div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
-
 
     <!-- point -->
     <div class="w-full mb-6">
@@ -200,14 +225,23 @@
 
           const stepIndex = stepsSection.querySelectorAll(".step-item").length;
           const newStep = document.createElement("div");
-          newStep.className = "step-item flex items-center space-x-2 mb-2";
+          newStep.className = "step-item w-full items-center space-x-2 mb-2";
+          newStep.dataset.controller = "preview";
           newStep.innerHTML = `
-            <button class="remove-step text-gray-700 px-2" type="button">×</button>
-            <input type="hidden" name="recipe[instructions_attributes][${stepIndex}][_destroy]" class="destroy-flag" value="false" />
-            <input type="file" name="recipe[instructions_attributes][${stepIndex}][image]" class="bg-gray-100 rounded px-1 py-2 w-14" />
-            <span class="step-number text-gray-400">${stepIndex + 1}</span>
-            <input type="text" name="recipe[instructions_attributes][${stepIndex}][description]" class="w-full bg-white border border-gray-300 rounded px-4 py-2" />
-            <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+            <div class="flex space-x-1 items-center mb-2">
+              <button class="remove-step text-gray-700 px-2" type="button">×</button>
+              <input type="hidden" name="recipe[instructions_attributes][${stepIndex}][_destroy]" class="destroy-flag" value="false" />
+              <span class="step-number text-gray-400">${stepIndex + 1}</span>
+              <input type="text" name="recipe[instructions_attributes][${stepIndex}][description]" class="border border-gray-300 rounded px-4 py-2 w-full" />
+              <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+            </div>
+            <div data-controller="preview" class="rounded px-10 py-2">
+              <input type="file" name="recipe[instructions_attributes][${stepIndex}][image]"
+                    data-preview-target="input"
+                    data-action="change->preview#previewImage" />
+              <div data-preview-target="preview"
+                  class="h-[60px] w-[120px] md:h-[80px] md:w-[140px] object-cover rounded border border-gray-300"></div>
+            </div>
           `;
           stepsSection.appendChild(newStep);
           updateStepNumbers();

@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   before_action :require_login, only: %i[new create edit update destroy]
-  before_action :set_recipe, only: %i[show edit update status_change destroy]
+  before_action :set_recipe, only: %i[show edit update status_change destroy remove_main_image]
+  before_action :resize_image, only: %i[ create update ]
 
   def new
     @recipe = Recipe.new
@@ -56,6 +57,11 @@ class RecipesController < ApplicationController
     redirect_to my_recipes_path, status: :see_other
   end
 
+  def remove_main_image
+    @recipe.main_image.purge
+    redirect_to edit_recipe_path(@recipe)
+  end
+
   private
 
   def set_recipe
@@ -74,5 +80,23 @@ class RecipesController < ApplicationController
 
   def not_authenticated
     redirect_to login_path
+  end
+
+  def resize_image
+    return unless params[:recipe][:main_image]
+
+    image = params[:recipe][:main_image]
+    processed = ImageProcessing::MiniMagick
+                  .source(image.tempfile)
+                  .convert("jpg")
+                  .quality(85)
+                  .strip
+                  .call
+
+    params[:recipe][:main_image] = ActionDispatch::Http::UploadedFile.new(
+      tempfile: processed,
+      filename: "compressed.jpg",
+      type: "image/jpeg"
+    )
   end
 end
