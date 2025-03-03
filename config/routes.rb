@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :recipes, only: %i[new show create edit update destroy] do
     member do
       patch :status_change
+      delete :remove_main_image
     end
   end
   resources :my_recipes, only: %i[index]

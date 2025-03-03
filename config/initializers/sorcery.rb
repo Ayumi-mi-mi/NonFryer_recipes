@@ -4,10 +4,10 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = [ :reset_password, :user_activation ]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
+  config.submodules = [ :reset_password, :user_activation ]
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.
@@ -359,7 +359,7 @@ Rails.application.config.sorcery.configure do |config|
     # manually handle how and when the email is sent.
     # Default: `false`
     #
-    # user.activation_mailer_disabled =
+    user.activation_mailer_disabled = true
 
     # Method to send email related
     # options: `:deliver_later`, `:deliver_now`, `:deliver`
@@ -381,7 +381,6 @@ Rails.application.config.sorcery.configure do |config|
     # Default: `true`
     #
     user.prevent_non_active_users_to_login = false
-    activation_required = false
 
     # -- reset_password --
     # Password reset token attribute name.
@@ -402,8 +401,7 @@ Rails.application.config.sorcery.configure do |config|
     # REQUIRED:
     # Password reset mailer class.
     # Default: `nil`
-    #
-    user.reset_password_mailer = UserMailer
+    # user.reset_password_mailer = UserMailer
 
     # Reset password email method on your mailer class.
     # Default: `:reset_password_email`
