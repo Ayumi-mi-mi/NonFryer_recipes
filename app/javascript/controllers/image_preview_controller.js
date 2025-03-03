@@ -14,6 +14,11 @@ export default class extends Controller {
         preview.innerHTML = `<img src="${e.target.result}" class="h-[220px] md:h-[480px] w-full object-cover rounded">`;
       };
       reader.readAsDataURL(files[0]);
+    } else {
+      const existingImage = preview.dataset.imageUrl;
+      if (existingImage) {
+        preview.innerHTML = `<img src="${existingImage}" class="h-[220px] md:h-[480px] w-full object-cover rounded">`;
+      }
     }
   }
 
