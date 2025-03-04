@@ -11,7 +11,7 @@ export default class extends Controller {
     if (files && files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        preview.innerHTML = `<img src="${e.target.result}">`;
+        preview.innerHTML = `<img src="${e.target.result}" class="w-[160px] h-[100px]">`;
       };
       reader.readAsDataURL(files[0]);
     }
