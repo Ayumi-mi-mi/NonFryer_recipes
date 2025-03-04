@@ -104,7 +104,7 @@
           <%= instruction.step_number %>
           <%= instruction.description %>
           <% if instruction.image.attached? %>
-            <%= image_tag instruction.image, class: "w-[160px] h-[100px] rounded w-[160px] h-[100px] object-cover" %>
+            <%= image_tag instruction.image, class: "h-[60px] w-[120px] md:h-[80px] md:w-[140px] rounded object-cover" %>
           <% end %>
         </div>
       <% end %>
