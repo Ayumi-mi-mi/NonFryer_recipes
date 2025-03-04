@@ -108,7 +108,7 @@
             <% else %>
               <div data-controller="preview" >
                 <%= instruction.file_field :image, data: { "preview-target": "input", "action": "change->preview#previewImage"} %>
-                <div data-preview-target="preview" class="w-[160px] h-[100px] rounded" ></div>
+                <div data-preview-target="preview"></div>
               </div>
             <% end %>
           </div>
@@ -241,8 +241,7 @@
               <input type="file" name="recipe[instructions_attributes][${stepIndex}][image]"
                     data-preview-target="input"
                     data-action="change->preview#previewImage" />
-              <div data-preview-target="preview"
-                  class="w-[160px] h-[100px] object-cover rounded border border-gray-300"></div>
+              <div data-preview-target="preview"></div>
             </div>
           `;
           stepsSection.appendChild(newStep);
