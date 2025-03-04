@@ -7,3 +7,5 @@ import PreviewController from "./preview_controller"
 application.register("hello", HelloController)
 application.register("image-preview", ImagePreviewController)
 application.register("preview", PreviewController)
+
+export { application };
