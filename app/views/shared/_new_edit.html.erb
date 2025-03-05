@@ -16,7 +16,7 @@
       <% else %>
         <div data-controller="image-preview" >
           <%= f.file_field :main_image, data: { "image-preview-target": "input", "action": "change->image-preview#previewImage"} %>
-          <div data-image-preview-target="preview" data-image-url="https://bucket-nonfryer-recipes.s3.amazonaws.com/path-to-image.jpg" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300" >
+          <div data-image-preview-target="preview" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300" >
           </div>
         </div>
       <% end %>
