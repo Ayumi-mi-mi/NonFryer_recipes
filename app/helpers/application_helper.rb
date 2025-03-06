@@ -16,7 +16,7 @@ module ApplicationHelper
         type: "website",
         url: request.original_url,
         image: image_url("NonFryer_recipes.png"),
-        local: "ja-JP",
+        local: "ja-JP"
       }
     }
   end
