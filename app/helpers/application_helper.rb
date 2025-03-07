@@ -2,7 +2,7 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: "NonFryer recipes",
-      title: "ノンフライヤーのレシピ検索",
+      title: "ノンフライヤーレシピ検索サイト",
       reverse: true,
       charset: "utf-8",
       description: "ノンフライヤーで作った料理だけを掲載するアプリです。これって何度で何分やるんだろう... もっと美味しく作るにはどうしたらいい？ どんなものが作れるの？ そんなお悩みを解決します。",
