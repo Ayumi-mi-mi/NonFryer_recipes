@@ -2,7 +2,7 @@ services:
   - type: web
     name: nonfryer_recipes
     env: ruby
-    buildCommand: bundle install; bundle exec rake assets:precompile; bundle exec rake assets:clean; bin/rails db:migrate;
+    buildCommand: bundle install; bundle exec rake assets:clean; bundle exec rake assets:precompile; bin/rails db:migrate;
     startCommand: bundle exec puma -t 5:5 -p ${PORT:-10000} -e ${RACK_ENV:-development}
     envVars:
       - key: DATABASE_URL
