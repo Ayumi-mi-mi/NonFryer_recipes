@@ -15,7 +15,7 @@ module ApplicationHelper
         description: :description,
         type: "website",
         url: request.original_url,
-        image: asset_path("NonFryer_recipes.png"),
+        image: image_url("NonFryer_recipes.png"),
         local: "ja-JP"
       }
     }
