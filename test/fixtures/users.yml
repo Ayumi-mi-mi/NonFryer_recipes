@@ -8,4 +8,5 @@ example_user:
   name: "example_user"
   email: "example@example.com"
   unconfirmed_email: "unconfirmed_example@example.com"
-  crypted_password: "password"
+  crypted_password: <%= BCrypt::Password.create('password') %>
+  confirmed_at: <%= Time.now %>

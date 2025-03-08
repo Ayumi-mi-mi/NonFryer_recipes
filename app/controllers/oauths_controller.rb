@@ -15,7 +15,6 @@ class OauthsController < ApplicationController
         auto_login(@user)
         redirect_to root_path, notice: "Googleアカウントでログインしました"
       rescue
-        puts "Exception: #{e.message}"
         redirect_to root_path, alert: "Googleアカウントでのログインに失敗しました"
       end
     end
