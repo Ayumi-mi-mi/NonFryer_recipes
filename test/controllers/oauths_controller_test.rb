@@ -2,12 +2,12 @@ require "test_helper"
 
 class OauthsControllerTest < ActionDispatch::IntegrationTest
   test "should get oauth" do
-    get oauths_oauth_url
+    get oauth_path(provider: "google")
     assert_response :success
   end
 
   test "should get callback" do
-    get oauths_callback_url
+    get oauth_callback_path(provider: "google")
     assert_response :success
   end
 end
