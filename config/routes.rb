@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "oauths/oauth"
+  get "oauths/callback"
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -32,6 +34,10 @@ Rails.application.routes.draw do
   delete "logout", to: "user_sessions#destroy"
 
   get "autocomplete", to: "tops#autocomplete"
+
+  post "oauth/callback" => "oauths#callback"
+  get "oauth/callback" => "oauths#callback"
+  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
