@@ -6,13 +6,14 @@ class OauthsController < ApplicationController
   def callback
     provider = auth_params[:provider]
     if @user = login_from(provider)
+      remember_me!
       redirect_to root_path, notice: "Googleアカウントでログインしました"
     else
       begin
         @user = create_from(provider)
-
         reset_session
         auto_login(@user)
+        remember_me!
         redirect_to root_path, notice: "Googleアカウントでログインしました"
       rescue
         redirect_to root_path, alert: "Googleアカウントでのログインに失敗しました"
