@@ -38,4 +38,8 @@ class User < ApplicationRecord
   def activate!
     update(email: unconfirmed_email, unconfirmed_email: nil, activation_state: "active", activation_token: nil)
   end
+
+  def admin?
+    id == 1
+  end
 end
