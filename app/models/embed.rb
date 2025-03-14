@@ -6,7 +6,7 @@ require "uri"
 class Embed < ApplicationRecord
   belongs_to :recipe
 
-  enum kind: { website: 0, youtube: 1, instagram: 2 }
+  enum :kind, { website: 0, youtube: 1, instagram: 2 }
   before_save :ogp, if: -> { url_changed? && kind == "website" }
 
   validates :kind, presence: true, if: -> { url.present? }
