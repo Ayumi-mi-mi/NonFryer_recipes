@@ -72,7 +72,7 @@ jobs:
       - name: Setup database
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/nonfryer_recipes_test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: |
           bin/rails db:create
           bin/rails db:migrate
@@ -80,7 +80,7 @@ jobs:
       - name: Run RSpec
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/nonfryer_recipes_test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: bundle exec rspec
 
       - name: Keep screenshots from failed system tests
