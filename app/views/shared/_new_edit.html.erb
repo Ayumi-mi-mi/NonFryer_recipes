@@ -1,3 +1,4 @@
+<body>
   <%= form_with model: @recipe, local: true, id: "post_form", class: "w-full", data: { controller: "image-preview" } do |f| %>
 
     <!-- Image -->
@@ -14,10 +15,9 @@
         <%= f.hidden_field :remove_main_image, value: "false", data: { "image-preview-target": "removeField" } %>
         <input type="file" hidden data-image-preview-target="input">
       <% else %>
-        <div data-controller="image-preview" >
-          <%= f.file_field :main_image, data: { "image-preview-target": "input", "action": "change->image-preview#previewImage"} %>
-          <div data-image-preview-target="preview" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300" >
-          </div>
+        <div >
+          <%= f.file_field :main_image, id: "image_input" %>
+          <div id="image_preview" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300"></div>
         </div>
       <% end %>
     </div>
@@ -372,4 +372,21 @@
         }
       });
     }
+
+    document.addEventListener("turbo:load", function() {
+      const input = document.getElementById("image_input");
+      const preview = document.getElementById("image_preview");
+
+      input.addEventListener("change", function(event) {
+        const files = event.target.files;
+        if (files && files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            preview.innerHTML = `<img src="${e.target.result}" class="h-[220px] md:h-[480px] w-full object-cover rounded">`;
+          };
+          reader.readAsDataURL(files[0]);
+        }
+      });
+    });
   </script>
+</body>
