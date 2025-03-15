@@ -16,8 +16,8 @@
         <input type="file" hidden data-image-preview-target="input">
       <% else %>
         <div >
-          <%= f.file_field :main_image, id: "image_input" %>
-          <div id="image_preview" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300"></div>
+          <%= f.file_field :main_image, id: "main_image_input" %>
+          <div id="main_image_preview" class="h-[220px] md:h-[480px] w-full object-cover rounded border border-gray-300"></div>
         </div>
       <% end %>
     </div>
@@ -106,10 +106,9 @@
             <% if instruction.object.image.attached? %>
               <img class="w-[160px] h-[100px] object-cover rounded" src="<%= url_for(instruction.object.image) %>">
             <% else %>
-              <div data-controller="preview" >
-                <%= instruction.file_field :image, data: { "preview-target": "input", "action": "change->preview#previewImage"} %>
-                <div data-preview-target="preview" class="w-[160px] h-[100px]" >
-                </div>
+              <div >
+                <%= instruction.file_field :image, class: "image-input" %>
+                <div class="image-preview w-[160px] h-[100px] object-cover rounded border border-gray-300" ></div>
               </div>
             <% end %>
           </div>
@@ -238,12 +237,9 @@
               <input type="text" name="recipe[instructions_attributes][${stepIndex}][description]" class="border border-gray-300 rounded px-4 py-2 w-full" />
               <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
             </div>
-            <div data-controller="preview" class="rounded px-10 py-2">
-              <input type="file" name="recipe[instructions_attributes][${stepIndex}][image]"
-                    data-preview-target="input"
-                    data-action="change->preview#previewImage" />
-              <div data-preview-target="preview"
-                  class="w-[160px] h-[100px] object-cover rounded border border-gray-300"></div>
+            <div class="rounded px-10 py-2">
+              <input type="file" class="image-input" name="recipe[instructions_attributes][${stepIndex}][image]" />
+              <div class="image-preview w-[160px] h-[100px] object-cover rounded border border-gray-300"></div>
             </div>
           `;
           stepsSection.appendChild(newStep);
@@ -373,9 +369,10 @@
       });
     }
 
+    // main_image_preview
     document.addEventListener("turbo:load", function() {
-      const input = document.getElementById("image_input");
-      const preview = document.getElementById("image_preview");
+      const input = document.getElementById("main_image_input");
+      const preview = document.getElementById("main_image_preview");
 
       input.addEventListener("change", function(event) {
         const files = event.target.files;
@@ -385,6 +382,26 @@
             preview.innerHTML = `<img src="${e.target.result}" class="h-[220px] md:h-[480px] w-full object-cover rounded">`;
           };
           reader.readAsDataURL(files[0]);
+        }
+      });
+    });
+
+    // image_preview
+    document.addEventListener("turbo:load", function() {
+      document.addEventListener("change", function(event) {
+        // 変更があった要素が image-input クラスを持っているかチェック
+        if (event.target.classList.contains("image-input")) {
+          const input = event.target;
+          const preview = input.nextElementSibling; // input のすぐ次の要素を取得
+          const files = input.files;
+
+          if (files && files[0] && preview) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              preview.innerHTML = `<img src="${e.target.result}" class="w-[160px] h-[100px] object-cover rounded">`;
+            };
+            reader.readAsDataURL(files[0]);
+          }
         }
       });
     });
