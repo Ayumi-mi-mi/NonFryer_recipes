@@ -69,19 +69,12 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Setup database
+      - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/nonfryer_recipes_test
-        run: |
-          bin/rails db:create
-          bin/rails db:migrate
-
-      - name: Run RSpec
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/nonfryer_recipes_test
-        run: bundle exec rspec
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          # REDIS_URL: redis://localhost:6379/0
+        run: bin/rails db:test:prepare test test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
