@@ -27,7 +27,12 @@ class ActivationsController < ApplicationController
       redirect_to root_path
     else
       flash[:alert] = "無効なトークンです"
-      redirect_to root_path
     end
+  end
+
+  private
+
+  def not_authenticated
+    redirect_to login_path
   end
 end
