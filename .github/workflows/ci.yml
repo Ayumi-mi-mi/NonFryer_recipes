@@ -69,17 +69,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Database create and migrate
+      - name: Setup database
         env:
           RAILS_ENV: test
-          DB_HOST: localhost
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/nonfryer_recipes_test
         run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+          bin/rails db:create
+          bin/rails db:migrate
 
-      - name: Run rspec
+      - name: Run RSpec
         env:
           RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/nonfryer_recipes_test
         run: bundle exec rspec
 
       - name: Keep screenshots from failed system tests
