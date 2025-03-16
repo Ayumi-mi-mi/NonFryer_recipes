@@ -6,12 +6,19 @@
       <%= render "shared/sidebar" %>
     </div>
     <div class="flex-1 flex justify-center">
-      <%= search_form_for @q, url: my_recipes_path do |f| %>
-        <%= f.search_field :tags_name_or_title_cont_any,
-            placeholder: "タグ,レシピ名から検索",
-            class: "flex-1 border border-gray-300 rounded px-4 py-1 w-64 md:w-[500px]",
-            autocomplete: "off" %>
-            <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
+      <%= search_form_for @q, url: bookmarks_path, method: :get, remote: true do |f| %>
+        <div class="relative">
+          <input type="text" id="autocomplete-input-bookmarks"
+            name="q[tags_name_or_title_cont_any]"
+            placeholder="タグ, レシピ名から検索"
+            class="flex-1 border border-gray-300 rounded px-4 py-1 w-64 md:w-[500px]"
+            autocomplete="off"
+            data-autocomplete-url="<%= autocomplete_bookmarks_path %>">
+          <ul id="autocomplete-results-bookmarks"
+            class="absolute bg-white border border-gray-300 rounded w-64 md:w-[500px] max-h-40 overflow-y-auto hidden z-30 text-xs">
+          </ul>
+          <%= f.submit "検索", class: "bg-amber-500 text-white rounded px-4 py-1" %>
+        </div>
       <% end %>
     </div>
   </div>
@@ -36,4 +43,54 @@
       </div>
     <% end %>
   </div>
+
+  <script>
+    document.addEventListener("turbo:load", function() {
+      const input = document.getElementById("autocomplete-input-bookmarks");
+      const resultsList = document.getElementById("autocomplete-results-bookmarks");
+      const autocompleteUrl = input.dataset.autocompleteUrl;
+
+      input.addEventListener("input", function() {
+        const query = input.value.trim();
+        if (query.length === 0) {
+          resultsList.innerHTML = "";
+          resultsList.classList.add("hidden");
+          return;
+        }
+
+        fetch(`${autocompleteUrl}?q=${encodeURIComponent(query)}`)
+          .then(response => response.json())
+          .then(data => {
+            resultsList.innerHTML = "";
+            if (data.length === 0) {
+              resultsList.classList.add("hidden");
+              return;
+            }
+
+            data.forEach(item => {
+              const li = document.createElement("li");
+              li.textContent = item.label;
+              li.classList.add("p-2", "hover:bg-gray-200", "cursor-pointer");
+
+              li.addEventListener("click", function() {
+                input.value = item.value;
+                resultsList.innerHTML = "";
+                resultsList.classList.add("hidden");
+              });
+
+              resultsList.appendChild(li);
+            });
+
+            resultsList.classList.remove("hidden");
+          })
+          .catch(error => console.error("Error fetching autocomplete results:", error));
+      });
+
+      document.addEventListener("click", function(event) {
+        if (!input.contains(event.target) && !resultsList.contains(event.target)) {
+          resultsList.classList.add("hidden");
+        }
+      });
+    });
+  </script>
 </body>
