@@ -33,7 +33,9 @@ Rails.application.routes.draw do
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
 
-  get "autocomplete", to: "tops#autocomplete"
+  get "autocomplete/tops", to: "tops#autocomplete"
+  get "autocomplete/my_recipes", to: "my_recipes#autocomplete"
+  get "autocomplete/bookmarks", to: "bookmarks#autocomplete"
 
   post "oauth/callback" => "oauths#callback"
   get "oauth/callback" => "oauths#callback"
