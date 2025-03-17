@@ -3,7 +3,7 @@
 
     <!-- Image -->
     <div class="py-4" data-controller="image-preview">
-      <% if @recipe.main_image.attached? %>
+      <% if @recipe.persisted? && @recipe.main_image.attached? %>
         <div class="relative" data-image-preview-target="preview">
           <img class="h-[220px] md:h-[480px] w-full object-cover rounded" src="<%= url_for(@recipe.main_image) %>">
           <%= link_to remove_main_image_recipe_path(@recipe), data: { turbo_method: :delete } do %>
@@ -103,7 +103,7 @@
             <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
           </div>
           <div data-controller="preview" class="rounded px-10 py-2">
-            <% if instruction.object.image.attached? %>
+            <% if instruction.object.persisted? && instruction.object.image.attached? %>
               <img class="w-[160px] h-[100px] object-cover rounded" src="<%= url_for(instruction.object.image) %>">
             <% else %>
               <div >
