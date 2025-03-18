@@ -1,0 +1,26 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+      recipe:
+        title: "タイトル"
+        model: "ノンフライヤーの種類"
+        preheat_time: "予熱時間"
+        preheat_temperature: "予熱温度"
+        point: "ポイント"
+      heats:
+        time: "調理時間"
+        temperature: "調理温度"
+      tags:
+        name: "タグ名"
+      instructions:
+        description: "作り方"
+      ingredients:
+        name: "材料名"
+        quantity: "材料の量"
+      embeds:
+        kind: "urlの種類"
