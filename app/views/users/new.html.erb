@@ -25,9 +25,7 @@
         <%= f.password_field :password_confirmation, class: "input input-bordered w-full" %>
       </div>
       <hr class="border-t border-gray-500 border-2 my-6 px-6">
-      <div class="btn w-full bg-amber-500 text-white">
-        <%= f.submit "登録" %>
-      </div>
+      <%= f.submit "登録", class: "btn w-full bg-amber-500 text-white" %>
     <% end %>
     <div class="text-sm underline mt-4 text-center text-gray-600">
       <%= link_to 'ログインページ', login_path %>
