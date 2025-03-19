@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Recipes", type: :request do
   let(:user) { FactoryBot.create(:user) }
-  let(:recipe) { FactoryBot.create(:recipe) }
+  let(:recipe) { FactoryBot.create(:recipe, user: user) }
 
   describe "GET /recipes/:id" do
     it "レシピ詳細画面にアクセスできること" do
@@ -71,9 +71,10 @@ RSpec.describe "Recipes", type: :request do
     end
   end
 
-  describe "GET /recipes/:id" do
+  describe "GET /recipes/:id/edit" do
     it "レシピの編集画面にアクセスできること" do
       post login_path, params: { email: user.email, password: "password" }
+      get recipe_path(recipe)
       get edit_recipe_path(recipe)
       expect(response).to have_http_status(200)
     end
