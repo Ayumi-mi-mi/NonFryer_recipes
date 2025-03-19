@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   before_action :require_login, only: %i[new create edit update destroy]
   before_action :set_recipe, only: %i[show edit update status_change destroy remove_main_image]
+  before_action :recipe_owner, only: %i[edit update destroy]
   before_action :resize_image, only: %i[ create update ]
 
   def new
@@ -27,6 +28,7 @@ class RecipesController < ApplicationController
   end
 
   def edit
+    @recipe = current_user.recipe
     [ @recipe.ingredients, @recipe.instructions, @recipe.embeds ].each { |collection| collection.build if collection.blank? }
   end
 
@@ -80,6 +82,12 @@ class RecipesController < ApplicationController
 
   def not_authenticated
     redirect_to login_path
+  end
+
+  def recipe_owner
+    unless @recipe.user == current_user
+      redirect_to recipe_path(@recipe)
+    end
   end
 
   def resize_image

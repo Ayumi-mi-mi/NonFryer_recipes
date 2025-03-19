@@ -1,4 +1,3 @@
-# 新規登録
 class UsersController < ApplicationController
   def new
     @user = User.new

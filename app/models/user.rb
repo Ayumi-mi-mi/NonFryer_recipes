@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :password, confirmation: true, if: -> { (new_record? || changes[:crypted_password]) }
   validates :password_confirmation, presence: true, if: -> { (new_record? || changes[:crypted_password]) }
   validates :name, presence: true, length: { maximum: 255 }
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, if: -> { will_save_change_to_email? }
 
   def bookmark(recipe)
     bookmark_recipes << recipe
