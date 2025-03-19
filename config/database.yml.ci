@@ -3,7 +3,7 @@ test:
   encoding: unicode
   database: nonfryer_recipes_test
   username: postgres
-  password: password
+  password: postgres
   host: localhost
   port: 5432
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
