@@ -59,14 +59,14 @@ RSpec.describe "Recipes", type: :request do
         post recipes_path, params: {
           recipe: {
             title: "",
-            model: "",
+            model: "model",
             status: "unpublished",
-            time: "",
-            temperature: ""
+            time: "10",
+            temperature: "180"
           }
         }
 
-        expect(response.body).to include("を入力してください")
+        expect(flash.now[:alert]).to eq("タイトルを入力してください")
       end
     end
   end
@@ -115,14 +115,14 @@ RSpec.describe "Recipes", type: :request do
         post recipes_path, params: {
           recipe: {
             title: "",
-            model: "",
+            model: "model",
             status: "unpublished",
-            time: "",
-            temperature: ""
+            time: "10",
+            temperature: "180"
           }
         }
 
-        expect(response.body).to include("を入力してください")
+        expect(flash.now[:alert]).to eq("タイトルを入力してください")
       end
     end
   end

@@ -13,7 +13,7 @@ RSpec.describe "Contacts", type: :request do
       post contacts_path, params: { name: "test_name", email: "test@example.com", message: "test_message" }
       expect(response).to redirect_to(root_path)
       follow_redirect!
-      expect(response.body).to include("お問い合わせを送信しました")
+      expect(flash.notice).to eq("お問い合わせを送信しました")
     end
   end
 end

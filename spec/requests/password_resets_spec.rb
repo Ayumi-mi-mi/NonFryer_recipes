@@ -20,14 +20,14 @@ RSpec.describe "PasswordResets", type: :request do
         post password_resets_path, params: { email: user.email }
         expect(response).to redirect_to(root_path)
         follow_redirect!
-        expect(response.body).to include("パスワードリセットのメールを送信しました")
+        expect(flash.notice).to eq("パスワードリセットのメールを送信しました")
       end
     end
 
     context "存在しないメールアドレスを入力した場合" do
       it "エラーメッセージが表示されること" do
         post password_resets_path, params: { email: "invalid@example.com" }
-        expect(response.body).to include("メールアドレスが見つかりません")
+        expect(flash.now[:alert]).to eq("メールアドレスが見つかりません")
       end
     end
   end
@@ -49,7 +49,7 @@ RSpec.describe "PasswordResets", type: :request do
       it "パスワードリセットに失敗すること" do
         get edit_password_reset_path(user.reset_password_token)
         patch password_reset_path(user.reset_password_token), params: { user: { password: "new_password", password_confirmation: "new_password_confirmation" } }
-        expect(response.body).to include("パスワードの変更に失敗しました")
+        expect(flash.now[:alert]).to eq("パスワードの変更に失敗しました")
       end
     end
   end
