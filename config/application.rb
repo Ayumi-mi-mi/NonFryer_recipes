@@ -25,5 +25,6 @@ module NonfryerRecipes
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ja
     config.active_support.to_time_preserves_timezone = :zone
+    config.assets.css_compressor = nil
   end
 end
