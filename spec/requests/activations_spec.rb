@@ -19,7 +19,7 @@ RSpec.describe "ChangeEmails", type: :request do
       patch activation_path(user.id), params: { email: "new_email@example.com" }
       expect(response).to redirect_to(root_path)
       follow_redirect!
-      expect(response.body).to include("確認メールを送信しました。メールを確認してください。")
+      expect(flash.notice).to eq("確認メールを送信しました。メールを確認してください。")
     end
   end
 

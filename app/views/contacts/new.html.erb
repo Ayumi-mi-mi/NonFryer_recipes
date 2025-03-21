@@ -13,18 +13,18 @@
     <%= form_with url: contacts_path, local: true do |f| %>
       <div class="mt-6 space-y-2">
         <%= f.label :name, "お名前", class: "block" %>
-        <%= f.text_field :name, class: "input input-bordered w-full", required: true %>
+        <%= f.text_field :name, class: "bg-white border border-gray-300 rounded-lg px-4 py-4 mb-1 w-full", required: true %>
       </div>
       <div class="mt-6 space-y-2">
         <%= f.label :email, "メールアドレス", class: "block" %>
-        <%= f.email_field :email, class: "input input-bordered w-full", required: true %>
+        <%= f.email_field :email, class: "bg-white border border-gray-300 rounded-lg px-4 py-4 mb-1 w-full", required: true %>
       </div>
       <div class="mt-6 space-y-2">
         <%= f.label :message, "お問い合わせ内容", class: "block" %>
-        <%= f.text_area :message, class: "input input-bordered w-full h-64",  required: true %>
+        <%= f.text_area :message, class: "bg-white border border-gray-300 rounded-lg px-4 mb-1 w-full h-64",  required: true %>
       </div>
       <hr class="border-t border-gray-500 border-2 my-8 px-6">
-      <%= f.submit "送信", class: "btn w-full bg-amber-500 text-white" %>
+      <%= f.submit "送信", class: "btn w-full bg-amber-500 text-white rounded-lg px-4 mb-1 py-2" %>
     <% end %>
   </div>
 </body>

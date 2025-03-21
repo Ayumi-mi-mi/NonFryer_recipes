@@ -10,22 +10,22 @@
     <%= form_with model: @user, local: true do |f| %>
       <div class="mt-6 space-y-2">
         <%= f.label :name, class: "block text-sm text-gray-600" %>
-        <%= f.text_field :name, class: "input input-bordered w-full" %>
+        <%= f.text_field :name, class: "bg-white border border-gray-300 rounded-lg px-4 py-4 mb-1 w-full" %>
       </div>
       <div class="mt-6 space-y-2">
         <%= f.label :email, class: "block text-sm text-gray-600" %>
-        <%= f.email_field :email, class: "input input-bordered w-full" %>
+        <%= f.email_field :email, class: "bg-white border border-gray-300 rounded-lg px-4 py-4 mb-1 w-full" %>
       </div>
       <div class="mt-6 space-y-2">
         <%= f.label :password, class: "block text-sm text-gray-600" %>
-        <%= f.password_field :password, class: "input input-bordered w-full" %>
+        <%= f.password_field :password, class: "bg-white border border-gray-300 rounded-lg px-4 py-4 mb-1 w-full" %>
       </div>
       <div class="mt-6 space-y-2">
         <%= f.label :password_confirmation, class: "block text-sm text-gray-600" %>
-        <%= f.password_field :password_confirmation, class: "input input-bordered w-full" %>
+        <%= f.password_field :password_confirmation, class: "bg-white border border-gray-300 rounded-lg px-4 py-4 mb-1 w-full" %>
       </div>
       <hr class="border-t border-gray-500 border-2 my-6 px-6">
-      <%= f.submit "登録", class: "btn w-full bg-amber-500 text-white" %>
+      <%= f.submit "登録", class: "btn w-full bg-amber-500 text-white rounded-lg px-4 py-2 mb-1" %>
     <% end %>
     <div class="text-sm underline mt-4 text-center text-gray-600">
       <%= link_to 'ログインページ', login_path %>

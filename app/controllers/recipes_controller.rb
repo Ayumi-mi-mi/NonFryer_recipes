@@ -28,7 +28,6 @@ class RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = current_user.recipe
     [ @recipe.ingredients, @recipe.instructions, @recipe.embeds ].each { |collection| collection.build if collection.blank? }
   end
 
