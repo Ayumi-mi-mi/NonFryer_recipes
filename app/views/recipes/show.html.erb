@@ -34,24 +34,27 @@
         <%= render "bookmarks/bookmark", recipe: @recipe %>
       <% end %>
     <% end %>
-    <span class="font-bold text-xl text-gray-600"><%= @recipe.title %></span>
+    <span class="font-bold text-2xl text-gray-600"><%= @recipe.title %></span>
   </div>
 
   <div class="px-6 py-2">
-    <div class="font-bold text-gray-600">タグ</div>
-    <% if @recipe.tag_list.present? %>
-      <% @recipe.tag_list.each do |tag| %>
-        <span class="bg-amber-500 badge badge-info mr-1 text-white rounded py-1 px-1">
-          <%= tag %>
-        </span>
+    <div class=" border-gray-300 border rounded-xl px-4 py-2">
+      <div class="font-bold text-gray-600 text-lg py-2">タグ</div>
+      <% if @recipe.tag_list.present? %>
+        <% @recipe.tag_list.each do |tag| %>
+          <span class="bg-amber-500 badge badge-info mr-1 text-white rounded py-1 px-1">
+            <%= tag %>
+          </span>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 
   <div class="grid grid-cols-2 gap-4 px-6 py-2">
+    <div class="py-2 border-gray-300 border rounded-xl">
     <div>
-      <div class="font-bold text-gray-600">予熱</div>
-      <div>
+      <div class="font-bold text-gray-600 text-lg px-4 py-2">予熱</div>
+      <div class="px-4">
         <% if @recipe.preheat_temperature.present? && @recipe.preheat_time.present? %>
           <%= @recipe.preheat_temperature %> °C
           <%= @recipe.preheat_time %> 分
@@ -60,8 +63,10 @@
         <% end %>
       </div>
     </div>
-    <div>
-      <div class="font-bold text-gray-600">調理時間・温度</div>
+  </div>
+
+    <div class="px-4 py-2 border-gray-300 border rounded-xl">
+      <div class="font-bold text-gray-600 text-lg py-2 ">調理時間・温度</div>
       <div>
         <% @recipe.heats.each do |heat| %>
           <div>
@@ -73,76 +78,87 @@
     </div>
   </div>
 
-  <div class="py-2">
-    <div class="px-6 font-bold text-gray-600">機種</div>
-    <div class="px-6 py-1">
-      <%= @recipe.model %>
+  <div class="px-6 py-2">
+    <div class="py-2 border-gray-300 border rounded-xl">
+      <div class="px-4 font-bold text-gray-600 text-lg py-2">機種</div>
+      <div class="px-4">
+        <%= @recipe.model %>
+      </div>
     </div>
   </div>
 
-  <div class="py-2">
-    <div class="px-6 font-bold text-gray-600">材料</div>
-    <div class="px-6 py-1">
-      <% @recipe.ingredients.each do |ingredient| %>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <%= ingredient.name %>
-          </div>
-          <div>
-            <%= ingredient.quantity %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="py-2">
-    <div class="px-6 font-bold text-gray-600">作り方</div>
-    <div class="px-6 py-1">
-      <% @recipe.instructions.each do |instruction| %>
-        <div class="py-1">
-          <%= instruction.step_number %>
-          <%= instruction.description %>
-          <% if instruction.image.attached? %>
-            <%= image_tag instruction.image, class: "w-[160px] h-[100px] rounded object-cover" %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="py-2">
-    <div class="px-6 font-bold text-gray-600">ポイント</div>
-    <div class="px-6 py-1">
-      <%= @recipe.point %>
-    </div>
-  </div>
-
-    <div class="py-2 px-6 font-bold text-gray-600">参考url</div>
-    <div class="px-6 py-1">
-      <% @recipe.embeds.each do |embed| %>
-        <% if embed.kind == "website" %>
-          <%= link_to embed.safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "block w-full max-w-sm rounded-lg shadow-md overflow-hidden border border-gray-300 bg-white" do %>
-            <div >
-              <% if embed.ogp_image_url.present? %>
-                <div >
-                  <img src="<%= embed.ogp_image_url %>" alt="OGP Image" class="w-full h-full object-cover">
-                </div>
-              <% end %>
-              <div class=" p-2">
-                <p class="text-xs text-gray-600 font-semibold"><%= embed.ogp_site_name.presence || "" %></p>
-                <p class="text-sm font-bold line-clamp-2"><%= embed.ogp_title.presence || "" %></p>
-                <p class="text-xs text-gray-500 line-clamp-2"><%= embed.ogp_description.presence || "" %></p>
-              </div>
+  <div class="px-6 py-2">
+    <div class="py-2 border-gray-300 border rounded-xl">
+      <div class="px-4 font-bold text-gray-600 text-lg py-2">材料</div>
+      <div class="px-4">
+        <% @recipe.ingredients.each do |ingredient| %>
+          <div class="grid grid-cols-2 gap-4 py-1">
+            <div class="border-b border-dashed">
+              <%= ingredient.name %>
             </div>
-          <% end %>
-        <% elsif embed.kind == "youtube" %>
-          <%= content_tag 'iframe', nil, src: "https://www.youtube.com/embed/#{embed.embed_type}" %>
-        <% elsif embed.kind == "instagram" %>
-          <%= sanitize(embed.embed_type, tags: %w[blockquote a], attributes: %w[class data-instgrm-permalink data-instgrm-version href]) %>
-          <script async src="https://www.instagram.com/embed.js"></script>
+            <div class="border-b border-dashed">
+              <%= ingredient.quantity %>
+            </div>
+          </div>
         <% end %>
-      <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-6 py-2">
+    <div class="py-2 border-gray-300 border rounded-xl">
+      <div class="px-4 font-bold text-gray-600 text-lg py-2">作り方</div>
+      <div class="px-4">
+        <% @recipe.instructions.each do |instruction| %>
+          <div class="py-2">
+            <%= instruction.step_number %>
+            <%= instruction.description %>
+            <% if instruction.image.attached? %>
+              <%= image_tag instruction.image, class: "w-[160px] h-[100px] rounded object-cover" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-6 py-2">
+    <div class="py-2 border-gray-300 border rounded-xl">
+      <div class="px-4 font-bold text-gray-600 text-lg py-2">ポイント</div>
+      <div class="px-4">
+        <%= @recipe.point %>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-6 py-2">
+    <div class="py-2 border-gray-300 border rounded-xl">
+      <div class="py-2 px-4 font-bold text-gray-600 text-lg py-2 ">参考url</div>
+      <div class="px-4">
+        <% @recipe.embeds.each do |embed| %>
+          <% if embed.kind == "website" %>
+            <%= link_to embed.safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "block w-full max-w-sm rounded-lg shadow-md overflow-hidden border border-gray-300 bg-white" do %>
+              <div >
+                <% if embed.ogp_image_url.present? %>
+                  <div >
+                    <img src="<%= embed.ogp_image_url %>" alt="OGP Image" class="w-full h-full object-cover">
+                  </div>
+                <% end %>
+                <div class="p-2">
+                  <p class="text-xs text-gray-600 font-semibold"><%= embed.ogp_site_name.presence || "" %></p>
+                  <p class="text-sm font-bold line-clamp-2"><%= embed.ogp_title.presence || "" %></p>
+                  <p class="text-xs text-gray-500 line-clamp-2"><%= embed.ogp_description.presence || "" %></p>
+                </div>
+              </div>
+            <% end %>
+          <% elsif embed.kind == "youtube" %>
+            <%= content_tag 'iframe', nil, src: "https://www.youtube.com/embed/#{embed.embed_type}" %>
+          <% elsif embed.kind == "instagram" %>
+            <%= sanitize(embed.embed_type, tags: %w[blockquote a], attributes: %w[class data-instgrm-permalink data-instgrm-version href]) %>
+            <script async src="https://www.instagram.com/embed.js"></script>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 
