@@ -24,85 +24,85 @@
 
     <!-- Title -->
     <div>
-      <%= f.text_field :title, placeholder: "なにを作ったのか教えてください！", class: "w-full bg-white border border-gray-300 rounded px-4 py-2 mb-1" %>
+      <%= f.text_field :title, placeholder: "なにを作ったのか教えてください！", class: "w-full bg-white border border-gray-300 rounded-md px-4 py-2 mb-1" %>
       <p class="text-xs text-amber-500 mb-4">ノンフライヤーを使用したレシピのみ登録してください</p>
     </div>
 
     <!-- Tags -->
     <div class="section w-full mb-6" data-section="tags">
       <div class="w-full mb-4">
-        <%= f.label :tag_list, "タグ", class: "block font-bold text-gray-500 mb-2" %>
-        <%= f.text_field :tag_list, value: @recipe.tag_list.join(","), class: "bg-white border border-gray-300 rounded px-4 py-2", placeholder: " , で区切ってください" %>
+        <%= f.label :tag_list, "タグ", class: "block font-bold text-gray-500 mb-2 text-lg" %>
+        <%= f.text_field :tag_list, value: @recipe.tag_list.join(","), class: "bg-white border border-gray-300 rounded-md px-4 py-2", placeholder: " , で区切ってください" %>
       </div>
     </div>
 
     <!-- model -->
     <div class="w-full mb-6">
-      <%= f.label :model, "ノンフライヤーの機種", class: "block text-amber-500 font-bold mb-2" %>
-      <%= f.text_field :model, placeholder: "cosori", class: "bg-white border border-gray-300 rounded px-4 py-2" %>
+      <%= f.label :model, "ノンフライヤーの機種", class: "block text-amber-500 font-bold mb-2 text-lg" %>
+      <%= f.text_field :model, placeholder: "cosori", class: "bg-white border border-gray-300 rounded-md px-4 py-2" %>
     </div>
 
     <!-- Preheat -->
     <div class="w-full grid grid-cols-2 gap-4 mb-6">
       <div>
-        <%= f.label :preheat_temperature, "予熱", class: "block text-gray-500 font-bold" %>
+        <%= f.label :preheat_temperature, "予熱", class: "block text-gray-500 font-bold text-lg" %>
         <div class="flex items-center space-x-2">
-          <%= f.text_field :preheat_temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <%= f.text_field :preheat_temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded-md px-2 py-1" %>
           <span class="text-gray-500">℃</span>
         </div>
       </div>
       <div>
         <label class="block text-gray-700">　</label>
-        <div class="flex items-center space-x-2">
-          <%= f.text_field :preheat_time, type: "number", placeholder: "3", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+        <div class="flex items-center space-x-2 py-1">
+          <%= f.text_field :preheat_time, type: "number", placeholder: "3", class: "w-full bg-white border border-gray-300 rounded-md px-2 py-1" %>
           <span class="text-gray-500">分</span>
         </div>
       </div>
     </div>
 
     <!-- Heat -->
-    <span class="text-amber-500 font-bold">調理</span>
+    <span class="text-amber-500 font-bold text-lg">調理</span>
     <div class="w-full mb-6" id="heat-section">
       <%= f.fields_for :heats do |heat| %>
         <div class="heat-item flex items-center space-x-2 mb-2" data-id="<%= heat.object.id %>">
           <button class="remove-item text-gray-700 px-2" type="button">×</button>
           <%= heat.hidden_field :_destroy, class: "destroy-flag" %>
-          <%= heat.number_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <%= heat.number_field :temperature, type: "number", placeholder: "180", class: "w-full bg-white border border-gray-300 rounded-md px-2 py-1" %>
           <span class="text-amber-500">℃</span>
-          <%= heat.number_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
+          <%= heat.number_field :time, type: "number", placeholder: "10", class: "w-full bg-white border border-gray-300 rounded-md px-2 py-1" %>
           <span class="text-amber-500">分</span>
-          <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
+          <button class="add-item text-gray-700 px-4 py-2 rounded-md self-end" type="button">＋</button>
         </div>
       <% end %>
     </div>
 
     <!-- Ingredients -->
-    <span class="text-gray-500 font-bold">材料</span>
+    <span class="text-gray-500 font-bold text-lg">材料</span>
     <div class="w-full mb-6" id="ingredients-section">
       <%= f.fields_for :ingredients do |ingredient| %>
         <div class="ingredient-item flex items-center space-x-2 mb-2" data-id="<%= ingredient.object.id %>">
           <button class="remove-item text-gray-700 px-2" type="button">×</button>
           <%= ingredient.hidden_field :_destroy, class: "destroy-flag" %>
-          <%= ingredient.text_field :name, type: "text", placeholder: "素材", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
-          <%= ingredient.text_field :quantity, type: "text", placeholder: "量", class: "w-full bg-white border border-gray-300 rounded px-2 py-1" %>
-          <button class="add-item text-gray-700 px-4 py-2 rounded self-end" type="button">＋</button>
+          <%= ingredient.text_field :name, type: "text", placeholder: "素材", class: "w-full bg-white border border-gray-300 rounded-md px-2 py-1" %>
+          <%= ingredient.text_field :quantity, type: "text", placeholder: "量", class: "w-full bg-white border border-gray-300 rounded-md px-2 py-1" %>
+          <button class="add-item text-gray-700 px-4 py-2 rounded-md self-end" type="button">＋</button>
         </div>
       <% end %>
     </div>
 
     <!-- Steps -->
     <div id="steps-section" class="steps-section w-full mb-6">
-      <label class="block text-gray-500 font-bold mb-2">作り方</label>
+      <label class="block text-gray-500 font-bold mb-2 text-lg">作り方</label>
       <%= f.fields_for :instructions do |instruction| %>
         <div class="step-item" data-id="<%= instruction.object.id %>">
           <div class="flex space-x-1 items-center mb-2">
             <button class="remove-step text-gray-700 px-2" type="button">×</button>
             <%= instruction.hidden_field :_destroy, class: "destroy-flag" %>
             <span class="step-number text-gray-400"><%= instruction.object.step_number %></span>
-            <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
-            <button class="add-step text-gray-700 px-4 py-2 rounded" type="button">＋</button>
+            <%= instruction.text_field :description, type: "text", class: "w-full bg-white border border-gray-300 rounded-md px-4 py-2" %>
+            <button class="add-step text-gray-700 px-4 py-2 rounded-md" type="button">＋</button>
           </div>
-          <div data-controller="preview" class="rounded px-10 py-2">
+          <div data-controller="preview" class="rounded-md px-10 py-2">
             <% if instruction.object.persisted? && instruction.object.image.attached? %>
               <img class="w-[160px] h-[100px] object-cover rounded" src="<%= url_for(instruction.object.image) %>">
             <% else %>
@@ -118,15 +118,15 @@
 
     <!-- point -->
     <div class="w-full mb-6">
-      <%= f.label :point, "ポイント", class: "block text-gray-500 font-bold mb-2" %>
+      <%= f.label :point, "ポイント", class: "block text-gray-500 font-bold mb-2 text-lg" %>
       <div class="flex items-center space-x-2 mb-2">
-        <%= f.text_field :point, type: "text", class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
+        <%= f.text_field :point, type: "text", class: "w-full bg-white border border-gray-300 rounded-md px-4 py-2" %>
       </div>
     </div>
 
     <!-- embed -->
     <div class="embed_wrapper w-full mb-6">
-      <label class="block text-gray-500 font-bold mb-2 embed_label">参考url</label>
+      <label class="block text-gray-500 font-bold mb-2 text-lg embed_label">参考url</label>
       <div class="embed_section">
         <%= f.fields_for :embeds do |embed| %>
           <div class="item flex items-center space-x-2 mb-2" data-id="<%= embed.object.id %>">
@@ -135,9 +135,9 @@
             <button class="remove-item text-gray-700 px-2" type="button">×</button>
             <div>
               <%= embed.select :kind, [["website","website"], ["youtube","youtube"], ["instagram","instagram"]], include_blank: "選択して下さい" %>
-              <%= embed.text_field :url, class: "w-full bg-white border border-gray-300 rounded px-4 py-2" %>
+              <%= embed.text_field :url, class: "w-full bg-white border border-gray-300 rounded-md px-4 py-2" %>
             </div>
-            <button class="add-item text-gray-700 px-4 py-2 rounded mt-2" type="button">＋</button>
+            <button class="add-item text-gray-700 px-4 py-2 rounded-md mt-2" type="button">＋</button>
           </div>
         <% end %>
       </div>
