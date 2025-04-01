@@ -69,7 +69,7 @@ https://nonfryer-recipes.com/
 ## 🔧&nbsp;使用技術
 |Category|Technology Stack|
 |--------|-------|
-|Frontend|tailwindcss 3.4.17<br>Hotwired/stimulus 3.2.2<br>Hotwired/turbo-rails 8.0.12|
+|Frontend|tailwindcss 3.4.17<br>Hotwire/stimulus 3.2.2<br>Hotwire/turbo-rails 8.0.12|
 |Backend|Ruby on Rails7.2<br>Puma 5.0|
 |Infrastructure|Render<br>AWS S3 (本番環境)|
 |Database|PostgreSQL 14.17|
