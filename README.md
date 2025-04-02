@@ -44,23 +44,23 @@ https://nonfryer-recipes.com/
 
 |検索画面|ログインページ|
 |-------|-----|
-|<a href="https://gyazo.com/bdb9465e7f3fe73d0191fc40d783c929"><img src="https://i.gyazo.com/bdb9465e7f3fe73d0191fc40d783c929.jpg" alt="Image from Gyazo" width="1440"/></a></a>オートコンプリート機能搭載、複数(and)検索可能。|<a href="https://gyazo.com/58ba0902e856d8a9a5ecd424fd4dc607"><img src="https://i.gyazo.com/58ba0902e856d8a9a5ecd424fd4dc607.png" alt="Image from Gyazo" width="1440"/></a>Googleログインが可能です。|
+|<a href="https://gyazo.com/bdb9465e7f3fe73d0191fc40d783c929"><img src="https://i.gyazo.com/bdb9465e7f3fe73d0191fc40d783c929.jpg" alt="Image from Gyazo" width="1440"/></a></a>オートコンプリート機能搭載、複数(and)検索可能。|<a href="https://gyazo.com/522043530f1c1d68c4878cadc3d13cce"><img src="https://i.gyazo.com/522043530f1c1d68c4878cadc3d13cce.png" alt="Image from Gyazo" width="763"/></a>Googleログインが可能です。|
 
 |新規登録ページ|プロフィールページ|
 |--------|-------|
-|<a href="https://gyazo.com/b61425529787f613a26b446bc800a8b3"><img src="https://i.gyazo.com/b61425529787f613a26b446bc800a8b3.png" alt="Image from Gyazo" width="1440"/></a>|<a href="https://gyazo.com/e3a7f15670e13a952e3ba0f7d57cc47a"><img src="https://i.gyazo.com/e3a7f15670e13a952e3ba0f7d57cc47a.png" alt="Image from Gyazo" width="1440"/></a>名前・メールアドレス・パスワードの変更が可能です|
+|<a href="https://gyazo.com/c6e1b219301a147974c07cc921a06eee"><img src="https://i.gyazo.com/c6e1b219301a147974c07cc921a06eee.png" alt="Image from Gyazo" width="698"/></a>|<a href="https://gyazo.com/fc25d3d493fe371223459f26719198e1"><img src="https://i.gyazo.com/fc25d3d493fe371223459f26719198e1.png" alt="Image from Gyazo" width="896"/></a>名前・メールアドレス・パスワードの変更が可能です|
 
 |レシピ詳細ページ||
 |--------|-------|
-|<a href="https://gyazo.com/4018717fc1a47248e5f5379cefff770e"><img src="https://i.gyazo.com/4018717fc1a47248e5f5379cefff770e.jpg" alt="Image from Gyazo" width="1440"/></a>ログイン後は、レシピタイトル横のタグクリックでレシピの保存ができます。|<a href="https://gyazo.com/4bfb05495d7fa37c8189ece41fb3351e"><img src="https://i.gyazo.com/4bfb05495d7fa37c8189ece41fb3351e.jpg" alt="Image from Gyazo" width="1440"/></a>YouTube, Webサイト, Instagramのurlを保存・閲覧できます。|
+|<a href="https://gyazo.com/ac14791887bd3099ec190b056eaab1a3"><img src="https://i.gyazo.com/ac14791887bd3099ec190b056eaab1a3.jpg" alt="Image from Gyazo" width="898"/></a>ログイン後は、レシピタイトル横のタグクリックでレシピの保存ができます。|[![Image from Gyazo](https://i.gyazo.com/1917f424f5e494240612732341e874bb.gif)](https://gyazo.com/1917f424f5e494240612732341e874bb)YouTube, Webサイト, Instagramのurlを保存・閲覧できます。|
 
 |レシピ作成・編集ページ||
 |--------|-------|
-|<a href="https://gyazo.com/f6b675358c9987fa5b16a960a45f0298"><img src="https://i.gyazo.com/f6b675358c9987fa5b16a960a45f0298.jpg" alt="Image from Gyazo" width="1440"/></a>画像選択時にプレビューが表示されます。|<a href="https://gyazo.com/66a60d7cce7698814e295db8f39284af"><img src="https://i.gyazo.com/66a60d7cce7698814e295db8f39284af.png" alt="Image from Gyazo" width="1440"/></a>各入力欄は、動的に追加・削除ができます。|
+|[![Image from Gyazo](https://i.gyazo.com/497fd795ed8cb60583079100057e82de.gif)](https://gyazo.com/497fd795ed8cb60583079100057e82de)画像選択時にプレビューが表示されます。|[![Image from Gyazo](https://i.gyazo.com/3dffba5081751f1c23720cab880732cf.gif)](https://gyazo.com/3dffba5081751f1c23720cab880732cf)各入力欄は、動的に追加・削除ができます。|
 
 |お問い合わせフォーム|管理画面|
 |--------|-------|
-|<a href="https://gyazo.com/a1a30bdffcdaf89873a86559f7aeb018"><img src="https://i.gyazo.com/a1a30bdffcdaf89873a86559f7aeb018.png" alt="Image from Gyazo" width="1440"/></a>|<a href="https://gyazo.com/60cb2b99f769fb52608dbcab2f1e0e7b"><img src="https://i.gyazo.com/60cb2b99f769fb52608dbcab2f1e0e7b.png" alt="Image from Gyazo" width="1440"/></a>id = 1のuserのみ、/adminにアクセスできます。|
+|<a href="https://gyazo.com/07a0e10417ef4d8416fdeb24a2fbf54f"><img src="https://i.gyazo.com/07a0e10417ef4d8416fdeb24a2fbf54f.png" alt="Image from Gyazo" width="944"/></a>|<a href="https://gyazo.com/60cb2b99f769fb52608dbcab2f1e0e7b"><img src="https://i.gyazo.com/60cb2b99f769fb52608dbcab2f1e0e7b.png" alt="Image from Gyazo" width="1440"/></a>id = 1のuserのみ、/adminにアクセスできます。|
 
 </details>
 <br>
