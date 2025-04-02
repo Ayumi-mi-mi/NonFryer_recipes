@@ -48,7 +48,7 @@ https://nonfryer-recipes.com/
 
 |新規登録ページ|プロフィールページ|
 |--------|-------|
-|<a href="https://gyazo.com/c6e1b219301a147974c07cc921a06eee"><img src="https://i.gyazo.com/c6e1b219301a147974c07cc921a06eee.png" alt="Image from Gyazo" width="698"/></a>|<a href="https://gyazo.com/fc25d3d493fe371223459f26719198e1"><img src="https://i.gyazo.com/fc25d3d493fe371223459f26719198e1.png" alt="Image from Gyazo" width="896"/></a>名前・メールアドレス・パスワードの変更が可能です|
+|<a href="https://gyazo.com/c6e1b219301a147974c07cc921a06eee"><img src="https://i.gyazo.com/c6e1b219301a147974c07cc921a06eee.png" alt="Image from Gyazo" width="698"/></a>|<a href="https://gyazo.com/fc25d3d493fe371223459f26719198e1"><img src="https://i.gyazo.com/fc25d3d493fe371223459f26719198e1.png" alt="Image from Gyazo" width="896"/></a>名前・メールアドレス・パスワードの変更が可能です。メールアドレスとパスワードはメール経由で変更できます。|
 
 |レシピ詳細ページ||
 |--------|-------|
