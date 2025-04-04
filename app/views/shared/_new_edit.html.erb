@@ -90,7 +90,7 @@
       <% end %>
     </div>
 
-    <!-- Steps -->
+    <!-- instructions -->
     <div id="steps-section" class="steps-section w-full mb-6">
       <label class="block text-gray-500 font-bold mb-2 text-lg">作り方</label>
       <%= f.fields_for :instructions do |instruction| %>
@@ -389,10 +389,9 @@
     // image_preview
     document.addEventListener("turbo:load", function() {
       document.addEventListener("change", function(event) {
-        // 変更があった要素が image-input クラスを持っているかチェック
         if (event.target.classList.contains("image-input")) {
           const input = event.target;
-          const preview = input.nextElementSibling; // input のすぐ次の要素を取得
+          const preview = input.nextElementSibling;
           const files = input.files;
 
           if (files && files[0] && preview) {

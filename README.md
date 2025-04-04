@@ -11,8 +11,8 @@
 <br>
 
 ## 🔖&nbsp;サービス概要
-ノンフライヤーで作った料理だけを掲載するアプリです。  
-これって何度で何分やるんだろう... もっと美味しく作るにはどうしたらいい？ どんなものが作れるの？ そんなお悩みを解決します。  
+ノンフライヤーで作った料理だけを掲載するアプリです。
+これって何度で何分やるんだろう... もっと美味しく作るにはどうしたらいい？ どんなものが作れるの？ そんなお悩みを解決します。
 既存のレシピ保存もお任せください！
 <br>
 <br>
@@ -23,21 +23,21 @@ https://nonfryer-recipes.com/
 <br>
 
 ## 💭&nbsp;サービス開発の背景
-ノンフライヤー、ご存知でしょうか？  
+ノンフライヤー、ご存知でしょうか？
 すごく簡単に説明すると、ごく少量の油を吹き掛けるだけで、揚げ物が手軽にできてしまう調理家電です。
 
-*ノンフライヤーで作られたレシピだけをたくさん見たいのに、特化したサイトが無い！  
-下準備までは他のレシピサイトを参照して、揚げ時間と温度は別にメモするのが面倒くさい！  
-ノンフライヤーの公式サイトやネットで見つけたレシピでは美味しくできず、研究を重ねて美味しく作れるようになった料理を、皆さんに知ってほしい！*    
+*ノンフライヤーで作られたレシピだけをたくさん見たいのに、特化したサイトが無い！
+下準備までは他のレシピサイトを参照して、揚げ時間と温度は別にメモするのが面倒くさい！
+ノンフライヤーの公式サイトやネットで見つけたレシピでは美味しくできず、研究を重ねて美味しく作れるようになった料理を、皆さんに知ってほしい！*
 
-そんな思いから、このレシピアプリが生まれました。  
+そんな思いから、このレシピアプリが生まれました。
 沢山のレシピに出会えるワクワクと、レシピ保存の手間を無くした使いやすさ。そんな体験を、ユーザーに届けたいです。
 <br>
 <br>
 
 ## 💡&nbsp;機能紹介
-<details><summary>クリックして詳細を見る</summary>  
-  
+<details><summary>クリックして詳細を見る</summary>
+
 |トップページ|サイドバー|
 |--------|-----|
 |<a href="https://gyazo.com/3d9cd9589013f26a294d99d97a9089ce"><img src="https://i.gyazo.com/3d9cd9589013f26a294d99d97a9089ce.jpg" alt="Image from Gyazo" width="1440"/></a>登録・ログイン無しでも、公開済みレシピの閲覧ができます。|<a href="https://gyazo.com/fb1f493e05de0c5e00e355cfd54473f1"><img src="https://i.gyazo.com/fb1f493e05de0c5e00e355cfd54473f1.jpg" alt="Image from Gyazo" width="1440"/></a>サイドバーから、各種機能にアクセスできます|
@@ -69,7 +69,7 @@ https://nonfryer-recipes.com/
 ## 🔧&nbsp;使用技術
 |Category|Technology Stack|
 |--------|-------|
-|Frontend|tailwindcss 3.4.17<br>Hotwire/stimulus 3.2.2<br>Hotwire/turbo-rails 8.0.12|
+|Frontend|tailwindcss 3.4.17<br>Hotwire/turbo-rails 8.0.12|
 |Backend|Ruby on Rails7.2<br>Puma 5.0|
 |Infrastructure|Render<br>AWS S3 (本番環境)|
 |Database|PostgreSQL 14.17|
@@ -88,4 +88,3 @@ https://nonfryer-recipes.com/
 [Figma](https://www.figma.com/design/c66lXBYjqbEpd0uw35E7g6/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=2-2&p=f&t=OLj8v7DO98dcgs46-0)
 <br>
 <br>
-
