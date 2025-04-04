@@ -75,7 +75,21 @@ https://nonfryer-recipes.com/
 |Database|PostgreSQL 14.17|
 |Environment setup|Docker|
 |CI/CD|GitHub Actions|
+|Test|RSpec|
 |Design|Figma|
+<br>
+<br>
+今回使用した技術スタックは、開発スピードの速さを重視して選びました。
+<Frontend>
+柔軟性の高いデザインを素早く作成するためにTailwindCSSを採用しています。
+また、railsの記述で部分的な更新を実現するためにTurbo-Railsを使用しています。
+<Backend>
+railsには豊富なgemがあり開発速度を上げられること、そのrailsとの親和性が良いことからpumaを採用しました。
+<Database>
+デプロイでRenderを選択したこともあり、データベースでは親和性の高いPostgreSQL
+を使用しました。
+<Test>
+Rspecでrequest specを中心にテストを実装しており、マージの際にGitHub Actionsで自動化されるように設定しています。
 <br>
 <br>
 
