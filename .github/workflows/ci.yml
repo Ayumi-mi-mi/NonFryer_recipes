@@ -58,7 +58,7 @@ jobs:
 
     env:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      SMTP_FROM_ADDRESS: "example@example.com"
+      SMTP_FROM_ADDRESS: "ayumari0806@example.com"
 
     steps:
       - name: Install packages
