@@ -3,7 +3,7 @@ class BookmarksController < ApplicationController
   def index
     keywords = params.dig(:q, :tags_name_or_title_cont_any).to_s.split(/[[:space:]]/)
     @q = current_user.bookmark_recipes.ransack(tags_name_or_title_cont_any: keywords)
-    @recipes = @q.result(distinct: true).order("created_at desc")
+    @recipes = @q.result(distinct: true).includes(main_image_attachment: :blob).order("created_at desc")
   end
 
   def autocomplete
