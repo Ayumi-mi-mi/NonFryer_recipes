@@ -18,7 +18,11 @@
 <br>
 
 ## 🌐&nbsp;サービスurl
-https://nonfryer-recipes.com/
+https://nonfryer-recipes.com/  
+
+以下のアドレスとパスワードでログインできます。  
+Email: test@test  
+password: test
 <br>
 <br>
 
