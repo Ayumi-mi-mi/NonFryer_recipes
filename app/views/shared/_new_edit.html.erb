@@ -5,7 +5,7 @@
     <div class="py-4" data-controller="image-preview">
       <% if @recipe.persisted? && @recipe.main_image.attached? %>
         <div class="relative" data-image-preview-target="preview">
-          <img class="h-[220px] md:h-[480px] w-full object-cover rounded" src="<%= url_for(@recipe.main_image) %>">
+          <img class="h-[220px] md:h-[500px] w-full object-cover rounded" src="<%= url_for(@recipe.main_image) %>">
           <%= link_to remove_main_image_recipe_path(@recipe), data: { turbo_method: :delete } do %>
             <button type="button" data-action="click->image-preview#removeImage" class="absolute bottom-2 left-2 text-white p-2 rounded-full">
               <span class="material-symbols-outlined text-gray-600 border border-gray-500 rounded px-2 py-2">delete</span>
