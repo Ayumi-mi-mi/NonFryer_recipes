@@ -17,7 +17,7 @@
 <br>
 <br>
 
-## 🌐&nbsp;サービスurl(現在一時メンテナンス中)
+## 🌐&nbsp;サービスurl
 https://nonfryer-recipes.com/  
 
 以下のアドレスとパスワードでログインできます。  
